@@ -21,20 +21,20 @@ namespace DevExpress.XamarinForms.DataGrid
         internal GridFilter(GridColumnCollection columns)
         {
             this.columns = columns;
-            this.columns.add_CollectionChanged(new NotifyCollectionChangedEventHandler(this.OnColumnsCollectionChanged));
+            this.columns.CollectionChanged += new NotifyCollectionChangedEventHandler(this.OnColumnsCollectionChanged);
             this.columns.ColumnPropertyChanged += new PropertyChangedEventHandler(this.OnColumnPropertyChanged);
             this.autoFilters = new ObservableCollection<GridAutoFilter>();
             this.columnFilters = new ObservableCollection<GridAutoFilter>();
-            this.autoFilters.add_CollectionChanged(new NotifyCollectionChangedEventHandler(this.OnCollectionChanged));
-            this.columnFilters.add_CollectionChanged(new NotifyCollectionChangedEventHandler(this.OnCollectionChanged));
+            this.autoFilters.CollectionChanged += new NotifyCollectionChangedEventHandler(this.OnCollectionChanged);
+            this.columnFilters.CollectionChanged += new NotifyCollectionChangedEventHandler(this.OnCollectionChanged);
         }
         
         private CriteriaOperator AppendFilters(CriteriaOperator where, IList<GridAutoFilter> filters)
         {
-            int num = filters.get_Count();
+            int num = filters.Count;
             for (int i = 0; i < num; i++)
             {
-                CriteriaOperator operator1 = CriteriaOperator.And(where, filters.get_Item(i).FilterExpression);
+                CriteriaOperator operator1 = CriteriaOperator.And(where, filters[i].FilterExpression);
                 where = operator1;
             }
             return where;
@@ -67,8 +67,8 @@ namespace DevExpress.XamarinForms.DataGrid
                 {
                     return new BinaryOperator(column.FieldName, autoFilterValue, BinaryOperatorType.Equal);
                 }
-                DateTime beginExpression = (DateTime) (((DateTime) autoFilterValue).get_Date() + new TimeSpan(0, 0, 0));
-                return new BetweenOperator(column.FieldName, beginExpression, (DateTime) (((DateTime) autoFilterValue).get_Date() + new TimeSpan(0x17, 0x3b, 0x3b)));
+                DateTime beginExpression = (DateTime) (((DateTime) autoFilterValue).Date + new TimeSpan(0, 0, 0));
+                return new BetweenOperator(column.FieldName, beginExpression, (DateTime) (((DateTime) autoFilterValue).Date + new TimeSpan(0x17, 0x3b, 0x3b)));
             }
             string str = autoFilterValue.ToString().Trim();
             if (string.IsNullOrEmpty(str))
@@ -80,7 +80,7 @@ namespace DevExpress.XamarinForms.DataGrid
                 CriteriaOperator[] operatorArray1 = new CriteriaOperator[] { new OperandProperty(column.FieldName), str };
                 return new FunctionOperator(FunctionOperatorType.Contains, operatorArray1);
             }
-            if ((str.get_Chars(0) == '_') || (str.get_Chars(0) == '%'))
+            if ((str.ToCharArray()[0] == '_') || (str.ToCharArray()[0] == '%'))
             {
                 CriteriaOperator[] operatorArray2 = new CriteriaOperator[] { new OperandProperty(column.FieldName), str.Substring(1) };
                 return new FunctionOperator(FunctionOperatorType.Contains, operatorArray2);
@@ -91,11 +91,11 @@ namespace DevExpress.XamarinForms.DataGrid
         
         private GridAutoFilter GetFilter(GridColumn column)
         {
-            for (int i = 0; i < this.autoFilters.get_Count(); i++)
+            for (int i = 0; i < this.autoFilters.Count; i++)
             {
-                if (object.ReferenceEquals(this.autoFilters.get_Item(i).Column, column))
+                if (object.ReferenceEquals(this.autoFilters[i].Column, column))
                 {
-                    return this.autoFilters.get_Item(i);
+                    return this.autoFilters[i];
                 }
             }
             return null;
@@ -113,7 +113,7 @@ namespace DevExpress.XamarinForms.DataGrid
         
         private void OnColumnPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            if (GridColumn.IsPropertyAffectsFilter(e.get_PropertyName()))
+            if (GridColumn.IsPropertyAffectsFilter(e.PropertyName))
             {
                 this.UpdateAutoFilter(sender as GridColumn);
             }
@@ -121,22 +121,22 @@ namespace DevExpress.XamarinForms.DataGrid
         
         private void OnColumnsCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
-            switch (e.get_Action())
+            switch (e.Action)
             {
                 case NotifyCollectionChangedAction.Add:
-                    this.UpdateAutoFilter(this.columns.get_Item(e.get_NewStartingIndex()));
+                    this.UpdateAutoFilter(this.columns[e.NewStartingIndex]);
                     return;
                 
                 case NotifyCollectionChangedAction.Remove:
-                    this.RemoveFilter((GridColumn) e.get_OldItems().get_Item(0));
+                    this.RemoveFilter((GridColumn) e.OldItems[0]);
                     return;
                 
                 case NotifyCollectionChangedAction.Replace:
-                    if ((e.get_OldItems() != null) && (e.get_OldItems().get_Count() > 0))
+                    if ((e.OldItems != null) && (e.OldItems.Count > 0))
                     {
-                        this.RemoveFilter(e.get_OldItems().get_Item(0) as GridColumn);
+                        this.RemoveFilter(e.OldItems[0] as GridColumn);
                     }
-                    this.UpdateAutoFilter(this.columns.get_Item(e.get_NewStartingIndex()));
+                    this.UpdateAutoFilter(this.columns[e.NewStartingIndex]);
                     break;
                 
                 case NotifyCollectionChangedAction.Move:
@@ -155,9 +155,9 @@ namespace DevExpress.XamarinForms.DataGrid
         {
             if (column != null)
             {
-                for (int i = 0; i < this.autoFilters.get_Count(); i++)
+                for (int i = 0; i < this.autoFilters.Count; i++)
                 {
-                    if (object.ReferenceEquals(this.autoFilters.get_Item(i).Column, column))
+                    if (object.ReferenceEquals(this.autoFilters[i].Column, column))
                     {
                         this.autoFilters.RemoveAt(i);
                         this.OnAutoFilterChanged();

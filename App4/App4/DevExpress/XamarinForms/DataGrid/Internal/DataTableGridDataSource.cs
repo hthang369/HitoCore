@@ -40,8 +40,8 @@ namespace DevExpress.XamarinForms.DataGrid.Internal
         
         public int AddNewRow(IEditableRowData rowData)
         {
-            this.DataTable.get_Rows().Add((DataRow) rowData.DataObject);
-            return (this.DataTable.get_Rows().get_Count() - 1);
+            this.DataTable.Rows.Add((DataRow) rowData.DataObject);
+            return (this.DataTable.Rows.Count - 1);
         }
         
         public IEditableRowData CreateNewRow()
@@ -53,7 +53,7 @@ namespace DevExpress.XamarinForms.DataGrid.Internal
         
         public int DeleteRow(int rowHandle)
         {
-            this.dataTable.get_Rows().RemoveAt(rowHandle);
+            this.dataTable.Rows.RemoveAt(rowHandle);
             return rowHandle;
         }
         
@@ -65,11 +65,11 @@ namespace DevExpress.XamarinForms.DataGrid.Internal
             List<GridColumn> list = new List<GridColumn>();
             if (this.DataTable != null)
             {
-                DataColumnCollection columns = this.DataTable.get_Columns();
-                int num = columns.get_Count();
+                DataColumnCollection columns = this.DataTable.Columns;
+                int num = columns.Count;
                 for (int i = 0; i < num; i++)
                 {
-                    GridColumn column = this.TryCreateColumn(columns.get_Item(i));
+                    GridColumn column = this.TryCreateColumn(columns[i]);
                     if (column != null)
                     {
                         list.Add(column);
@@ -95,7 +95,7 @@ namespace DevExpress.XamarinForms.DataGrid.Internal
                 data = new DataRowIRowData();
             }
             data.RowHandle = rowHandle;
-            data.DataRow = this.DataTable.get_Rows().get_Item(rowHandle);
+            data.DataRow = this.DataTable.Rows[rowHandle];
             return data;
         }
         
@@ -117,19 +117,19 @@ namespace DevExpress.XamarinForms.DataGrid.Internal
             INotifyCollectionChanged dataTable = this.DataTable as INotifyCollectionChanged;
             if (dataTable != null)
             {
-                dataTable.add_CollectionChanged(new NotifyCollectionChangedEventHandler(this.OnDataSourceCollectionChanged));
+                dataTable.CollectionChanged += new NotifyCollectionChangedEventHandler(this.OnDataSourceCollectionChanged);
             }
         }
         
         private GridColumn TryCreateColumn(DataColumn dataColumn)
         {
-            GridColumn column = GridColumnAutoGenerator.TryCreateColumnByValueType(dataColumn.get_DataType(), dataColumn.get_ColumnName());
+            GridColumn column = GridColumnAutoGenerator.TryCreateColumnByValueType(dataColumn.DataType, dataColumn.ColumnName);
             if (column == null)
             {
                 return null;
             }
-            column.Caption = dataColumn.get_Caption();
-            column.IsReadOnly = dataColumn.get_ReadOnly();
+            column.Caption = dataColumn.Caption;
+            column.IsReadOnly = dataColumn.ReadOnly;
             return column;
         }
         
@@ -138,7 +138,7 @@ namespace DevExpress.XamarinForms.DataGrid.Internal
             INotifyCollectionChanged dataTable = this.DataTable as INotifyCollectionChanged;
             if (dataTable != null)
             {
-                dataTable.remove_CollectionChanged(new NotifyCollectionChangedEventHandler(this.OnDataSourceCollectionChanged));
+                dataTable.CollectionChanged -= new NotifyCollectionChangedEventHandler(this.OnDataSourceCollectionChanged);
             }
         }
         
@@ -168,7 +168,7 @@ namespace DevExpress.XamarinForms.DataGrid.Internal
             false;
         
         public int RowCount =>
-            ((this.DataTable != null) ? this.DataTable.get_Rows().get_Count() : 0);
+            ((this.DataTable != null) ? this.DataTable.Rows.Count : 0);
         
         public int SelectedRow
         {
@@ -178,7 +178,7 @@ namespace DevExpress.XamarinForms.DataGrid.Internal
                 return ((rowCount > 0) ? ((this.selectedRow < rowCount) ? ((this.selectedRow >= 0) ? this.selectedRow : -1) : (rowCount - 1)) : -1);
             }
             set => 
-                (this.selectedRow = value);
+                this.selectedRow = value;
         }
         
         public Type ActualDataSourceType =>

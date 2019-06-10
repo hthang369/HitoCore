@@ -48,11 +48,11 @@ namespace DevExpress.XamarinForms.DataGrid
         public int AddNewRow(IEditableRowData rowData)
         {
             this.List.Add((T) rowData.DataObject);
-            return (this.List.get_Count() - 1);
+            return (this.List.Count - 1);
         }
         
         public IEditableRowData CreateNewRow() => 
-            ((this.List != null) ? GenericRowData<T>.Create(Activator.CreateInstance<T>(), this.List.get_Count(), this.accessorCache) : null);
+            ((this.List != null) ? GenericRowData<T>.Create(Activator.CreateInstance<T>(), this.List.Count, this.accessorCache) : null);
         
         public int DeleteRow(int rowHandle)
         {
@@ -72,17 +72,17 @@ namespace DevExpress.XamarinForms.DataGrid
             {
                 return null;
             }
-            if ((rowHandle < 0) || (rowHandle >= this.List.get_Count()))
+            if ((rowHandle < 0) || (rowHandle >= this.List.Count))
             {
                 return null;
             }
             GenericRowData<T> data = reuseRow as GenericRowData<T>;
             if (data == null)
             {
-                return GenericRowData<T>.Create(this.List.get_Item(rowHandle), rowHandle, this.accessorCache);
+                return GenericRowData<T>.Create(this.List[rowHandle], rowHandle, this.accessorCache);
             }
             data.RowHandle = rowHandle;
-            data.DataObject = this.List.get_Item(rowHandle);
+            data.DataObject = this.List[rowHandle];
             return data;
         }
         
@@ -113,12 +113,12 @@ namespace DevExpress.XamarinForms.DataGrid
             INotifyCollectionChanged changed = this.list as INotifyCollectionChanged;
             if (changed != null)
             {
-                changed.add_CollectionChanged(new NotifyCollectionChangedEventHandler(this.OnDataSourceCollectionChanged));
+                changed.CollectionChanged += new NotifyCollectionChangedEventHandler(this.OnDataSourceCollectionChanged);
             }
             IBindingList list = this.list as IBindingList;
             if (list != null)
             {
-                list.add_ListChanged(new ListChangedEventHandler(this.OnDataSourceCollectionChanged));
+                list.ListChanged += new ListChangedEventHandler(this.OnDataSourceCollectionChanged);
             }
         }
         
@@ -127,12 +127,12 @@ namespace DevExpress.XamarinForms.DataGrid
             INotifyCollectionChanged changed = this.list as INotifyCollectionChanged;
             if (changed != null)
             {
-                changed.remove_CollectionChanged(new NotifyCollectionChangedEventHandler(this.OnDataSourceCollectionChanged));
+                changed.CollectionChanged -= new NotifyCollectionChangedEventHandler(this.OnDataSourceCollectionChanged);
             }
             IBindingList list = this.list as IBindingList;
             if (list != null)
             {
-                list.remove_ListChanged(new ListChangedEventHandler(this.OnDataSourceCollectionChanged));
+                list.ListChanged -= new ListChangedEventHandler(this.OnDataSourceCollectionChanged);
             }
         }
         
@@ -169,11 +169,11 @@ namespace DevExpress.XamarinForms.DataGrid
                 return ((rowCount > 0) ? ((this.selectedRow < rowCount) ? ((this.selectedRow >= 0) ? this.selectedRow : -1) : (rowCount - 1)) : -1);
             }
             set => 
-                (this.selectedRow = value);
+                this.selectedRow = value;
         }
         
         public int RowCount =>
-            ((this.List == null) ? 0 : this.List.get_Count());
+            ((this.List == null) ? 0 : this.List.Count);
         
         int IGridDataSource.GroupCount =>
             0;

@@ -10,13 +10,13 @@ namespace DevExpress.XamarinForms.DataGrid.Internal
     {
         public object GetFieldValue(string fieldName)
         {
-            object obj2 = this.DataRow.get_Item(fieldName);
+            object obj2 = this.DataRow[fieldName];
             return (!object.Equals(obj2, DBNull.Value) ? obj2 : null);
         }
         
         public T GetFieldValueGeneric<T>(string fieldName)
         {
-            object obj2 = this.DataRow.get_Item(fieldName);
+            object obj2 = this.DataRow[fieldName];
             if (!object.Equals(obj2, DBNull.Value))
             {
                 return (T) obj2;
@@ -28,11 +28,11 @@ namespace DevExpress.XamarinForms.DataGrid.Internal
         {
             if (value == null)
             {
-                this.DataRow.set_Item(fieldName, DBNull.Value);
+                this.DataRow[fieldName] = DBNull.Value;
             }
             else
             {
-                this.DataRow.set_Item(fieldName, value);
+                this.DataRow[fieldName] = value;
             }
         }
         

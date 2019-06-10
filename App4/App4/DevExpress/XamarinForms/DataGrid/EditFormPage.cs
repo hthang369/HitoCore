@@ -20,7 +20,7 @@ namespace DevExpress.XamarinForms.DataGrid
             this.dataGridView = dataGridView;
             this.item = item;
             this.template = template;
-            base.set_Content(this.CreateContent());
+            base.Content = this.CreateContent();
         }
         
         private View CreateContent()
@@ -34,7 +34,7 @@ namespace DevExpress.XamarinForms.DataGrid
             }
             int rowHandle = this.dataGridView.FindRowByDataObject(this.item);
             View view2 = (View) this.template.CreateContent();
-            view2.set_BindingContext(this.dataGridView.GetEditRowViewModel(new CellIndex(rowHandle, string.Empty), false));
+            view2.BindingContext = this.dataGridView.GetEditRowViewModel(new CellIndex(rowHandle, string.Empty), false);
             return view2;
         }
         
@@ -46,17 +46,17 @@ namespace DevExpress.XamarinForms.DataGrid
         
         private void Save_Clicked(object sender, EventArgs e)
         {
-            EditFormView view = base.get_Content() as EditFormView;
+            EditFormView view = base.Content as EditFormView;
             if (view != null)
             {
                 view.Commit();
             }
             else
             {
-                EditRowViewModel editRowViewModel = (EditRowViewModel) base.get_Content().get_BindingContext();
+                EditRowViewModel editRowViewModel = (EditRowViewModel) base.Content.BindingContext;
                 this.dataGridView.ApplyEditorResults(editRowViewModel);
             }
-            base.get_Navigation().PopAsync();
+            base.Navigation.PopAsync();
         }
     }
 }

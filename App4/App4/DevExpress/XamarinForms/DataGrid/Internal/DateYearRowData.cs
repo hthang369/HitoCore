@@ -13,7 +13,7 @@ namespace DevExpress.XamarinForms.DataGrid.Internal
                 return null;
             }
             DateTime time = (DateTime) transformedValue;
-            return string.Format(GridLocalizer.GetString(GridStringId.GroupIntervalYearDisplayFormat), (int) time.get_Year());
+            return string.Format(GridLocalizer.GetString(GridStringId.GroupIntervalYearDisplayFormat), (int) time.Year);
         }
         
         protected override object TransformValue(object value)
@@ -22,7 +22,7 @@ namespace DevExpress.XamarinForms.DataGrid.Internal
             {
                 return null;
             }
-            return new DateTime(((DateTime) value).get_Year(), 1, 1);
+            return new DateTime(((DateTime) value).Year, 1, 1);
         }
     }
 }

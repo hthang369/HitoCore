@@ -27,7 +27,7 @@ namespace DevExpress.XamarinForms.DataGrid.Internal
         
         public override object End()
         {
-            MergeSort.Sort<int>((IList<int>) this.indices, 0, this.indices.get_Count() - 1, new SortComparer(this.values));
+            MergeSort.Sort<int>((IList<int>) this.indices, 0, this.indices.Count - 1, new SortComparer(this.values));
             this.result = new SortedIndices(this.indices.ToArray());
             return this.result;
         }

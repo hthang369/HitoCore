@@ -9,7 +9,7 @@ namespace DevExpress.XamarinForms.DataGrid.Internal
         {
             if (value is DateTime)
             {
-                return ((DateTime) value).get_Date();
+                return ((DateTime) value).Date;
             }
             return null;
         }

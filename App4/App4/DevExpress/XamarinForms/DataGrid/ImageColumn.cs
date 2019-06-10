@@ -17,7 +17,7 @@ namespace DevExpress.XamarinForms.DataGrid
         }
         
         protected override TextAlignment GetDefaultHorizontalContentAlignment() => 
-            1;
+            TextAlignment.Center;
         
         protected override AutoFilterCondition DefaultAutoFilterCondition =>
             ((base.FilterMode == ColumnFilterMode.Value) ? AutoFilterCondition.Equals : AutoFilterCondition.Like);

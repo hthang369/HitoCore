@@ -169,7 +169,7 @@ namespace DevExpress.XamarinForms.DataGrid.Internal
                 Index = this.groups.Count,
                 FirstRowIndex = (lastGroup == null) ? 0 : (lastGroup.LastRowIndex + 1)
             };
-            IRowData row = base.DataSource.GetRow(result.IndexMap.get_Item(group.FirstRowIndex), null);
+            IRowData row = base.DataSource.GetRow(result.IndexMap[group.FirstRowIndex], null);
             group.GroupValue = this.GroupBy.GetGroupValue(row);
             group.FieldName = this.GroupBy.FieldName;
             group.IsCollapsed = this.AreGroupsInitiallyCollapsed;
@@ -179,7 +179,7 @@ namespace DevExpress.XamarinForms.DataGrid.Internal
             while (firstRowIndex <= num2)
             {
                 int num3 = firstRowIndex + ((num2 - firstRowIndex) >> 1);
-                reuseRow = base.DataSource.GetRow(result.IndexMap.get_Item(num3), reuseRow);
+                reuseRow = base.DataSource.GetRow(result.IndexMap[num3], reuseRow);
                 if (this.GroupBy.Compare(row, reuseRow) >= 0)
                 {
                     firstRowIndex = num3 + 1;
@@ -239,7 +239,7 @@ namespace DevExpress.XamarinForms.DataGrid.Internal
         public override IGroupInfo GetGroup(int groupHandle)
         {
             base.EnsureIndexMapReady();
-            return this.Groups.get_Item(groupHandle);
+            return this.Groups[groupHandle];
         }
         
         public int GetGroupedRowCount(int row) => 
@@ -252,13 +252,13 @@ namespace DevExpress.XamarinForms.DataGrid.Internal
             this.GroupByRowIndex(row).GroupValue;
         
         private InnerGroupInfo GroupByRowIndex(int rowIndex) => 
-            ((this.groups.Count <= ~rowIndex) ? null : ((rowIndex >= 0) ? this.groups.get_Item(rowIndex) : this.groups.get_Item(~rowIndex)));
+            ((this.groups.Count <= ~rowIndex) ? null : ((rowIndex >= 0) ? this.groups[rowIndex] : this.groups[~rowIndex]));
         
         private void IncrementGroupIndices(int fromGroupIndex, int fromGroupRowIndex, int groupIndexIncrement, int rowIndexIncrement)
         {
             for (int i = this.groups.Count - 1; i >= fromGroupIndex; i--)
             {
-                InnerGroupInfo group = this.groups.get_Item(i);
+                InnerGroupInfo group = this.groups[i];
                 this.IncrementGroupRowIndices(group, fromGroupRowIndex, rowIndexIncrement);
                 if (groupIndexIncrement != 0)
                 {
@@ -284,10 +284,10 @@ namespace DevExpress.XamarinForms.DataGrid.Internal
             int num = base.IndexMap.Count;
             for (int i = 0; i < num; i++)
             {
-                int num3 = base.IndexMap.get_Item(i);
+                int num3 = base.IndexMap[i];
                 if ((num3 >= 0) && (num3 >= from))
                 {
-                    base.IndexMap.set_Item(i, num3 + increment);
+                    base.IndexMap[i] = (num3 + increment);
                 }
             }
         }
@@ -295,10 +295,9 @@ namespace DevExpress.XamarinForms.DataGrid.Internal
         private int IncrementIndicesAndRemove(int from, int increment)
         {
             int num = -1;
-            this.groups.Count;
             for (int i = this.groups.Count - 1; i >= 0; i--)
             {
-                int num3 = this.IncrementIndicesAndRemove(this.groups.get_Item(i), from, increment);
+                int num3 = this.IncrementIndicesAndRemove(this.groups[i], from, increment);
                 if (num3 >= 0)
                 {
                     num = num3;
@@ -312,7 +311,7 @@ namespace DevExpress.XamarinForms.DataGrid.Internal
             int num = -1;
             for (int i = group.LastRowIndex; i >= group.FirstRowIndex; i--)
             {
-                int num3 = base.IndexMap.get_Item(i);
+                int num3 = base.IndexMap[i];
                 if (num3 == from)
                 {
                     base.IndexMap.RemoveAt(i);
@@ -320,7 +319,7 @@ namespace DevExpress.XamarinForms.DataGrid.Internal
                 }
                 else if (num3 > from)
                 {
-                    base.IndexMap.set_Item(i, num3 + increment);
+                    base.IndexMap[i] = (num3 + increment);
                 }
             }
             return num;
@@ -337,10 +336,10 @@ namespace DevExpress.XamarinForms.DataGrid.Internal
             int groupIndexByRowIndex = this.LookupGroupIndexByRowIndex(rowIndex);
             if (groupIndexByRowIndex >= 0)
             {
-                return this.Groups.get_Item(groupIndexByRowIndex);
+                return this.Groups[groupIndexByRowIndex];
             }
             groupIndexByRowIndex = ~groupIndexByRowIndex;
-            return ((groupIndexByRowIndex < this.Groups.Count) ? this.Groups.get_Item(groupIndexByRowIndex) : null);
+            return ((groupIndexByRowIndex < this.Groups.Count) ? this.Groups[groupIndexByRowIndex] : null);
         }
         
         private int LookupGroupIndexByRowIndex(int rowIndex) => 
@@ -355,7 +354,7 @@ namespace DevExpress.XamarinForms.DataGrid.Internal
             {
                 return base.OnDataSourceCollectionReset();
             }
-            switch (e.get_Action())
+            switch (e.Action)
             {
                 case NotifyCollectionChangedAction.Add:
                     return this.OnRowsAdded(e);
@@ -379,14 +378,14 @@ namespace DevExpress.XamarinForms.DataGrid.Internal
                 {
                     if (this.groupSummaries == null)
                     {
-                        this.groups.get_Item(i).Summaries = null;
+                        this.groups[i].Summaries = null;
                     }
                     else
                     {
                         GridColumnSummaryCollection summarys = this.groupSummaries.Clone();
-                        summarys.RowHandleFrom = this.groups.get_Item(i).FirstRowIndex;
-                        summarys.RowHandleTo = this.groups.get_Item(i).LastRowIndex;
-                        this.groups.get_Item(i).Summaries = summarys;
+                        summarys.RowHandleFrom = this.groups[i].FirstRowIndex;
+                        summarys.RowHandleTo = this.groups[i].LastRowIndex;
+                        this.groups[i].Summaries = summarys;
                     }
                 }
             }
@@ -413,7 +412,7 @@ namespace DevExpress.XamarinForms.DataGrid.Internal
                 this.RaiseRowCollectionChanged(args);
                 return args.RowHandle;
             }
-            InnerGroupInfo info = this.groups.get_Item(groupIndexBySourceRowIndex);
+            InnerGroupInfo info = this.groups[groupIndexBySourceRowIndex];
             int startingIndex = base.IndexMap.BinarySearch<int>(info.FirstRowIndex, info.Count, rowSourceIndex, this.CreateRangeRowComparer());
             if (startingIndex < 0)
             {
@@ -437,10 +436,10 @@ namespace DevExpress.XamarinForms.DataGrid.Internal
         }
         
         private int OnRowsAdded(NotifyCollectionChangedEventArgs e) => 
-            ((e.get_NewItems().Count <= 1) ? this.OnRowAddedCore(e.get_NewStartingIndex()) : base.OnDataSourceCollectionReset());
+            ((e.NewItems.Count <= 1) ? this.OnRowAddedCore(e.NewStartingIndex) : base.OnDataSourceCollectionReset());
         
         private int OnRowsRemoved(NotifyCollectionChangedEventArgs e) => 
-            ((e.get_OldItems().Count <= 1) ? this.OnRowsRemovedCore(e.get_OldStartingIndex()) : base.OnDataSourceCollectionReset());
+            ((e.OldItems.Count <= 1) ? this.OnRowsRemovedCore(e.OldStartingIndex) : base.OnDataSourceCollectionReset());
         
         private int OnRowsRemovedCore(int rowSourceIndex)
         {
@@ -460,21 +459,21 @@ namespace DevExpress.XamarinForms.DataGrid.Internal
         
         private int OnRowsReplaced(NotifyCollectionChangedEventArgs e)
         {
-            if (e.get_NewItems().Count > 1)
+            if (e.NewItems.Count > 1)
             {
                 return base.OnDataSourceCollectionReset();
             }
-            int index = base.IndexMap.IndexOf(e.get_NewStartingIndex());
+            int index = base.IndexMap.IndexOf(e.NewStartingIndex);
             int groupIndexByRowIndex = this.LookupGroupIndexByRowIndex(index);
-            IRowData row = base.DataSource.GetRow(e.get_NewStartingIndex(), null);
-            InnerGroupInfo info = this.Groups.get_Item(groupIndexByRowIndex);
+            IRowData row = base.DataSource.GetRow(e.NewStartingIndex, null);
+            InnerGroupInfo info = this.Groups[groupIndexByRowIndex];
             if (object.Equals(info.GroupValue, this.GroupBy.GetGroupValue(row)))
             {
-                int sourceRowIndexToInsert = e.get_NewStartingIndex();
-                return base.OnRowReplacedCore(e.get_NewStartingIndex(), sourceRowIndexToInsert, info.FirstRowIndex, info.LastRowIndex, this.CreateRangeRowComparer());
+                int sourceRowIndexToInsert = e.NewStartingIndex;
+                return base.OnRowReplacedCore(e.NewStartingIndex, sourceRowIndexToInsert, info.FirstRowIndex, info.LastRowIndex, this.CreateRangeRowComparer());
             }
-            this.OnRowsRemovedCore(e.get_NewStartingIndex());
-            return this.OnRowAddedCore(e.get_NewStartingIndex());
+            this.OnRowsRemovedCore(e.NewStartingIndex);
+            return this.OnRowAddedCore(e.NewStartingIndex);
         }
         
         protected virtual void RaiseGroupRowCollapsed(int rowHandle)
@@ -561,7 +560,7 @@ namespace DevExpress.XamarinForms.DataGrid.Internal
                 {
                     for (int i = from; i <= to; i++)
                     {
-                        if (base.IsSelectedSourceRow(what.IndexMap.get_Item(i)))
+                        if (base.IsSelectedSourceRow(what.IndexMap[i]))
                         {
                             what.ShouldResetSelection = false;
                             what.NewSelectionRow = i;
@@ -585,7 +584,7 @@ namespace DevExpress.XamarinForms.DataGrid.Internal
             int fromGroupIndex = -1;
             for (int i = this.groups.Count - 1; i >= 0; i--)
             {
-                InnerGroupInfo group = this.groups.get_Item(i);
+                InnerGroupInfo group = this.groups[i];
                 this.IncrementGroupRowIndices(group, removedRowIndex, -1);
                 if (group.FirstRowIndex == removedRowIndex)
                 {
@@ -628,7 +627,7 @@ namespace DevExpress.XamarinForms.DataGrid.Internal
                 {
                     for (int i = 0; i < recordCount; i++)
                     {
-                        InnerGroupInfo info = this.groups.get_Item(i);
+                        InnerGroupInfo info = this.groups[i];
                         this.SortIndexMapRange(info.FirstRowIndex, info.LastRowIndex, comparer, what);
                     }
                 }
@@ -709,7 +708,7 @@ namespace DevExpress.XamarinForms.DataGrid.Internal
             }
         }
         
-        private class GroupedRowComparer : IComparer<int>, ICloneable
+        private class GroupedRowComparer : IComparer<int>, System.ICloneable
         {
             private IRowData cachedRowX;
             private IRowData cachedRowY;
@@ -737,14 +736,14 @@ namespace DevExpress.XamarinForms.DataGrid.Internal
                 }
                 if (this.Comparer == null)
                 {
-                    return (!this.CompareRowHandles ? num : Comparer<int>.get_Default().Compare(cachedRowX.RowHandle, cachedRowY.RowHandle));
+                    return (!this.CompareRowHandles ? num : Comparer<int>.Default.Compare(cachedRowX.RowHandle, cachedRowY.RowHandle));
                 }
                 num = this.Comparer.Compare(cachedRowX, cachedRowY);
                 if ((num != 0) || !this.CompareRowHandles)
                 {
                     return num;
                 }
-                return Comparer<int>.get_Default().Compare(cachedRowX.RowHandle, cachedRowY.RowHandle);
+                return Comparer<int>.Default.Compare(cachedRowX.RowHandle, cachedRowY.RowHandle);
             }
             
             public IGridDataSource DataSource { get; set; }
@@ -769,7 +768,7 @@ namespace DevExpress.XamarinForms.DataGrid.Internal
             {
                 if ((other.FirstRowIndex > this.rowIndex) || (this.rowIndex > other.LastRowIndex))
                 {
-                    return Comparer<int>.get_Default().Compare(this.rowIndex, other.FirstRowIndex);
+                    return Comparer<int>.Default.Compare(this.rowIndex, other.FirstRowIndex);
                 }
                 return 0;
             }
@@ -789,10 +788,10 @@ namespace DevExpress.XamarinForms.DataGrid.Internal
             }
             
             public int CompareTo(InnerGroupInfo other) => 
-                this.groupAndSortComparer.Compare(this.sourceRowIndex, this.indexMap.get_Item(other.FirstRowIndex));
+                this.groupAndSortComparer.Compare(this.sourceRowIndex, this.indexMap[other.FirstRowIndex]);
         }
         
-        private class RangeRowComparer : IComparer<int>, ICloneable
+        private class RangeRowComparer : IComparer<int>, System.ICloneable
         {
             private IRowData cachedRowX;
             private IRowData cachedRowY;
@@ -818,7 +817,7 @@ namespace DevExpress.XamarinForms.DataGrid.Internal
                 this.cachedRowY = this.DataSource.GetRow(y, this.cachedRowY);
                 IRowData cachedRowX = this.cachedRowX;
                 IRowData cachedRowY = this.cachedRowY;
-                return ((this.Comparer == null) ? Comparer<int>.get_Default().Compare(x, y) : this.Comparer.Compare(cachedRowX, cachedRowY));
+                return ((this.Comparer == null) ? Comparer<int>.Default.Compare(x, y) : this.Comparer.Compare(cachedRowX, cachedRowY));
             }
             
             public IGridDataSource DataSource { get; set; }

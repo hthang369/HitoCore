@@ -19,18 +19,18 @@ namespace DevExpress.XamarinForms.DataGrid.Internal
         
         private void CorrectSortIndex()
         {
-            for (int i = 0; i < (this.sortByIndexColumns.get_Count() - 1); i++)
+            for (int i = 0; i < (this.sortByIndexColumns.Count - 1); i++)
             {
-                if ((this.sortByIndexColumns.get_Item(i).SortIndex != -1) && (this.sortByIndexColumns.get_Item(i).SortIndex == this.sortByIndexColumns.get_Item((int) (i + 1)).SortIndex))
+                if ((this.sortByIndexColumns[i].SortIndex != -1) && (this.sortByIndexColumns[i].SortIndex == this.sortByIndexColumns.get_Item((int) (i + 1)).SortIndex))
                 {
                     List<GridColumn> list = new List<GridColumn>();
                     int num2 = i;
                     while (true)
                     {
-                        if ((i >= (this.sortByIndexColumns.get_Count() - 1)) || (this.sortByIndexColumns.get_Item(i).SortIndex != this.sortByIndexColumns.get_Item((int) (i + 1)).SortIndex))
+                        if ((i >= (this.sortByIndexColumns.Count - 1)) || (this.sortByIndexColumns[i].SortIndex != this.sortByIndexColumns.get_Item((int) (i + 1)).SortIndex))
                         {
-                            list.Add(this.sortByIndexColumns.get_Item(i));
-                            this.sortByIndexColumns.RemoveRange(num2, list.get_Count());
+                            list.Add(this.sortByIndexColumns[i]);
+                            this.sortByIndexColumns.RemoveRange(num2, list.Count);
                             foreach (GridColumn column in base.Columns)
                             {
                                 if (list.IndexOf(column) >= 0)
@@ -41,7 +41,7 @@ namespace DevExpress.XamarinForms.DataGrid.Internal
                             }
                             break;
                         }
-                        list.Add(this.sortByIndexColumns.get_Item(i));
+                        list.Add(this.sortByIndexColumns[i]);
                         i++;
                     }
                 }
@@ -62,15 +62,15 @@ namespace DevExpress.XamarinForms.DataGrid.Internal
                     descriptor.Add(column.SortComparer);
                 }
             }
-            return ((descriptor.Descriptors.get_Count() <= 0) ? null : descriptor.TryConvertToSingle());
+            return ((descriptor.Descriptors.Count <= 0) ? null : descriptor.TryConvertToSingle());
         }
         
         private int GetMaxSortIndex()
         {
             int sortIndex = -1;
-            if (this.sortByIndexColumns.get_Count() > 0)
+            if (this.sortByIndexColumns.Count > 0)
             {
-                sortIndex = this.sortByIndexColumns.get_Item((int) (this.sortByIndexColumns.get_Count() - 1)).SortIndex;
+                sortIndex = this.sortByIndexColumns.get_Item((int) (this.sortByIndexColumns.Count - 1)).SortIndex;
                 if (sortIndex < -1)
                 {
                     sortIndex = -1;

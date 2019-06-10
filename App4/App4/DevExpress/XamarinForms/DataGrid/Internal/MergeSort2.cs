@@ -43,7 +43,7 @@ namespace DevExpress.XamarinForms.DataGrid.Internal
         {
             T[] localArray = buffer;
             int[] numArray = indexBuffer;
-            int num = (array.get_Count() == buffer.Length) ? left : 0;
+            int num = (array.Count == buffer.Length) ? left : 0;
             int index = num;
             int num3 = left;
             int num4 = mid + 1;

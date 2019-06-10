@@ -43,11 +43,11 @@ namespace DevExpress.XamarinForms.DataGrid
         public int AddNewRow(IEditableRowData rowData)
         {
             this.List.Add(rowData.DataObject);
-            return (this.List.get_Count() - 1);
+            return (this.List.Count - 1);
         }
         
         public IEditableRowData CreateNewRow() => 
-            ((this.List?.get_Count() > 0) ? ObjectRowData.Create(Activator.CreateInstance(this.List.get_Item(0).GetType()), this.List?.get_Count(), this.accessorCache) : null);
+            ((this.List?.Count > 0) ? ObjectRowData.Create(Activator.CreateInstance(this.List.get_Item(0).GetType()), this.List?.Count, this.accessorCache) : null);
         
         public int DeleteRow(int rowHandle)
         {
@@ -74,17 +74,17 @@ namespace DevExpress.XamarinForms.DataGrid
             {
                 return null;
             }
-            if ((rowHandle < 0) || (rowHandle >= this.List.get_Count()))
+            if ((rowHandle < 0) || (rowHandle >= this.List.Count))
             {
                 return null;
             }
             ObjectRowData data = reuseRow as ObjectRowData;
             if (data == null)
             {
-                return ObjectRowData.Create(this.List.get_Item(rowHandle), rowHandle, this.accessorCache);
+                return ObjectRowData.Create(this.List[rowHandle], rowHandle, this.accessorCache);
             }
             data.RowHandle = rowHandle;
-            data.DataObject = this.List.get_Item(rowHandle);
+            data.DataObject = this.List[rowHandle];
             return data;
         }
         
@@ -175,7 +175,7 @@ namespace DevExpress.XamarinForms.DataGrid
         }
         
         public int RowCount =>
-            ((this.List == null) ? 0 : this.List.get_Count());
+            ((this.List == null) ? 0 : this.List.Count);
         
         int IGridDataSource.GroupCount =>
             0;

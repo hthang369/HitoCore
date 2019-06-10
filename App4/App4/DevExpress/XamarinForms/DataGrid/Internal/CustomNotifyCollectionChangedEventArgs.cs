@@ -54,21 +54,21 @@ namespace DevExpress.XamarinForms.DataGrid.Internal
         
         public static CustomNotifyCollectionChangedEventArgs Create(NotifyCollectionChangedEventArgs e)
         {
-            switch (e.get_Action())
+            switch (e.Action)
             {
                 case NotifyCollectionChangedAction.Remove:
-                    return new CustomNotifyCollectionChangedEventArgs((NotifyCollectionChangedAction) NotifyCollectionChangedAction.Remove, e.get_OldItems(), e.get_OldStartingIndex());
+                    return new CustomNotifyCollectionChangedEventArgs((NotifyCollectionChangedAction) NotifyCollectionChangedAction.Remove, e.OldItems, e.OldStartingIndex);
                 
                 case NotifyCollectionChangedAction.Replace:
-                    return new CustomNotifyCollectionChangedEventArgs((NotifyCollectionChangedAction) NotifyCollectionChangedAction.Replace, e.get_NewItems(), e.get_OldItems(), e.get_NewStartingIndex());
+                    return new CustomNotifyCollectionChangedEventArgs((NotifyCollectionChangedAction) NotifyCollectionChangedAction.Replace, e.NewItems, e.OldItems, e.NewStartingIndex);
                 
                 case NotifyCollectionChangedAction.Move:
-                    return new CustomNotifyCollectionChangedEventArgs((NotifyCollectionChangedAction) NotifyCollectionChangedAction.Move, e.get_NewItems(), e.get_NewStartingIndex(), e.get_OldStartingIndex());
+                    return new CustomNotifyCollectionChangedEventArgs((NotifyCollectionChangedAction) NotifyCollectionChangedAction.Move, e.NewItems, e.NewStartingIndex, e.OldStartingIndex);
                 
                 case NotifyCollectionChangedAction.Reset:
                     return new CustomNotifyCollectionChangedEventArgs((NotifyCollectionChangedAction) NotifyCollectionChangedAction.Reset);
             }
-            return new CustomNotifyCollectionChangedEventArgs((NotifyCollectionChangedAction) NotifyCollectionChangedAction.Add, e.get_NewItems(), e.get_NewStartingIndex());
+            return new CustomNotifyCollectionChangedEventArgs((NotifyCollectionChangedAction) NotifyCollectionChangedAction.Add, e.NewItems, e.NewStartingIndex);
         }
         
         public static void SetRowHandle(NotifyCollectionChangedEventArgs args, int rowHandle)

@@ -10,39 +10,7 @@ namespace DevExpress.XamarinForms.DataGrid.Internal
     public class NotificationObject : INotifyPropertyChanged
     {
         [CompilerGenerated]
-        private PropertyChangedEventHandler PropertyChanged;
-        
-        public event PropertyChangedEventHandler PropertyChanged
-        {
-            [CompilerGenerated] add
-            {
-                PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
-                while (true)
-                {
-                    PropertyChangedEventHandler comparand = propertyChanged;
-                    PropertyChangedEventHandler handler3 = (PropertyChangedEventHandler) Delegate.Combine((Delegate) comparand, (Delegate) value);
-                    propertyChanged = Interlocked.CompareExchange<PropertyChangedEventHandler>(ref this.PropertyChanged, handler3, comparand);
-                    if (object.ReferenceEquals(propertyChanged, comparand))
-                    {
-                        return;
-                    }
-                }
-            }
-            [CompilerGenerated] remove
-            {
-                PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
-                while (true)
-                {
-                    PropertyChangedEventHandler comparand = propertyChanged;
-                    PropertyChangedEventHandler handler3 = (PropertyChangedEventHandler) Delegate.Remove((Delegate) comparand, (Delegate) value);
-                    propertyChanged = Interlocked.CompareExchange<PropertyChangedEventHandler>(ref this.PropertyChanged, handler3, comparand);
-                    if (object.ReferenceEquals(propertyChanged, comparand))
-                    {
-                        return;
-                    }
-                }
-            }
-        }
+        public event PropertyChangedEventHandler PropertyChanged;
         
         protected void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {

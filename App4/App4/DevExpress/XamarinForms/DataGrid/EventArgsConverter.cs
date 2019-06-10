@@ -9,21 +9,21 @@ namespace DevExpress.XamarinForms.DataGrid
     {
         public static NotifyCollectionChangedEventArgs Convert(ListChangedEventArgs e, IBindingList bindingList)
         {
-            switch (e.get_ListChangedType())
+            switch (e.ListChangedType)
             {
                 case ListChangedType.Reset:
                     return new NotifyCollectionChangedEventArgs((NotifyCollectionChangedAction) NotifyCollectionChangedAction.Reset);
                 
                 case ListChangedType.ItemAdded:
-                    return new NotifyCollectionChangedEventArgs((NotifyCollectionChangedAction) NotifyCollectionChangedAction.Add, bindingList.get_Item(e.get_NewIndex()), e.get_NewIndex());
+                    return new NotifyCollectionChangedEventArgs((NotifyCollectionChangedAction) NotifyCollectionChangedAction.Add, bindingList[e.NewIndex], e.NewIndex);
                 
                 case ListChangedType.ItemDeleted:
-                    return new NotifyCollectionChangedEventArgs((NotifyCollectionChangedAction) NotifyCollectionChangedAction.Remove, new object(), e.get_OldIndex());
+                    return new NotifyCollectionChangedEventArgs((NotifyCollectionChangedAction) NotifyCollectionChangedAction.Remove, new object(), e.OldIndex);
                 
                 case ListChangedType.ItemMoved:
-                    return new NotifyCollectionChangedEventArgs((NotifyCollectionChangedAction) NotifyCollectionChangedAction.Move, bindingList.get_Item(e.get_NewIndex()), e.get_NewIndex(), e.get_OldIndex());
+                    return new NotifyCollectionChangedEventArgs((NotifyCollectionChangedAction) NotifyCollectionChangedAction.Move, bindingList[e.NewIndex], e.NewIndex, e.OldIndex);
             }
-            return new NotifyCollectionChangedEventArgs((NotifyCollectionChangedAction) NotifyCollectionChangedAction.Replace, bindingList.get_Item(e.get_NewIndex()), null, e.get_OldIndex());
+            return new NotifyCollectionChangedEventArgs((NotifyCollectionChangedAction) NotifyCollectionChangedAction.Replace, bindingList[e.NewIndex], null, e.OldIndex);
         }
     }
 }

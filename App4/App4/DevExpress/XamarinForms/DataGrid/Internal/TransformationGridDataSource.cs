@@ -71,7 +71,7 @@ namespace DevExpress.XamarinForms.DataGrid.Internal
                 return 0;
             }
             this.EnsureIndexMapReady();
-            return this.IndexMap.get_Count();
+            return this.IndexMap.Count;
         }
         
         protected abstract CreateIndexMapResult CreateIndexMap();
@@ -107,7 +107,7 @@ namespace DevExpress.XamarinForms.DataGrid.Internal
                     this.ReplaceIndexMap(result.IndexMap);
                     if (result.ShouldResetSelection)
                     {
-                        this.ResetSelection(result.IndexMap.get_Count());
+                        this.ResetSelection(result.IndexMap.Count);
                     }
                     else
                     {
@@ -298,11 +298,11 @@ namespace DevExpress.XamarinForms.DataGrid.Internal
         protected virtual int TranslateRowIndex(int rowHandle)
         {
             this.EnsureIndexMapReady();
-            if ((rowHandle < 0) || (rowHandle >= this.IndexMap.get_Count()))
+            if ((rowHandle < 0) || (rowHandle >= this.IndexMap.Count))
             {
                 return -1;
             }
-            return this.IndexMap.get_Item(rowHandle);
+            return this.IndexMap[rowHandle];
         }
         
         private void UnsubscribeDataSourceEvents()

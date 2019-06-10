@@ -33,7 +33,7 @@ namespace DevExpress.XamarinForms.DataGrid
         
         private bool IsImplementsIListT(TypeInfo typeInfo)
         {
-            using (IEnumerator<Type> enumerator = typeInfo.get_ImplementedInterfaces().GetEnumerator())
+            using (IEnumerator<Type> enumerator = typeInfo.ImplementedInterfaces.GetEnumerator())
             {
                 while (true)
                 {
@@ -42,7 +42,7 @@ namespace DevExpress.XamarinForms.DataGrid
                         break;
                     }
                     TypeInfo info = IntrospectionExtensions.GetTypeInfo(enumerator.Current);
-                    if (info.get_IsGenericType() && (info.GetGenericTypeDefinition() == typeof(IList<>)))
+                    if (info.IsGenericType && (info.GetGenericTypeDefinition() == typeof(IList<>)))
                     {
                         return true;
                     }
@@ -53,11 +53,11 @@ namespace DevExpress.XamarinForms.DataGrid
         
         private IGridDataSource TryCreateFromGenericList(object obj, TypeInfo typeInfo)
         {
-            if (!typeInfo.get_IsGenericType() || !this.IsImplementsIListT(typeInfo))
+            if (!typeInfo.IsGenericType || !this.IsImplementsIListT(typeInfo))
             {
                 return null;
             }
-            Type[] typeArray = typeInfo.get_GenericTypeArguments();
+            Type[] typeArray = typeInfo.GenericTypeArguments;
             if (typeArray.Length == 0)
             {
                 return null;

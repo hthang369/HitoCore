@@ -42,7 +42,7 @@ namespace DevExpress.XamarinForms.DataGrid.Internal
         private static void SequentialMerge<T>(IList<T> array, int left, int mid, int right, IComparer<T> comparer, T[] buffer)
         {
             T[] localArray = buffer;
-            int num = (array.get_Count() == buffer.Length) ? left : 0;
+            int num = (array.Count == buffer.Length) ? left : 0;
             int index = num;
             int num3 = left;
             int num4 = mid + 1;

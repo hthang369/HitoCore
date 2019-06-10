@@ -27,21 +27,21 @@ namespace DevExpress.XamarinForms.DataGrid.Internal
             ComplexSortDescriptor<T> descriptor = obj as ComplexSortDescriptor<T>;
             if (descriptor == null)
             {
-                if (this.descriptors.get_Count() != 1)
+                if (this.descriptors.Count != 1)
                 {
                     return false;
                 }
                 SortDescriptor<T> descriptor2 = obj as SortDescriptor<T>;
-                return ((descriptor2 != null) ? object.Equals(descriptor2, this.descriptors.get_Item(0)) : false);
+                return ((descriptor2 != null) ? object.Equals(descriptor2, this.descriptors[0]) : false);
             }
-            int num = this.descriptors.get_Count();
-            if (descriptor.descriptors.get_Count() != num)
+            int num = this.descriptors.Count;
+            if (descriptor.descriptors.Count != num)
             {
                 return false;
             }
             for (int i = 0; i < num; i++)
             {
-                if (!object.Equals(descriptor.descriptors.get_Item(i), this.descriptors.get_Item(i)))
+                if (!object.Equals(descriptor.descriptors[i], this.descriptors[i]))
                 {
                     return false;
                 }
@@ -51,25 +51,25 @@ namespace DevExpress.XamarinForms.DataGrid.Internal
         
         public override int GetHashCode()
         {
-            int num = this.descriptors.get_Count();
+            int num = this.descriptors.Count;
             int num2 = ~num;
             for (int i = 0; i < num; i++)
             {
-                num2 ^= this.descriptors.get_Item(i).GetHashCode();
+                num2 ^= this.descriptors[i].GetHashCode();
             }
             return num2;
         }
         
         int IComparer<T>.Compare(T firstValue, T secondValue)
         {
-            int num = this.descriptors.get_Count();
+            int num = this.descriptors.Count;
             if (num <= 0)
             {
                 throw new InvalidOperationException();
             }
             for (int i = 0; i < num; i++)
             {
-                int num3 = this.descriptors.get_Item(i).Compare(firstValue, secondValue);
+                int num3 = this.descriptors[i].Compare(firstValue, secondValue);
                 if (num3 != 0)
                 {
                     return num3;
@@ -79,7 +79,7 @@ namespace DevExpress.XamarinForms.DataGrid.Internal
         }
         
         public SortDescriptor<T> TryConvertToSingle() => 
-            ((this.descriptors.get_Count() > 0) ? ((this.descriptors.get_Count() != 1) ? this : this.descriptors.get_Item(0)) : null);
+            ((this.descriptors.Count > 0) ? ((this.descriptors.Count != 1) ? this : this.descriptors[0]) : null);
         
         public IReadOnlyList<SortDescriptor<T>> Descriptors =>
             ((IReadOnlyList<SortDescriptor<T>>) this.descriptors);
@@ -94,14 +94,14 @@ namespace DevExpress.XamarinForms.DataGrid.Internal
         }
         
         public override bool IsSingleColumn =>
-            (this.Descriptors.get_Count() == 1);
+            (this.Descriptors.Count == 1);
         
         public override ColumnSortOrder SortOrder
         {
             get
             {
-                int num = this.Descriptors.get_Count();
-                return ((num > 0) ? ((num != 1) ? ColumnSortOrder.Ascending : this.Descriptors.get_Item(0).SortOrder) : ColumnSortOrder.None);
+                int num = this.Descriptors.Count;
+                return ((num > 0) ? ((num != 1) ? ColumnSortOrder.Ascending : this.Descriptors[0].SortOrder) : ColumnSortOrder.None);
             }
             set
             {

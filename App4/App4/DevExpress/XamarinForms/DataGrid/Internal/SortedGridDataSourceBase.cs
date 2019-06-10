@@ -64,7 +64,7 @@ namespace DevExpress.XamarinForms.DataGrid.Internal
                     }
                     else
                     {
-                        MergeSort.Sort<int>((IList<int>) indexMap, 0, indexMap.get_Count() - 1, comparer);
+                        MergeSort.Sort<int>((IList<int>) indexMap, 0, indexMap.Count - 1, comparer);
                     }
                 }
                 finally
@@ -76,7 +76,7 @@ namespace DevExpress.XamarinForms.DataGrid.Internal
             {
                 for (int j = 0; j < num; j++)
                 {
-                    if (base.IsSelectedSourceRow(indexMap.get_Item(j)))
+                    if (base.IsSelectedSourceRow(indexMap[j]))
                     {
                         result.NewSelectionRow = j;
                         result.ShouldResetSelection = false;
@@ -98,7 +98,7 @@ namespace DevExpress.XamarinForms.DataGrid.Internal
             base.DataSource.PopulateSourceRowHandles(rowHandles);
             T[] values = new T[rowHandles.Length];
             base.DataSource.PopulateColumnValues<T>(rowHandles, descriptor.FieldName, values, descriptor.FieldValueVisitor);
-            MergeSort2.Sort<T>(values, 0, rowHandles.Length - 1, (IComparer<T>) Comparer<T>.get_Default(), (IList<int>) indexMap);
+            MergeSort2.Sort<T>(values, 0, rowHandles.Length - 1, (IComparer<T>) Comparer<T>.Default, (IList<int>) indexMap);
         }
         
         private void FastSortIndexMapKnownTypes(List<int> indexMap, SortDescriptor<IRowData> descriptor, IComparer<int> defaultComparer)
@@ -161,7 +161,7 @@ namespace DevExpress.XamarinForms.DataGrid.Internal
             }
             else
             {
-                MergeSort.Sort<int>((IList<int>) indexMap, 0, indexMap.get_Count() - 1, defaultComparer);
+                MergeSort.Sort<int>((IList<int>) indexMap, 0, indexMap.Count - 1, defaultComparer);
             }
         }
         
@@ -169,10 +169,10 @@ namespace DevExpress.XamarinForms.DataGrid.Internal
         {
             base.EnsureIndexMapReady();
             int rowHandle = base.DataSource.GetRowHandle(sourceRowIndex);
-            int num2 = base.IndexMap.get_Count();
+            int num2 = base.IndexMap.Count;
             for (int i = 0; i < num2; i++)
             {
-                if (base.IndexMap.get_Item(i) == rowHandle)
+                if (base.IndexMap[i] == rowHandle)
                 {
                     return i;
                 }
@@ -182,14 +182,14 @@ namespace DevExpress.XamarinForms.DataGrid.Internal
         
         private void IncrementIndices(int from, int increment)
         {
-            int num = base.IndexMap.get_Count();
+            int num = base.IndexMap.Count;
             for (int i = 0; i < num; i++)
             {
-                if (base.IndexMap.get_Item(i) >= from)
+                if (base.IndexMap[i] >= from)
                 {
                     IList<int> indexMap = base.IndexMap;
                     int num3 = i;
-                    indexMap.set_Item(num3, indexMap.get_Item(num3) + increment);
+                    indexMap[num3] = (indexMap[num3] + increment);
                 }
             }
         }
@@ -197,15 +197,15 @@ namespace DevExpress.XamarinForms.DataGrid.Internal
         private int IncrementIndicesAndRemove(int from, int increment)
         {
             int num = -1;
-            for (int i = base.IndexMap.get_Count() - 1; i >= 0; i--)
+            for (int i = base.IndexMap.Count - 1; i >= 0; i--)
             {
-                if (base.IndexMap.get_Item(i) > from)
+                if (base.IndexMap[i] > from)
                 {
                     IList<int> indexMap = base.IndexMap;
                     int num3 = i;
-                    indexMap.set_Item(num3, indexMap.get_Item(num3) + increment);
+                    indexMap[num3] = (indexMap[num3] + increment);
                 }
-                else if (base.IndexMap.get_Item(i) == from)
+                else if (base.IndexMap[i] == from)
                 {
                     base.IndexMap.RemoveAt(i);
                     num = i;
@@ -220,7 +220,7 @@ namespace DevExpress.XamarinForms.DataGrid.Internal
             {
                 return base.OnDataSourceCollectionReset();
             }
-            switch (e.get_Action())
+            switch (e.Action)
             {
                 case NotifyCollectionChangedAction.Add:
                     return this.OnRowsAdded(e);
@@ -242,7 +242,7 @@ namespace DevExpress.XamarinForms.DataGrid.Internal
             {
                 if (num4 <= to)
                 {
-                    if (base.IndexMap.get_Item(num4) != sourceRowIndex)
+                    if (base.IndexMap[num4] != sourceRowIndex)
                     {
                         num4++;
                         continue;
@@ -301,23 +301,23 @@ namespace DevExpress.XamarinForms.DataGrid.Internal
         
         private int OnRowsAdded(NotifyCollectionChangedEventArgs e)
         {
-            if (e.get_NewItems().get_Count() > 1)
+            if (e.NewItems.Count > 1)
             {
                 return base.OnDataSourceCollectionReset();
             }
-            this.IncrementIndices(e.get_NewStartingIndex(), 1);
-            int startingIndex = base.IndexMap.BinarySearch<int>(0, base.IndexMap.get_Count(), e.get_NewStartingIndex(), this.CreateComparer(true));
+            this.IncrementIndices(e.NewStartingIndex, 1);
+            int startingIndex = base.IndexMap.BinarySearch<int>(0, base.IndexMap.Count, e.NewStartingIndex, this.CreateComparer(true));
             if (startingIndex < 0)
             {
                 startingIndex = ~startingIndex;
             }
-            base.IndexMap.Insert(startingIndex, e.get_NewStartingIndex());
+            base.IndexMap.Insert(startingIndex, e.NewStartingIndex);
             if (base.SelectedRow >= startingIndex)
             {
                 int selectedRow = base.SelectedRow;
                 base.SelectedRow = selectedRow + 1;
             }
-            int[] changedItems = new int[] { (int) e.get_NewStartingIndex() };
+            int[] changedItems = new int[] { (int) e.NewStartingIndex };
             CustomNotifyCollectionChangedEventArgs args = new CustomNotifyCollectionChangedEventArgs((NotifyCollectionChangedAction) NotifyCollectionChangedAction.Add, changedItems, startingIndex) {
                 RowHandle = startingIndex
             };
@@ -327,11 +327,11 @@ namespace DevExpress.XamarinForms.DataGrid.Internal
         
         private int OnRowsRemoved(NotifyCollectionChangedEventArgs e)
         {
-            if (e.get_OldItems().get_Count() > 1)
+            if (e.OldItems.Count > 1)
             {
                 return base.OnDataSourceCollectionReset();
             }
-            int startingIndex = this.IncrementIndicesAndRemove(e.get_OldStartingIndex(), -1);
+            int startingIndex = this.IncrementIndicesAndRemove(e.OldStartingIndex, -1);
             if (base.SelectedRow >= startingIndex)
             {
                 base.SelectedRow = Math.Max(0, base.SelectedRow - 1);
@@ -345,7 +345,7 @@ namespace DevExpress.XamarinForms.DataGrid.Internal
         }
         
         private int OnRowsReplaced(NotifyCollectionChangedEventArgs e) => 
-            ((e.get_NewItems().get_Count() <= 1) ? this.OnRowReplacedCore(e.get_NewStartingIndex(), e.get_NewStartingIndex(), 0, base.IndexMap.get_Count() - 1, this.CreateComparer(true)) : base.OnDataSourceCollectionReset());
+            ((e.NewItems.Count <= 1) ? this.OnRowReplacedCore(e.NewStartingIndex, e.NewStartingIndex, 0, base.IndexMap.Count - 1, this.CreateComparer(true)) : base.OnDataSourceCollectionReset());
         
         protected void SetSortDescriptorCore(SortDescriptor<IRowData> value)
         {
@@ -377,7 +377,7 @@ namespace DevExpress.XamarinForms.DataGrid.Internal
         public override bool IsRowCountReady =>
             ((base.DataSource == null) || base.DataSource.IsRowCountReady);
         
-        protected class RowComparer : IComparer<int>, ICloneable
+        protected class RowComparer : IComparer<int>, System.ICloneable
         {
             private IRowData cachedRowX;
             private IRowData cachedRowY;
@@ -397,7 +397,7 @@ namespace DevExpress.XamarinForms.DataGrid.Internal
                 IRowData cachedRowX = this.cachedRowX;
                 IRowData cachedRowY = this.cachedRowY;
                 int num = this.Comparer.Compare(cachedRowX, cachedRowY);
-                return ((num != 0) ? num : Comparer<int>.get_Default().Compare(cachedRowX.RowHandle, cachedRowY.RowHandle));
+                return ((num != 0) ? num : Comparer<int>.Default.Compare(cachedRowX.RowHandle, cachedRowY.RowHandle));
             }
             
             public IGridDataSource DataSource { get; set; }

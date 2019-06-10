@@ -8,13 +8,13 @@ namespace DevExpress.XamarinForms.DataGrid.Internal
     public static class IListExtensions
     {
         public static int BinarySearch<T>(this IList<T> list, T item) => 
-            list.BinarySearch<T>(0, list.get_Count(), item, ((IComparer<T>) Comparer<T>.get_Default()));
+            list.BinarySearch<T>(0, list.Count, item, ((IComparer<T>) Comparer<T>.Default));
         
         public static int BinarySearch<T>(this IList<T> list, int index, int count, T item, IComparer<T> comparer)
         {
             if (comparer == null)
             {
-                comparer = (IComparer<T>) Comparer<T>.get_Default();
+                comparer = (IComparer<T>) Comparer<T>.Default;
             }
             ReverseOrderedList<T> list2 = list as ReverseOrderedList<T>;
             return ((list2 != null) ? list2.BinarySearchOriginalComparer(index, count, item, comparer) : BinarySearchCore<T>(list, index, count, item, comparer));

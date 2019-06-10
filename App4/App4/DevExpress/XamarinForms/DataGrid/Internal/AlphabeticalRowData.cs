@@ -8,7 +8,7 @@ namespace DevExpress.XamarinForms.DataGrid.Internal
         protected override object TransformValue(object value)
         {
             string str = value.ToString();
-            return (string.IsNullOrEmpty(str) ? ((object) string.Empty) : ((object) ((char) str.get_Chars(0))));
+            return (string.IsNullOrEmpty(str) ? ((object) string.Empty) : ((object) ((char) str.ToCharArray()[0])));
         }
     }
 }

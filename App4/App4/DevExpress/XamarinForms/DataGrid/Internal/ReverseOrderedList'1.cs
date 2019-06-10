@@ -31,10 +31,10 @@ namespace DevExpress.XamarinForms.DataGrid.Internal
         }
         
         private int ConvertIndex(int index) => 
-            ((this.originalList.get_Count() - index) - 1);
+            ((this.originalList.Count - index) - 1);
         
         private int ConvertInsertionIndex(int index) => 
-            (this.originalList.get_Count() - index);
+            (this.originalList.Count - index);
         
         void ICollection<T>.Add(T item)
         {
@@ -82,15 +82,15 @@ namespace DevExpress.XamarinForms.DataGrid.Internal
         T IList<T>.this[int index]
         {
             get => 
-                this.originalList.get_Item(this.ConvertIndex(index));
+                this.originalList[this.ConvertIndex(index)];
             set => 
-                this.originalList.set_Item(this.ConvertIndex(index), value);
+                this.originalList[this.ConvertIndex(index)] = value;
         }
         
-        int ICollection<T>.this[] =>
-            this.originalList.get_Count();
+        int ICollection<T>.Count =>
+            this.originalList.Count;
         
-        bool ICollection<T>.this[] =>
-            this.originalList.get_IsReadOnly();
+        bool ICollection<T>.IsReadOnly =>
+            this.originalList.IsReadOnly;
     }
 }

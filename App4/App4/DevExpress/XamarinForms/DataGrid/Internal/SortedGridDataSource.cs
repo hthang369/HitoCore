@@ -44,7 +44,7 @@ namespace DevExpress.XamarinForms.DataGrid.Internal
                 IList<int> list = this.CreateReversedIndexMapIfNeed(result.IndexMap);
                 if ((list.GetType() != result.IndexMap.GetType()) && (result.NewSelectionRow >= 0))
                 {
-                    result.NewSelectionRow = (list.get_Count() - result.NewSelectionRow) - 1;
+                    result.NewSelectionRow = (list.Count - result.NewSelectionRow) - 1;
                 }
                 result.IndexMap = list;
             }
@@ -89,7 +89,7 @@ namespace DevExpress.XamarinForms.DataGrid.Internal
                 IList<int> list = this.CreateReversedIndexMapIfNeed(base.IndexMap);
                 if ((list.GetType() != base.IndexMap.GetType()) && (base.SelectedRow >= 0))
                 {
-                    base.SelectedRow = (base.IndexMap.get_Count() - base.SelectedRow) - 1;
+                    base.SelectedRow = (base.IndexMap.Count - base.SelectedRow) - 1;
                 }
                 base.ReplaceIndexMap(list);
             }

@@ -16,7 +16,7 @@ namespace DevExpress.XamarinForms.DataGrid.Internal
         protected override object TransformValue(object value)
         {
             this.helper.UpdateToday();
-            return this.helper.GetOutlookInterval(new DateTime?(((DateTime) value).get_Date()));
+            return this.helper.GetOutlookInterval(new DateTime?(((DateTime) value).Date));
         }
         
         private class OutlookHelper : OutlookDateHelper
@@ -86,7 +86,7 @@ namespace DevExpress.XamarinForms.DataGrid.Internal
                 {
                     this.sortStartTime = value;
                     this.sortStartWeek = GetWeekStart(value, CultureInfo.get_CurrentCulture().get_DateTimeFormat());
-                    this.sortZeroTime = new DateTime(value.get_Year(), value.get_Month(), value.get_Day());
+                    this.sortZeroTime = new DateTime(value.Year, value.Month, value.get_Day());
                 }
             }
             

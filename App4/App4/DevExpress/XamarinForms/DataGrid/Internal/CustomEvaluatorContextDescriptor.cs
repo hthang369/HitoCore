@@ -36,7 +36,7 @@ namespace DevExpress.XamarinForms.DataGrid.Internal
             {
                 this.filterModeCollection = new Dictionary<string, ColumnFilterMode>();
             }
-            this.filterModeCollection.set_Item(column.FieldName, column.FilterMode);
+            this.filterModeCollection[column.FieldName] = column.FilterMode;
         }
         
         public override IEnumerable GetCollectionContexts(object source, string collectionName) => 
@@ -77,7 +77,7 @@ namespace DevExpress.XamarinForms.DataGrid.Internal
                 {
                     this.displayFormatCollection = new Dictionary<string, string>();
                 }
-                this.displayFormatCollection.set_Item(column.FieldName, column.DisplayFormat);
+                this.displayFormatCollection[column.FieldName] = column.DisplayFormat;
             }
         }
     }

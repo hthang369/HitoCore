@@ -13,8 +13,8 @@ namespace DevExpress.XamarinForms.DataGrid.Internal
                 return null;
             }
             DateTime time = (DateTime) transformedValue;
-            int num = ((time.get_Month() - 1) / 3) + 1;
-            return string.Format(GridLocalizer.GetString(GridStringId.GroupIntervalQuarterDisplayFormat), (int) num, (int) time.get_Year());
+            int num = ((time.Month - 1) / 3) + 1;
+            return string.Format(GridLocalizer.GetString(GridStringId.GroupIntervalQuarterDisplayFormat), (int) num, (int) time.Year);
         }
         
         protected override object TransformValue(object value)
@@ -24,7 +24,7 @@ namespace DevExpress.XamarinForms.DataGrid.Internal
                 return null;
             }
             DateTime time = (DateTime) value;
-            return new DateTime(time.get_Year(), (((time.get_Month() - 1) / 3) * 3) + 1, 1);
+            return new DateTime(time.Year, (((time.Month - 1) / 3) * 3) + 1, 1);
         }
     }
 }

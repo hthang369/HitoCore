@@ -30,7 +30,7 @@ namespace DevExpress.XamarinForms.DataGrid.Internal
             if (result.ShouldResetSelection)
             {
                 result.ShouldResetSelection = false;
-                result.NewSelectionRow = list.get_Count() - 1;
+                result.NewSelectionRow = list.Count - 1;
             }
             return result;
         }
@@ -44,7 +44,7 @@ namespace DevExpress.XamarinForms.DataGrid.Internal
         
         private void IncrementIndices(int from, int increment)
         {
-            int num = base.IndexMap.get_Count();
+            int num = base.IndexMap.Count;
             for (int i = from; i < num; i++)
             {
                 IList<int> indexMap = base.IndexMap;
@@ -57,7 +57,7 @@ namespace DevExpress.XamarinForms.DataGrid.Internal
         {
             if (base.IndexMap != null)
             {
-                switch (e.get_Action())
+                switch (e.Action)
                 {
                     case NotifyCollectionChangedAction.Add:
                         return this.OnRowsAdded(e);
@@ -75,20 +75,20 @@ namespace DevExpress.XamarinForms.DataGrid.Internal
         private int OnRowReplace(NotifyCollectionChangedEventArgs e)
         {
             IRowData row;
-            if (e.get_NewItems().get_Count() > 1)
+            if (e.NewItems.Count > 1)
             {
                 return base.OnDataSourceCollectionReset();
             }
-            int startingIndex = base.IndexMap.BinarySearch<int>(e.get_NewStartingIndex());
+            int startingIndex = base.IndexMap.BinarySearch<int>(e.NewStartingIndex);
             if (startingIndex < 0)
             {
                 startingIndex = ~startingIndex;
                 if (this.Predicate != null)
                 {
-                    row = base.DataSource.GetRow(e.get_NewStartingIndex(), null);
+                    row = base.DataSource.GetRow(e.NewStartingIndex, null);
                     if (this.Predicate(row))
                     {
-                        base.IndexMap.Insert(startingIndex, e.get_NewStartingIndex());
+                        base.IndexMap.Insert(startingIndex, e.NewStartingIndex);
                         List<int> list = new List<int> {
                             startingIndex
                         };
@@ -100,7 +100,7 @@ namespace DevExpress.XamarinForms.DataGrid.Internal
                     }
                 }
             }
-            if (startingIndex >= base.IndexMap.get_Count())
+            if (startingIndex >= base.IndexMap.Count)
             {
                 return -2147483648;
             }
@@ -142,8 +142,8 @@ namespace DevExpress.XamarinForms.DataGrid.Internal
         private int OnRowsAdded(NotifyCollectionChangedEventArgs e)
         {
             List<int> list = new List<int>();
-            int from = e.get_NewStartingIndex();
-            int num2 = (from + e.get_NewItems().get_Count()) - 1;
+            int from = e.NewStartingIndex;
+            int num2 = (from + e.NewItems.Count) - 1;
             IRowData reuseRow = null;
             for (int i = from; i <= num2; i++)
             {
@@ -160,13 +160,13 @@ namespace DevExpress.XamarinForms.DataGrid.Internal
                     }
                 }
             }
-            from = base.IndexMap.BinarySearch<int>(e.get_NewStartingIndex());
+            from = base.IndexMap.BinarySearch<int>(e.NewStartingIndex);
             if (from < 0)
             {
                 from = ~from;
             }
-            this.IncrementIndices(from, e.get_NewItems().get_Count());
-            int num3 = list.get_Count();
+            this.IncrementIndices(from, e.NewItems.Count);
+            int num3 = list.Count;
             if (num3 <= 0)
             {
                 return -2147483648;
@@ -185,24 +185,24 @@ namespace DevExpress.XamarinForms.DataGrid.Internal
         
         private int OnRowsRemoved(NotifyCollectionChangedEventArgs e)
         {
-            int from = base.IndexMap.BinarySearch<int>(e.get_OldStartingIndex());
+            int from = base.IndexMap.BinarySearch<int>(e.OldStartingIndex);
             if (from < 0)
             {
                 from = ~from;
             }
-            if (from >= base.IndexMap.get_Count())
+            if (from >= base.IndexMap.Count)
             {
                 return -2147483648;
             }
             List<int> list = new List<int>();
             int index = -1;
             int count = 0;
-            int num4 = e.get_OldItems().get_Count();
-            for (int i = 0; (i < num4) && (from < base.IndexMap.get_Count()); i++)
+            int num4 = e.OldItems.Count;
+            for (int i = 0; (i < num4) && (from < base.IndexMap.Count); i++)
             {
-                if (base.IndexMap.get_Item(from) != (e.get_OldStartingIndex() + i))
+                if (base.IndexMap.get_Item(from) != (e.OldStartingIndex + i))
                 {
-                    if ((e.get_OldStartingIndex() + i) > base.IndexMap.get_Item(from))
+                    if ((e.OldStartingIndex + i) > base.IndexMap.get_Item(from))
                     {
                         from++;
                         i--;
@@ -210,7 +210,7 @@ namespace DevExpress.XamarinForms.DataGrid.Internal
                 }
                 else
                 {
-                    list.Add(base.IndexMap.get_Item(i));
+                    list.Add(base.IndexMap[i]);
                     count++;
                     if (index < 0)
                     {
@@ -219,7 +219,7 @@ namespace DevExpress.XamarinForms.DataGrid.Internal
                     from++;
                 }
             }
-            this.IncrementIndices(from, -e.get_OldItems().get_Count());
+            this.IncrementIndices(from, -e.OldItems.Count);
             if ((index < 0) || (count <= 0))
             {
                 return -2147483648;
@@ -250,7 +250,7 @@ namespace DevExpress.XamarinForms.DataGrid.Internal
                         if (result.ShouldResetSelection && (i >= base.Selection.SourceIndex.Value))
                         {
                             result.ShouldResetSelection = false;
-                            result.NewSelectionRow = indexMap.get_Count();
+                            result.NewSelectionRow = indexMap.Count;
                         }
                         indexMap.Add(i);
                     }
@@ -266,7 +266,7 @@ namespace DevExpress.XamarinForms.DataGrid.Internal
                 if (result.ShouldResetSelection && (i >= base.Selection.SourceIndex.Value))
                 {
                     result.ShouldResetSelection = false;
-                    result.NewSelectionRow = indexMap.get_Count();
+                    result.NewSelectionRow = indexMap.Count;
                 }
                 indexMap.Add(i);
             }

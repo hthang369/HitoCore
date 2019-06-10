@@ -21,17 +21,17 @@ namespace DevExpress.XamarinForms.DataGrid.Internal
             }
             foreach (PropertyInfo info in RuntimeReflectionExtensions.GetRuntimeProperties(objectType))
             {
-                if (info.get_Name() != "Item")
+                if (info.Name != "Item")
                 {
                     continue;
                 }
                 ParameterInfo[] indexParameters = info.GetIndexParameters();
-                if ((indexParameters.Length == 1) && (indexParameters[0].get_ParameterType() == typeof(string)))
+                if ((indexParameters.Length == 1) && (indexParameters[0].ParameterType == typeof(string)))
                 {
-                    this.getter = info.get_GetMethod();
+                    this.getter = info.GetMethod;
                     object[] objArray1 = new object[] { propertyName };
                     this.getterParameter = objArray1;
-                    this.setter = info.get_SetMethod();
+                    this.setter = info.SetMethod;
                     object[] objArray2 = new object[2];
                     objArray2[0] = propertyName;
                     this.setterParameter = objArray2;

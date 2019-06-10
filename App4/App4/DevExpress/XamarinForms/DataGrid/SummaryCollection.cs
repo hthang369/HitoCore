@@ -10,43 +10,11 @@ namespace DevExpress.XamarinForms.DataGrid
     public class SummaryCollection : ObservableCollection<GridColumnSummary>
     {
         [CompilerGenerated]
-        private InternalCollectionChangedEventHandler InternalCollectionChanged;
-        
-        internal event InternalCollectionChangedEventHandler InternalCollectionChanged
-        {
-            [CompilerGenerated] add
-            {
-                InternalCollectionChangedEventHandler internalCollectionChanged = this.InternalCollectionChanged;
-                while (true)
-                {
-                    InternalCollectionChangedEventHandler comparand = internalCollectionChanged;
-                    InternalCollectionChangedEventHandler handler3 = (InternalCollectionChangedEventHandler) Delegate.Combine((Delegate) comparand, (Delegate) value);
-                    internalCollectionChanged = Interlocked.CompareExchange<InternalCollectionChangedEventHandler>(ref this.InternalCollectionChanged, handler3, comparand);
-                    if (object.ReferenceEquals(internalCollectionChanged, comparand))
-                    {
-                        return;
-                    }
-                }
-            }
-            [CompilerGenerated] remove
-            {
-                InternalCollectionChangedEventHandler internalCollectionChanged = this.InternalCollectionChanged;
-                while (true)
-                {
-                    InternalCollectionChangedEventHandler comparand = internalCollectionChanged;
-                    InternalCollectionChangedEventHandler handler3 = (InternalCollectionChangedEventHandler) Delegate.Remove((Delegate) comparand, (Delegate) value);
-                    internalCollectionChanged = Interlocked.CompareExchange<InternalCollectionChangedEventHandler>(ref this.InternalCollectionChanged, handler3, comparand);
-                    if (object.ReferenceEquals(internalCollectionChanged, comparand))
-                    {
-                        return;
-                    }
-                }
-            }
-        }
+        public event InternalCollectionChangedEventHandler InternalCollectionChanged;
         
         protected override void ClearItems()
         {
-            List<GridColumnSummary> oldItems = new List<GridColumnSummary>((IEnumerable<GridColumnSummary>) base.get_Items());
+            List<GridColumnSummary> oldItems = new List<GridColumnSummary>((IEnumerable<GridColumnSummary>) base.Items);
             base.ClearItems();
             this.RaiseInternalCollectionChanged(null, oldItems);
         }
@@ -72,7 +40,7 @@ namespace DevExpress.XamarinForms.DataGrid
         
         protected override void RemoveItem(int index)
         {
-            GridColumnSummary summary = base.get_Items().get_Item(index);
+            GridColumnSummary summary = base.Items[index];
             base.RemoveItem(index);
             List<GridColumnSummary> oldItems = new List<GridColumnSummary>();
             oldItems.Add(summary);
