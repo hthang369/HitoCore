@@ -116,7 +116,7 @@ namespace DevExpress.XamarinForms.DataGrid
         {
             ParameterExpression expression = Expression.Parameter(typeof(DataGridView), "o");
             ParameterExpression[] expressionArray1 = new ParameterExpression[] { expression };
-            ItemsSourceProperty = BindingUtils.Instance.CreateBindableProperty<DataGridView, object>(Expression.Lambda<Func<DataGridView, object>>((Expression) Expression.Property((Expression) expression, typeof(DataGridView).GetProperty("ElementAtsSource")), expressionArray1), null, BindingMode.OneWay, null, OnItemsSourceChanged, null, null, null);
+            ItemsSourceProperty = BindingUtils.Instance.CreateBindableProperty<DataGridView, object>(Expression.Lambda<Func<DataGridView, object>>((Expression) Expression.Property((Expression) expression, typeof(DataGridView).GetProperty("ItemsSource")), expressionArray1), null, BindingMode.OneWay, null, OnItemsSourceChanged, null, null, null);
             expression = Expression.Parameter(typeof(DataGridView), "o");
             ParameterExpression[] expressionArray2 = new ParameterExpression[] { expression };
             RowHeightProperty = BindingUtils.Instance.CreateBindableProperty<DataGridView, double>(Expression.Lambda<Func<DataGridView, double>>((Expression) Expression.Property((Expression) expression, typeof(DataGridView).GetProperty("RowHeight")), expressionArray2), -1.0, BindingMode.OneWay, null, OnRowHeightChanged, null, null, null);

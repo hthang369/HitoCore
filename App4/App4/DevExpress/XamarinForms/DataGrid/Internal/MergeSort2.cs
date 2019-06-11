@@ -11,7 +11,7 @@ namespace DevExpress.XamarinForms.DataGrid.Internal
         private const int MaxSequentialElementCount = 0x400;
         
         private static int GetMaxDepth() => 
-            Math.Max(0, (int) Math.Round(Math.Log((double) Environment.get_ProcessorCount(), (double) 2.0)));
+            Math.Max(0, (int) Math.Round(Math.Log((double) Environment.ProcessorCount, (double) 2.0)));
         
         private static void ParallelSort<T>(IList<T> list, int from, int to, IComparer<T> comparer, int depth, T[] buffer, IList<int> indexArray, int[] indexBuffer, IParallelService service)
         {
@@ -24,7 +24,7 @@ namespace DevExpress.XamarinForms.DataGrid.Internal
                 int mid = (from + to) / 2;
                 depth--;
                 IComparer<T> comparer2 = comparer;
-                ICloneable cloneable = comparer2 as ICloneable;
+                System.ICloneable cloneable = comparer2 as System.ICloneable;
                 if (cloneable != null)
                 {
                     comparer2 = (IComparer<T>) cloneable.Clone();
@@ -49,47 +49,47 @@ namespace DevExpress.XamarinForms.DataGrid.Internal
             int num4 = mid + 1;
             while ((num3 <= mid) && (num4 <= right))
             {
-                if (comparer.Compare(array.get_Item(num3), array.get_Item(num4)) <= 0)
+                if (comparer.Compare(array.GetItem(num3), array.GetItem(num4)) <= 0)
                 {
-                    localArray[index] = array.get_Item(num3);
+                    localArray[index] = array.GetItem(num3);
                     index++;
                     num3++;
-                    numArray[index] = indexArray.get_Item(num3);
+                    numArray[index] = indexArray.GetItem(num3);
                     continue;
                 }
-                localArray[index] = array.get_Item(num4);
+                localArray[index] = array.GetItem(num4);
                 index++;
                 num4++;
-                numArray[index] = indexArray.get_Item(num4);
+                numArray[index] = indexArray.GetItem(num4);
             }
             while (num3 <= mid)
             {
-                localArray[index] = array.get_Item(num3);
+                localArray[index] = array.GetItem(num3);
                 index++;
                 num3++;
-                numArray[index] = indexArray.get_Item(num3);
+                numArray[index] = indexArray.GetItem(num3);
             }
             while (num4 <= right)
             {
-                localArray[index] = array.get_Item(num4);
+                localArray[index] = array.GetItem(num4);
                 index++;
                 num4++;
-                numArray[index] = indexArray.get_Item(num4);
+                numArray[index] = indexArray.GetItem(num4);
             }
             if (num == 0)
             {
                 for (int i = 0; i < index; i++)
                 {
-                    array.set_Item((int) (i + left), localArray[i]);
-                    indexArray.set_Item((int) (i + left), numArray[i]);
+                    array.SetItem((int) (i + left), localArray[i]);
+                    indexArray.SetItem((int) (i + left), numArray[i]);
                 }
             }
             else
             {
                 for (int i = left; i < index; i++)
                 {
-                    array.set_Item(i, localArray[i]);
-                    indexArray.set_Item(i, numArray[i]);
+                    array.SetItem(i, localArray[i]);
+                    indexArray.SetItem(i, numArray[i]);
                 }
             }
         }
@@ -110,7 +110,6 @@ namespace DevExpress.XamarinForms.DataGrid.Internal
             IParallelService service = GlobalServices.Instance.GetService<IParallelService>();
             T[] buffer = new T[(to - from) + 1];
             int[] indexBuffer = new int[(to - from) + 1];
-            DateTime.get_Now();
             if ((((to - from) + 1) <= 0x400) || (service == null))
             {
                 SequentialSort<T>(list, from, to, comparer, buffer, indexArray, indexBuffer);

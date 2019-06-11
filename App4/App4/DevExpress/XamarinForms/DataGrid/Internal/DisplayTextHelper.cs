@@ -74,7 +74,7 @@ namespace DevExpress.XamarinForms.DataGrid.Internal
             {
                 groupSummaryDisplayFormat = GridStringId.GroupSummaryCountDisplayFormat;
             }
-            string str = GridLocalizer.GetString(((SummaryType) 0x23) + (summary.Type - ((SummaryType) 0)));
+            string str = GridLocalizer.GetString((GridStringId)Enum.ToObject(typeof(GridStringId), 35 + ((int)summary.Type) - 0));
             return string.Format(GridLocalizer.GetString(groupSummaryDisplayFormat), str, string.IsNullOrEmpty(caption) ? summary.FieldName : caption, this.GetDisplayText(columnDisplayFormat, value));
         }
         
@@ -89,7 +89,7 @@ namespace DevExpress.XamarinForms.DataGrid.Internal
             {
                 return this.GetDisplayText(actualDisplayFormat, value);
             }
-            GridStringId id = ((SummaryType) 0x17) + (SummaryType.Min * (summary.Type - ((SummaryType) 0)));
+            GridStringId id = (GridStringId)Enum.ToObject(typeof(GridStringId), (23 + ((int)SummaryType.Min * ((int)summary.Type - 0))));
             return string.Format(joinDisplayFormat, GridLocalizer.GetString(id), summary.FieldName, this.GetSummaryValueText(columnDisplayFormat, summary, value));
         }
         
@@ -106,7 +106,7 @@ namespace DevExpress.XamarinForms.DataGrid.Internal
             {
                 return this.GetDisplayText(summary.DisplayFormat, value);
             }
-            string str = GridLocalizer.GetString(((SummaryType) 0x23) + (summary.Type - ((SummaryType) 0)));
+            string str = GridLocalizer.GetString((GridStringId)Enum.ToObject(typeof(GridStringId), 35 + ((int)summary.Type) - 0));
             return string.Format(GridLocalizer.GetString(GridStringId.TotalSummaryDisplayFormat), str, summary.FieldName, this.GetDisplayText(columnDisplayFormat, value));
         }
         

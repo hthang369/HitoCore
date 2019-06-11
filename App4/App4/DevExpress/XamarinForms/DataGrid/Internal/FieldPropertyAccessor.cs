@@ -8,7 +8,7 @@ namespace DevExpress.XamarinForms.DataGrid.Internal
     {
         private readonly FieldInfo property;
         
-        public FieldPropertyAccessor(Type objectType, string propertyName, FieldInfo property) : base(objectType, property.get_Name())
+        public FieldPropertyAccessor(Type objectType, string propertyName, FieldInfo property) : base(objectType, property.Name)
         {
             this.property = property;
         }
@@ -21,13 +21,13 @@ namespace DevExpress.XamarinForms.DataGrid.Internal
         
         internal static void SetFieldValue(object obj, object value, FieldInfo field)
         {
-            if ((value == null) || IntrospectionExtensions.GetTypeInfo(field.get_FieldType()).IsAssignableFrom(IntrospectionExtensions.GetTypeInfo(value.GetType())))
+            if ((value == null) || IntrospectionExtensions.GetTypeInfo(field.FieldType).IsAssignableFrom(IntrospectionExtensions.GetTypeInfo(value.GetType())))
             {
                 field.SetValue(obj, value);
             }
             else
             {
-                object obj1 = Convert.ChangeType(value, field.get_FieldType());
+                object obj1 = Convert.ChangeType(value, field.FieldType);
                 value = obj1;
                 field.SetValue(obj, value);
             }
@@ -39,6 +39,6 @@ namespace DevExpress.XamarinForms.DataGrid.Internal
         }
         
         public override Type PropertyType =>
-            this.property.get_FieldType();
+            this.property.FieldType;
     }
 }

@@ -10,6 +10,6 @@ namespace DevExpress.XamarinForms.DataGrid
             base.GetComparerPropertyTypeCore();
         
         protected override TextAlignment GetDefaultHorizontalContentAlignment() => 
-            2;
+            TextAlignment.End;
     }
 }

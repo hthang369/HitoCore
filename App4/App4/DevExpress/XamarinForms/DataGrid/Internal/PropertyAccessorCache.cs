@@ -12,15 +12,15 @@ namespace DevExpress.XamarinForms.DataGrid.Internal
         {
             Dictionary<string, PropertyAccessor> dictionary;
             PropertyAccessor accessor;
-            if (!this.cache.TryGetValue(objectType, ref dictionary))
+            if (!this.cache.TryGetValue(objectType, out dictionary))
             {
                 dictionary = new Dictionary<string, PropertyAccessor>();
-                this.cache.set_Item(objectType, dictionary);
+                this.cache.SetItem(objectType, dictionary);
             }
-            if (!dictionary.TryGetValue(propertyName, ref accessor))
+            if (!dictionary.TryGetValue(propertyName, out accessor))
             {
                 accessor = PropertyAccessor.Create(objectType, propertyName, null);
-                dictionary.set_Item(propertyName, accessor);
+                dictionary.SetItem(propertyName, accessor);
             }
             return accessor;
         }

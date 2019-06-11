@@ -35,8 +35,8 @@ namespace DevExpress.XamarinForms.DataGrid.Internal
         
         private void AppendColumns(Type type, List<GridColumn> result)
         {
-            this.AppendColumns(IntrospectionExtensions.GetTypeInfo(type).get_DeclaredProperties(), result);
-            this.AppendColumns(IntrospectionExtensions.GetTypeInfo(type).get_DeclaredFields(), result);
+            this.AppendColumns(IntrospectionExtensions.GetTypeInfo(type).DeclaredProperties, result);
+            this.AppendColumns(IntrospectionExtensions.GetTypeInfo(type).DeclaredFields, result);
         }
         
         public IList<GridColumn> GenerateColumns(Type type)
@@ -48,25 +48,25 @@ namespace DevExpress.XamarinForms.DataGrid.Internal
         
         private GridColumn TryCreateColumn(FieldInfo field)
         {
-            if (field.get_IsStatic() || !field.get_IsPublic())
+            if (field.IsStatic || !field.IsPublic)
             {
                 return null;
             }
-            return TryCreateColumnByValueType(field.get_FieldType(), field.get_Name());
+            return TryCreateColumnByValueType(field.FieldType, field.Name);
         }
         
         private GridColumn TryCreateColumn(PropertyInfo property)
         {
-            if (!property.get_CanRead())
+            if (!property.CanRead)
             {
                 return null;
             }
-            MethodInfo info = property.get_GetMethod();
-            if (((info == null) || info.get_IsStatic()) || !info.get_IsPublic())
+            MethodInfo info = property.GetMethod;
+            if (((info == null) || info.IsStatic) || !info.IsPublic)
             {
                 return null;
             }
-            return TryCreateColumnByValueType(property.get_PropertyType(), property.get_Name());
+            return TryCreateColumnByValueType(property.PropertyType, property.Name);
         }
         
         public static GridColumn TryCreateColumnByValueType(Type type, string fieldName)
@@ -80,9 +80,9 @@ namespace DevExpress.XamarinForms.DataGrid.Internal
             }
             return column;
         }
-        
-        private static GridColumn TryCreateColumnByValueTypeCore(Type type) => 
-            (!IntrospectionExtensions.GetTypeInfo(type).get_IsEnum() ? (!GridColumn.NumbersComparer.IsNumberType(type) ? ((type != typeof(DateTime)) ? ((type != typeof(bool)) ? ((type != typeof(string)) ? ((type != typeof(ImageSource)) ? null : new ImageColumn()) : new TextColumn()) : new SwitchColumn()) : new DateColumn()) : new NumberColumn()) : new PickerColumn());
+
+        private static GridColumn TryCreateColumnByValueTypeCore(Type type) =>
+            (!IntrospectionExtensions.GetTypeInfo(type).IsEnum ? (!GridColumn.NumbersComparer.IsNumberType(type) ? ((type != typeof(DateTime)) ? ((type != typeof(bool)) ? ((type != typeof(string)) ? ((type != typeof(ImageSource)) ? null : new ImageColumn()) : (GridColumn)new TextColumn()) : (GridColumn)new SwitchColumn()) : (GridColumn)new DateColumn()) : (GridColumn)new NumberColumn()) : new PickerColumn());
         
         private static string TryCreateDisplayFormat(Type type)
         {

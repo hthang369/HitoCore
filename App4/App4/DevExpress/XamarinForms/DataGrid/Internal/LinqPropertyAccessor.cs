@@ -29,11 +29,11 @@ namespace DevExpress.XamarinForms.DataGrid.Internal
             this.getter = Expression.Lambda<Func<object, object>>((Expression) expression4, expressionArray3).Compile();
             if (property != null)
             {
-                this.propertyType = property.get_PropertyType();
+                this.propertyType = property.PropertyType;
             }
             else if (field != null)
             {
-                this.propertyType = field.get_FieldType();
+                this.propertyType = field.FieldType;
             }
         }
         
@@ -64,10 +64,10 @@ namespace DevExpress.XamarinForms.DataGrid.Internal
         {
             object obj2;
             Type type = typeof(T);
-            if (!this.genericGetters.TryGetValue(type, ref obj2))
+            if (!this.genericGetters.TryGetValue(type, out obj2))
             {
                 obj2 = this.CreateGenericGetter<T>();
-                this.genericGetters.set_Item(type, obj2);
+                this.genericGetters.SetItem(type, obj2);
             }
             return (Func<object, T>) obj2;
         }

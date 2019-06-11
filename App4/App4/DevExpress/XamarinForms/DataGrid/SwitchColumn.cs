@@ -7,7 +7,7 @@ namespace DevExpress.XamarinForms.DataGrid
     public class SwitchColumn : GridColumn
     {
         protected override TextAlignment GetDefaultHorizontalContentAlignment() => 
-            1;
+            TextAlignment.Center;
         
         protected override AutoFilterCondition DefaultAutoFilterCondition =>
             AutoFilterCondition.Equals;

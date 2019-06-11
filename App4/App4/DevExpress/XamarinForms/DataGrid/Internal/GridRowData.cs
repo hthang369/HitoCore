@@ -50,7 +50,7 @@ namespace DevExpress.XamarinForms.DataGrid.Internal
             get => 
                 this.InnerRowData.RowHandle;
             set => 
-                (this.InnerRowData.RowHandle = value);
+                this.InnerRowData.RowHandle = value;
         }
         
         public object DataObject =>

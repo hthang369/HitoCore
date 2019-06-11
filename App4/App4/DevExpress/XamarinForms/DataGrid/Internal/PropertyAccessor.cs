@@ -41,13 +41,13 @@ namespace DevExpress.XamarinForms.DataGrid.Internal
                 return null;
             }
             PropertyAccessor accessor = !isRunningiOS ? ((PropertyAccessor) new LinqPropertyAccessor(objectType, propertyName, null, field)) : ((PropertyAccessor) new FieldPropertyAccessor(objectType, propertyName, field));
-            accessor.IsReadOnly = field.get_IsInitOnly();
+            accessor.IsReadOnly = field.IsInitOnly;
             return accessor;
         }
         
         private static PropertyAccessor CreateFromProperty(Type objectType, string propertyName, PropertyInfo property, IPropertyTypeProvider typeProvider)
         {
-            if ((objectType != null) && (objectType.get_FullName() == "System.Data.DataRow"))
+            if ((objectType != null) && (objectType.FullName == "System.Data.DataRow"))
             {
                 return new DataRowPropertyAccessor(objectType, propertyName, typeProvider);
             }
@@ -56,8 +56,8 @@ namespace DevExpress.XamarinForms.DataGrid.Internal
                 return null;
             }
             PropertyAccessor accessor = !isRunningiOS ? ((PropertyAccessor) new LinqPropertyAccessor(objectType, propertyName, property, null)) : ((PropertyAccessor) new ReflectionPropertyAccessor(objectType, propertyName, property));
-            accessor.IsReadOnly = !property.get_CanWrite();
-            if (!accessor.IsReadOnly && !property.get_SetMethod().get_IsPublic())
+            accessor.IsReadOnly = !property.CanWrite;
+            if (!accessor.IsReadOnly && !property.SetMethod.IsPublic)
             {
                 accessor.IsReadOnly = true;
             }

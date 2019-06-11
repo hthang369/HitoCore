@@ -75,7 +75,7 @@ namespace DevExpress.XamarinForms.DataGrid.Internal
                 }
                 else
                 {
-                    int num = base.IndexMap.get_Item(base.SelectedRow);
+                    int num = base.IndexMap.GetItem(base.SelectedRow);
                     this.ResetIndexMap();
                     base.SelectedRow = num;
                 }

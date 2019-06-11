@@ -21,13 +21,13 @@ namespace DevExpress.XamarinForms.DataGrid.Internal
         {
             for (int i = 0; i < (this.sortByIndexColumns.Count - 1); i++)
             {
-                if ((this.sortByIndexColumns[i].SortIndex != -1) && (this.sortByIndexColumns[i].SortIndex == this.sortByIndexColumns.get_Item((int) (i + 1)).SortIndex))
+                if ((this.sortByIndexColumns[i].SortIndex != -1) && (this.sortByIndexColumns[i].SortIndex == this.sortByIndexColumns.GetItem((int) (i + 1)).SortIndex))
                 {
                     List<GridColumn> list = new List<GridColumn>();
                     int num2 = i;
                     while (true)
                     {
-                        if ((i >= (this.sortByIndexColumns.Count - 1)) || (this.sortByIndexColumns[i].SortIndex != this.sortByIndexColumns.get_Item((int) (i + 1)).SortIndex))
+                        if ((i >= (this.sortByIndexColumns.Count - 1)) || (this.sortByIndexColumns[i].SortIndex != this.sortByIndexColumns.GetItem((int) (i + 1)).SortIndex))
                         {
                             list.Add(this.sortByIndexColumns[i]);
                             this.sortByIndexColumns.RemoveRange(num2, list.Count);
@@ -70,7 +70,7 @@ namespace DevExpress.XamarinForms.DataGrid.Internal
             int sortIndex = -1;
             if (this.sortByIndexColumns.Count > 0)
             {
-                sortIndex = this.sortByIndexColumns.get_Item((int) (this.sortByIndexColumns.Count - 1)).SortIndex;
+                sortIndex = this.sortByIndexColumns.GetItem((int) (this.sortByIndexColumns.Count - 1)).SortIndex;
                 if (sortIndex < -1)
                 {
                     sortIndex = -1;

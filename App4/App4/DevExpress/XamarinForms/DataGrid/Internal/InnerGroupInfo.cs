@@ -30,7 +30,7 @@ namespace DevExpress.XamarinForms.DataGrid.Internal
             get => 
                 this.groupValue;
             set => 
-                (this.groupValue = value);
+                this.groupValue = value;
         }
         
         public GridColumnSummaryCollection Summaries

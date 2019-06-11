@@ -47,7 +47,7 @@ namespace DevExpress.XamarinForms.DataGrid.Internal
             get => 
                 this.rowHandle;
             set => 
-                (this.rowHandle = value);
+                this.rowHandle = value;
         }
         
         public object DataObject
@@ -55,7 +55,7 @@ namespace DevExpress.XamarinForms.DataGrid.Internal
             get => 
                 this.obj;
             internal set => 
-                (this.obj = (T) value);
+                this.obj = (T) value;
         }
     }
 }

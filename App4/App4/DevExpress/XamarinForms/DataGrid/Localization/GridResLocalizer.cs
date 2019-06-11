@@ -13,6 +13,6 @@ namespace DevExpress.XamarinForms.DataGrid.Localization
         }
         
         protected override ResourceManager CreateResourceManagerCore() => 
-            new ResourceManager("DevExpress.XamarinForms.DataGrid.LocalizationRes", IntrospectionExtensions.GetTypeInfo((Type) typeof(GridResLocalizer)).get_Assembly());
+            new ResourceManager("DevExpress.XamarinForms.DataGrid.LocalizationRes", IntrospectionExtensions.GetTypeInfo((Type) typeof(GridResLocalizer)).Assembly);
     }
 }

@@ -27,21 +27,21 @@ namespace DevExpress.XamarinForms.DataGrid.Themes
                 ResourceDictionary dictionary = Activator.CreateInstance(Type.GetType("DevExpress.XamarinForms.DataGrid.Themes." + ThemeManager.ThemeName + "Theme")) as ResourceDictionary;
                 if (dictionary != null)
                 {
-                    Application application1 = Application.get_Current();
+                    Application application1 = Application.Current;
                     if (application1 == null)
                     {
                         Application local1 = application1;
                     }
                     else
                     {
-                        ResourceDictionary dictionary1 = application1.get_Resources();
+                        ResourceDictionary dictionary1 = application1.Resources;
                         if (dictionary1 == null)
                         {
                             ResourceDictionary local2 = dictionary1;
                         }
                         else
                         {
-                            ICollection<ResourceDictionary> collection1 = dictionary1.get_MergedDictionaries();
+                            ICollection<ResourceDictionary> collection1 = dictionary1.MergedDictionaries;
                             if (collection1 == null)
                             {
                                 ICollection<ResourceDictionary> local3 = collection1;

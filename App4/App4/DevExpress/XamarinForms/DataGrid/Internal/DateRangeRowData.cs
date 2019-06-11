@@ -34,9 +34,9 @@ namespace DevExpress.XamarinForms.DataGrid.Internal
             
             private string GetDayName(int day)
             {
-                int num = (int) CultureInfo.get_CurrentCulture().get_DateTimeFormat().get_FirstDayOfWeek();
+                int num = (int) CultureInfo.CurrentCulture.DateTimeFormat.FirstDayOfWeek;
                 day = (day + num) % 7;
-                return CultureInfo.get_CurrentCulture().get_DateTimeFormat().get_DayNames()[day];
+                return CultureInfo.CurrentCulture.DateTimeFormat.DayNames[day];
             }
             
             public string GetOutlookDisplayText(OutlookInterval interval)
@@ -71,9 +71,9 @@ namespace DevExpress.XamarinForms.DataGrid.Internal
             
             public void UpdateToday()
             {
-                if (DateTime.get_Today() != this.today)
+                if (DateTime.Today != this.today)
                 {
-                    this.today = DateTime.get_Today();
+                    this.today = DateTime.Today;
                     this.SortStartTime = this.today;
                 }
             }
@@ -85,8 +85,8 @@ namespace DevExpress.XamarinForms.DataGrid.Internal
                 set
                 {
                     this.sortStartTime = value;
-                    this.sortStartWeek = GetWeekStart(value, CultureInfo.get_CurrentCulture().get_DateTimeFormat());
-                    this.sortZeroTime = new DateTime(value.Year, value.Month, value.get_Day());
+                    this.sortStartWeek = GetWeekStart(value, CultureInfo.CurrentCulture.DateTimeFormat);
+                    this.sortZeroTime = new DateTime(value.Year, value.Month, value.Day);
                 }
             }
             

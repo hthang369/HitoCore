@@ -35,7 +35,7 @@ namespace DevExpress.XamarinForms.DataGrid.Internal
             get => 
                 this.RowData.RowHandle;
             set => 
-                (this.RowData.RowHandle = value);
+                this.RowData.RowHandle = value;
         }
         
         public object DataObject =>

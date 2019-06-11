@@ -23,13 +23,13 @@ namespace DevExpress.XamarinForms.DataGrid.Internal
         {
             try
             {
-                if ((value == null) || IntrospectionExtensions.GetTypeInfo(property.get_PropertyType()).IsAssignableFrom(IntrospectionExtensions.GetTypeInfo(value.GetType())))
+                if ((value == null) || IntrospectionExtensions.GetTypeInfo(property.PropertyType).IsAssignableFrom(IntrospectionExtensions.GetTypeInfo(value.GetType())))
                 {
                     property.SetValue(obj, value);
                 }
                 else
                 {
-                    object obj1 = Convert.ChangeType(value, property.get_PropertyType());
+                    object obj1 = Convert.ChangeType(value, property.PropertyType);
                     value = obj1;
                     property.SetValue(obj, value);
                 }
@@ -45,6 +45,6 @@ namespace DevExpress.XamarinForms.DataGrid.Internal
         }
         
         public override Type PropertyType =>
-            this.property.get_PropertyType();
+            this.property.PropertyType;
     }
 }

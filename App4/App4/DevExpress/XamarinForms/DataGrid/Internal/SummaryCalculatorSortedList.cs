@@ -51,7 +51,7 @@ namespace DevExpress.XamarinForms.DataGrid.Internal
             }
             
             public int Compare(int x, int y) => 
-                Comparer.Default.Compare(this.values.get_Item(x), this.values.get_Item(y));
+                Comparer.Default.Compare(this.values.GetItem(x), this.values.GetItem(y));
         }
     }
 }

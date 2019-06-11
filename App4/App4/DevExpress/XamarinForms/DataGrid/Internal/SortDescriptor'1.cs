@@ -137,7 +137,7 @@ namespace DevExpress.XamarinForms.DataGrid.Internal
             get => 
                 this.sortMode;
             set => 
-                (this.sortMode = value);
+                this.sortMode = value;
         }
         
         public IFieldValueVisitor FieldValueVisitor { get; set; }

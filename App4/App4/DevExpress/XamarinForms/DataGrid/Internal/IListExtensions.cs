@@ -27,7 +27,7 @@ namespace DevExpress.XamarinForms.DataGrid.Internal
             while (num <= num2)
             {
                 int num3 = num + ((num2 - num) >> 1);
-                int num4 = comparer.Compare(item, list.get_Item(num3));
+                int num4 = comparer.Compare(item, list.GetItem(num3));
                 if (num4 == 0)
                 {
                     return num3;

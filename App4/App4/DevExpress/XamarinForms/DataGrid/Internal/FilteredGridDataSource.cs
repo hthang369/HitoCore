@@ -49,7 +49,7 @@ namespace DevExpress.XamarinForms.DataGrid.Internal
             {
                 IList<int> indexMap = base.IndexMap;
                 int num3 = i;
-                indexMap.set_Item(num3, indexMap.get_Item(num3) + increment);
+                indexMap.SetItem(num3, indexMap.GetItem(num3) + increment);
             }
         }
         
@@ -106,19 +106,19 @@ namespace DevExpress.XamarinForms.DataGrid.Internal
             }
             if (this.Predicate == null)
             {
-                int[] newItems = new int[] { base.IndexMap.get_Item(startingIndex) };
-                int[] oldItems = new int[] { base.IndexMap.get_Item(startingIndex) };
+                int[] newItems = new int[] { base.IndexMap.GetItem(startingIndex) };
+                int[] oldItems = new int[] { base.IndexMap.GetItem(startingIndex) };
                 CustomNotifyCollectionChangedEventArgs args2 = new CustomNotifyCollectionChangedEventArgs((NotifyCollectionChangedAction) NotifyCollectionChangedAction.Replace, newItems, oldItems, startingIndex) {
                     RowHandle = startingIndex
                 };
                 this.RaiseRowCollectionChanged(args2);
                 return args2.RowHandle;
             }
-            row = base.DataSource.GetRow(base.IndexMap.get_Item(startingIndex), null);
+            row = base.DataSource.GetRow(base.IndexMap.GetItem(startingIndex), null);
             if (this.Predicate(row))
             {
-                int[] newItems = new int[] { base.IndexMap.get_Item(startingIndex) };
-                int[] oldItems = new int[] { base.IndexMap.get_Item(startingIndex) };
+                int[] newItems = new int[] { base.IndexMap.GetItem(startingIndex) };
+                int[] oldItems = new int[] { base.IndexMap.GetItem(startingIndex) };
                 CustomNotifyCollectionChangedEventArgs args3 = new CustomNotifyCollectionChangedEventArgs((NotifyCollectionChangedAction) NotifyCollectionChangedAction.Replace, newItems, oldItems, startingIndex) {
                     RowHandle = startingIndex
                 };
@@ -129,7 +129,7 @@ namespace DevExpress.XamarinForms.DataGrid.Internal
             {
                 base.SelectedRow = Math.Max(0, base.SelectedRow - 1);
             }
-            int num2 = base.IndexMap.get_Item(startingIndex);
+            int num2 = base.IndexMap.GetItem(startingIndex);
             base.IndexMap.RemoveAt(startingIndex);
             int[] changedItems = new int[] { (int) num2 };
             CustomNotifyCollectionChangedEventArgs args4 = new CustomNotifyCollectionChangedEventArgs((NotifyCollectionChangedAction) NotifyCollectionChangedAction.Remove, changedItems, startingIndex) {
@@ -200,9 +200,9 @@ namespace DevExpress.XamarinForms.DataGrid.Internal
             int num4 = e.OldItems.Count;
             for (int i = 0; (i < num4) && (from < base.IndexMap.Count); i++)
             {
-                if (base.IndexMap.get_Item(from) != (e.OldStartingIndex + i))
+                if (base.IndexMap.GetItem(from) != (e.OldStartingIndex + i))
                 {
-                    if ((e.OldStartingIndex + i) > base.IndexMap.get_Item(from))
+                    if ((e.OldStartingIndex + i) > base.IndexMap.GetItem(from))
                     {
                         from++;
                         i--;
