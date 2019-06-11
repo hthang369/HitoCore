@@ -114,132 +114,80 @@ namespace DevExpress.XamarinForms.DataGrid
         
         static DataGridView()
         {
-            ParameterExpression expression = Expression.Parameter(typeof(DataGridView), "o");
-            ParameterExpression[] expressionArray1 = new ParameterExpression[] { expression };
-            ItemsSourceProperty = BindingUtils.Instance.CreateBindableProperty<DataGridView, object>(Expression.Lambda<Func<DataGridView, object>>((Expression) Expression.Property((Expression) expression, typeof(DataGridView).GetProperty("ItemsSource")), expressionArray1), null, BindingMode.OneWay, null, OnItemsSourceChanged, null, null, null);
-            expression = Expression.Parameter(typeof(DataGridView), "o");
-            ParameterExpression[] expressionArray2 = new ParameterExpression[] { expression };
-            RowHeightProperty = BindingUtils.Instance.CreateBindableProperty<DataGridView, double>(Expression.Lambda<Func<DataGridView, double>>((Expression) Expression.Property((Expression) expression, typeof(DataGridView).GetProperty("RowHeight")), expressionArray2), -1.0, BindingMode.OneWay, null, OnRowHeightChanged, null, null, null);
-            expression = Expression.Parameter(typeof(DataGridView), "o");
-            ParameterExpression[] expressionArray3 = new ParameterExpression[] { expression };
-            SortModeProperty = BindingUtils.Instance.CreateBindableProperty<DataGridView, GridSortMode>(Expression.Lambda<Func<DataGridView, GridSortMode>>((Expression) Expression.Property((Expression) expression, typeof(DataGridView).GetProperty("SortMode")), expressionArray3), GridSortMode.Single, BindingMode.OneWay, null, OnSortModeChanged, null, null, null);
-            expression = Expression.Parameter(typeof(DataGridView), "o");
-            ParameterExpression[] expressionArray4 = new ParameterExpression[] { expression };
-            AllowCascadeUpdateProperty = BindingUtils.Instance.CreateBindableProperty<DataGridView, bool>(Expression.Lambda<Func<DataGridView, bool>>((Expression) Expression.Property((Expression) expression, typeof(DataGridView).GetProperty("AllowCascadeUpdate")), expressionArray4), true, BindingMode.OneWay, null, null, null, null, null);
-            expression = Expression.Parameter(typeof(DataGridView), "o");
-            ParameterExpression[] expressionArray5 = new ParameterExpression[] { expression };
-            AllowCascadeTreeCreationProperty = BindingUtils.Instance.CreateBindableProperty<DataGridView, bool>(Expression.Lambda<Func<DataGridView, bool>>((Expression) Expression.Property((Expression) expression, typeof(DataGridView).GetProperty("AllowCascadeTreeCreation")), expressionArray5), false, BindingMode.OneWay, null, null, null, null, null);
-            expression = Expression.Parameter(typeof(DataGridView), "o");
-            ParameterExpression[] expressionArray6 = new ParameterExpression[] { expression };
-            AutoGenerateColumnsModeProperty = BindingUtils.Instance.CreateBindableProperty<DataGridView, DevExpress.XamarinForms.DataGrid.AutoGenerateColumnsMode>(Expression.Lambda<Func<DataGridView, DevExpress.XamarinForms.DataGrid.AutoGenerateColumnsMode>>((Expression) Expression.Property((Expression) expression, typeof(DataGridView).GetProperty("AutoGenerateColumnsMode")), expressionArray6), DevExpress.XamarinForms.DataGrid.AutoGenerateColumnsMode.Auto, BindingMode.OneWay, null, null, null, null, null);
-            expression = Expression.Parameter(typeof(DataGridView), "o");
-            ParameterExpression[] expressionArray7 = new ParameterExpression[] { expression };
-            IsReadOnlyProperty = BindingUtils.Instance.CreateBindableProperty<DataGridView, bool>(Expression.Lambda<Func<DataGridView, bool>>((Expression) Expression.Property((Expression) expression, typeof(DataGridView).GetProperty("IsReadOnly")), expressionArray7), false, BindingMode.OneWay, null, OnReadOnlyChanged, null, null, null);
-            expression = Expression.Parameter(typeof(DataGridView), "o");
-            ParameterExpression[] expressionArray8 = new ParameterExpression[] { expression };
-            SelectedRowHandleProperty = BindingUtils.Instance.CreateBindableProperty<DataGridView, int>(Expression.Lambda<Func<DataGridView, int>>((Expression) Expression.Property((Expression) expression, typeof(DataGridView).GetProperty("SelectedRowHandle")), expressionArray8), 0, BindingMode.OneWay, null, OnSelectedRowHandleChanged, null, null, null);
-            expression = Expression.Parameter(typeof(DataGridView), "o");
-            ParameterExpression[] expressionArray9 = new ParameterExpression[] { expression };
-            SelectedDataObjectProperty = BindingUtils.Instance.CreateBindableProperty<DataGridView, object>(Expression.Lambda<Func<DataGridView, object>>((Expression) Expression.Property((Expression) expression, typeof(DataGridView).GetProperty("SelectedDataObject")), expressionArray9), null, BindingMode.OneWay, null, OnSelectedDataObjectChanged, null, null, null);
-            expression = Expression.Parameter(typeof(DataGridView), "o");
-            ParameterExpression[] expressionArray10 = new ParameterExpression[] { expression };
-            ColumnHeaderHeightProperty = BindingUtils.Instance.CreateBindableProperty<DataGridView, double>(Expression.Lambda<Func<DataGridView, double>>((Expression) Expression.Property((Expression) expression, typeof(DataGridView).GetProperty("ColumnHeaderHeight")), expressionArray10), -1.0, BindingMode.OneWay, null, OnColumnHeaderHeightChanged, null, null, null);
-            expression = Expression.Parameter(typeof(DataGridView), "o");
-            ParameterExpression[] expressionArray11 = new ParameterExpression[] { expression };
-            IsColumnHeaderVisibleProperty = BindingUtils.Instance.CreateBindableProperty<DataGridView, bool>(Expression.Lambda<Func<DataGridView, bool>>((Expression) Expression.Property((Expression) expression, typeof(DataGridView).GetProperty("IsColumnHeaderVisible")), expressionArray11), true, BindingMode.OneWay, null, OnIsColumnHeaderVisibleChanged, null, null, null);
-            expression = Expression.Parameter(typeof(DataGridView), "o");
-            ParameterExpression[] expressionArray12 = new ParameterExpression[] { expression };
-            ShowGroupedColumnsProperty = BindingUtils.Instance.CreateBindableProperty<DataGridView, bool>(Expression.Lambda<Func<DataGridView, bool>>((Expression) Expression.Property((Expression) expression, typeof(DataGridView).GetProperty("ShowGroupedColumns")), expressionArray12), false, BindingMode.OneWay, null, OnShowGroupedColumnsChanged, null, null, null);
-            expression = Expression.Parameter(typeof(DataGridView), "o");
-            ParameterExpression[] expressionArray13 = new ParameterExpression[] { expression };
-            IsPullToRefreshEnabledProperty = BindingUtils.Instance.CreateBindableProperty<DataGridView, bool>(Expression.Lambda<Func<DataGridView, bool>>((Expression) Expression.Property((Expression) expression, typeof(DataGridView).GetProperty("IsPullToRefreshEnabled")), expressionArray13), false, BindingMode.OneWay, null, OnIsPullToRefreshEnabledChanged, null, null, null);
-            expression = Expression.Parameter(typeof(DataGridView), "o");
-            ParameterExpression[] expressionArray14 = new ParameterExpression[] { expression };
-            PullToRefreshCommandProperty = BindingUtils.Instance.CreateBindableProperty<DataGridView, ICommand>(Expression.Lambda<Func<DataGridView, ICommand>>((Expression) Expression.Property((Expression) expression, typeof(DataGridView).GetProperty("PullToRefreshCommand")), expressionArray14), null, BindingMode.OneWay, null, OnPullToRefreshCommandChanged, null, null, null);
-            expression = Expression.Parameter(typeof(DataGridView), "o");
-            ParameterExpression[] expressionArray15 = new ParameterExpression[] { expression };
-            LoadMoreCommandProperty = BindingUtils.Instance.CreateBindableProperty<DataGridView, ICommand>(Expression.Lambda<Func<DataGridView, ICommand>>((Expression) Expression.Property((Expression) expression, typeof(DataGridView).GetProperty("LoadMoreCommand")), expressionArray15), null, BindingMode.OneWay, null, OnLoadMoreCommandChanged, null, null, null);
-            expression = Expression.Parameter(typeof(DataGridView), "o");
-            ParameterExpression[] expressionArray16 = new ParameterExpression[] { expression };
-            IsLoadMoreEnabledProperty = BindingUtils.Instance.CreateBindableProperty<DataGridView, bool>(Expression.Lambda<Func<DataGridView, bool>>((Expression) Expression.Property((Expression) expression, typeof(DataGridView).GetProperty("IsLoadMoreEnabled")), expressionArray16), false, BindingMode.OneWay, null, OnIsLoadMoreEnabledChanged, null, null, null);
-            expression = Expression.Parameter(typeof(DataGridView), "o");
-            ParameterExpression[] expressionArray17 = new ParameterExpression[] { expression };
-            IsRefreshingProperty = BindingUtils.Instance.CreateBindableProperty<DataGridView, bool>(Expression.Lambda<Func<DataGridView, bool>>((Expression) Expression.Property((Expression) expression, typeof(DataGridView).GetProperty("IsRefreshing")), expressionArray17), false, BindingMode.OneWay, null, OnIsRefreshingChanged, null, null, null);
-            expression = Expression.Parameter(typeof(DataGridView), "o");
-            ParameterExpression[] expressionArray18 = new ParameterExpression[] { expression };
-            IsUpdateLockedProperty = BindingUtils.Instance.CreateBindableProperty<DataGridView, bool>(Expression.Lambda<Func<DataGridView, bool>>((Expression) Expression.Property((Expression) expression, typeof(DataGridView).GetProperty("IsUpdateLocked")), expressionArray18), false, BindingMode.OneWay, null, OnIsUpdateLockedChanged, null, null, null);
-            expression = Expression.Parameter(typeof(DataGridView), "o");
-            ParameterExpression[] expressionArray19 = new ParameterExpression[] { expression };
-            AllowSortProperty = BindingUtils.Instance.CreateBindableProperty<DataGridView, bool>(Expression.Lambda<Func<DataGridView, bool>>((Expression) Expression.Property((Expression) expression, typeof(DataGridView).GetProperty("AllowSort")), expressionArray19), true, BindingMode.OneWay, null, null, null, null, null);
-            expression = Expression.Parameter(typeof(DataGridView), "o");
-            ParameterExpression[] expressionArray20 = new ParameterExpression[] { expression };
-            AllowGroupCollapseProperty = BindingUtils.Instance.CreateBindableProperty<DataGridView, bool>(Expression.Lambda<Func<DataGridView, bool>>((Expression) Expression.Property((Expression) expression, typeof(DataGridView).GetProperty("AllowGroupCollapse")), expressionArray20), true, BindingMode.OneWay, null, null, null, null, null);
-            expression = Expression.Parameter(typeof(DataGridView), "o");
-            ParameterExpression[] expressionArray21 = new ParameterExpression[] { expression };
-            RowTapCommandProperty = BindingUtils.Instance.CreateBindableProperty<DataGridView, ICommand>(Expression.Lambda<Func<DataGridView, ICommand>>((Expression) Expression.Property((Expression) expression, typeof(DataGridView).GetProperty("RowTapCommand")), expressionArray21), null, BindingMode.OneWay, null, null, null, null, null);
-            expression = Expression.Parameter(typeof(DataGridView), "o");
-            ParameterExpression[] expressionArray22 = new ParameterExpression[] { expression };
-            SelectionModeProperty = BindingUtils.Instance.CreateBindableProperty<DataGridView, DevExpress.XamarinForms.DataGrid.SelectionMode>(Expression.Lambda<Func<DataGridView, DevExpress.XamarinForms.DataGrid.SelectionMode>>((Expression) Expression.Property((Expression) expression, typeof(DataGridView).GetProperty("SelectionMode")), expressionArray22), DevExpress.XamarinForms.DataGrid.SelectionMode.Single, BindingMode.OneWay, null, OnSelectionModeChanged, null, null, null);
-            expression = Expression.Parameter(typeof(DataGridView), "o");
-            ParameterExpression[] expressionArray23 = new ParameterExpression[] { expression };
-            EditorShowModeProperty = BindingUtils.Instance.CreateBindableProperty<DataGridView, DevExpress.XamarinForms.DataGrid.EditorShowMode>(Expression.Lambda<Func<DataGridView, DevExpress.XamarinForms.DataGrid.EditorShowMode>>((Expression) Expression.Property((Expression) expression, typeof(DataGridView).GetProperty("EditorShowMode")), expressionArray23), DevExpress.XamarinForms.DataGrid.EditorShowMode.Never, BindingMode.OneWay, null, null, null, null, null);
-            expression = Expression.Parameter(typeof(DataGridView), "o");
-            ParameterExpression[] expressionArray24 = new ParameterExpression[] { expression };
-            AllowDeleteRowsProperty = BindingUtils.Instance.CreateBindableProperty<DataGridView, bool>(Expression.Lambda<Func<DataGridView, bool>>((Expression) Expression.Property((Expression) expression, typeof(DataGridView).GetProperty("AllowDeleteRows")), expressionArray24), true, BindingMode.OneWay, null, null, null, null, null);
-            expression = Expression.Parameter(typeof(DataGridView), "o");
-            ParameterExpression[] expressionArray25 = new ParameterExpression[] { expression };
-            AllowResizeColumnsProperty = BindingUtils.Instance.CreateBindableProperty<DataGridView, bool>(Expression.Lambda<Func<DataGridView, bool>>((Expression) Expression.Property((Expression) expression, typeof(DataGridView).GetProperty("AllowResizeColumns")), expressionArray25), true, BindingMode.OneWay, null, null, null, null, null);
-            expression = Expression.Parameter(typeof(DataGridView), "o");
-            ParameterExpression[] expressionArray26 = new ParameterExpression[] { expression };
-            AllowGroupProperty = BindingUtils.Instance.CreateBindableProperty<DataGridView, bool>(Expression.Lambda<Func<DataGridView, bool>>((Expression) Expression.Property((Expression) expression, typeof(DataGridView).GetProperty("AllowGroup")), expressionArray26), true, BindingMode.OneWay, null, null, null, null, null);
-            expression = Expression.Parameter(typeof(DataGridView), "o");
-            ParameterExpression[] expressionArray27 = new ParameterExpression[] { expression };
-            FilterStringProperty = BindingUtils.Instance.CreateBindableProperty<DataGridView, string>(Expression.Lambda<Func<DataGridView, string>>((Expression) Expression.Property((Expression) expression, typeof(DataGridView).GetProperty("FilterString")), expressionArray27), string.Empty, BindingMode.OneWay, null, OnFilterStringChanged, null, null, null);
-            expression = Expression.Parameter(typeof(DataGridView), "o");
-            ParameterExpression[] expressionArray28 = new ParameterExpression[] { expression };
-            ActualFilterStringPropertyKey = BindingUtils.Instance.CreateBindablePropertyReadOnly<DataGridView, string>(Expression.Lambda<Func<DataGridView, string>>((Expression) Expression.Property((Expression) expression, typeof(DataGridView).GetProperty("ActualFilterString")), expressionArray28), string.Empty, BindingMode.OneWay, null, null, null);
+            
+            ItemsSourceProperty = GetBindableProperty<object>("ItemsSource", null, OnItemsSourceChanged);
+            RowHeightProperty = GetBindableProperty<double>("RowHeight", -1.0, OnRowHeightChanged);
+            SortModeProperty = GetBindableProperty<GridSortMode>("SortMode", GridSortMode.Single, OnSortModeChanged);
+            AllowCascadeUpdateProperty = GetBindableProperty<bool>("AllowCascadeUpdate", true, null);
+            AllowCascadeTreeCreationProperty = GetBindableProperty<bool>("AllowCascadeTreeCreation", false, null);
+            AutoGenerateColumnsModeProperty = GetBindableProperty<AutoGenerateColumnsMode>("AutoGenerateColumnsMode", AutoGenerateColumnsMode.Auto, null);
+            IsReadOnlyProperty = GetBindableProperty<bool>("IsReadOnly", false, OnReadOnlyChanged);
+            SelectedRowHandleProperty = GetBindableProperty<int>("SelectedRowHandle", 0, OnSelectedRowHandleChanged);
+            SelectedDataObjectProperty = GetBindableProperty<object>("SelectedDataObject", null, OnSelectedDataObjectChanged);
+            ColumnHeaderHeightProperty = GetBindableProperty<double>("ColumnHeaderHeight", -1.0, OnColumnHeaderHeightChanged);
+            IsColumnHeaderVisibleProperty = GetBindableProperty<bool>("IsColumnHeaderVisible", true, OnIsColumnHeaderVisibleChanged);
+            ShowGroupedColumnsProperty = GetBindableProperty<bool>("ShowGroupedColumns", false, OnShowGroupedColumnsChanged);
+            IsPullToRefreshEnabledProperty = GetBindableProperty<bool>("IsPullToRefreshEnabled", false, OnIsPullToRefreshEnabledChanged);
+            PullToRefreshCommandProperty = GetBindableProperty<ICommand>("PullToRefreshCommand", null, OnPullToRefreshCommandChanged);
+            LoadMoreCommandProperty = GetBindableProperty<ICommand>("LoadMoreCommand", null, OnLoadMoreCommandChanged);
+            IsLoadMoreEnabledProperty = GetBindableProperty<bool>("IsLoadMoreEnabled", false, OnIsLoadMoreEnabledChanged);
+            IsRefreshingProperty = GetBindableProperty<bool>("IsRefreshing", false, OnIsRefreshingChanged);
+            IsUpdateLockedProperty = GetBindableProperty<bool>("IsUpdateLocked", false, OnIsUpdateLockedChanged);
+            AllowSortProperty = GetBindableProperty<bool>("AllowSort", true, null);
+            AllowGroupCollapseProperty = GetBindableProperty<bool>("AllowGroupCollapse", true, null);
+            RowTapCommandProperty = GetBindableProperty<ICommand>("RowTapCommand", null, null);
+            SelectionModeProperty = GetBindableProperty<SelectionMode>("SelectionMode", SelectionMode.Single, OnSelectionModeChanged);
+            EditorShowModeProperty = GetBindableProperty<EditorShowMode>("EditorShowMode", EditorShowMode.Never, null);
+            AllowDeleteRowsProperty = GetBindableProperty<bool>("AllowDeleteRows", true, null);
+            AllowResizeColumnsProperty = GetBindableProperty<bool>("AllowResizeColumns", true, null);
+            AllowGroupProperty = GetBindableProperty<bool>("AllowGroup", true, null);
+            FilterStringProperty = GetBindableProperty<string>("FilterString", string.Empty, OnFilterStringChanged);
+            ActualFilterStringPropertyKey = GetBindablePropertyKey<string>("ActualFilterString", string.Empty, null);
             ActualFilterStringProperty = ActualFilterStringPropertyKey.BindableProperty;
-            expression = Expression.Parameter(typeof(DataGridView), "o");
-            ParameterExpression[] expressionArray29 = new ParameterExpression[] { expression };
-            IsAutoFilterPanelVisibleProperty = BindingUtils.Instance.CreateBindableProperty<DataGridView, bool>(Expression.Lambda<Func<DataGridView, bool>>((Expression) Expression.Property((Expression) expression, typeof(DataGridView).GetProperty("IsAutoFilterPanelVisible")), expressionArray29), false, BindingMode.OneWay, null, OnIsAutoFilterPanelVisibleChanged, null, null, null);
-            expression = Expression.Parameter(typeof(DataGridView), "o");
-            ParameterExpression[] expressionArray30 = new ParameterExpression[] { expression };
-            HeaderStyleProperty = BindingUtils.Instance.CreateBindableProperty<DataGridView, DevExpress.XamarinForms.DataGrid.HeaderStyle>(Expression.Lambda<Func<DataGridView, DevExpress.XamarinForms.DataGrid.HeaderStyle>>((Expression) Expression.Property((Expression) expression, typeof(DataGridView).GetProperty("HeaderStyle")), expressionArray30), null, BindingMode.OneWay, null, OnCustomStyleObjectChanged, null, null, null);
-            expression = Expression.Parameter(typeof(DataGridView), "o");
-            ParameterExpression[] expressionArray31 = new ParameterExpression[] { expression };
-            CellStyleProperty = BindingUtils.Instance.CreateBindableProperty<DataGridView, DevExpress.XamarinForms.DataGrid.CellStyle>(Expression.Lambda<Func<DataGridView, DevExpress.XamarinForms.DataGrid.CellStyle>>((Expression) Expression.Property((Expression) expression, typeof(DataGridView).GetProperty("CellStyle")), expressionArray31), null, BindingMode.OneWay, null, OnCustomStyleObjectChanged, null, null, null);
-            expression = Expression.Parameter(typeof(DataGridView), "o");
-            ParameterExpression[] expressionArray32 = new ParameterExpression[] { expression };
-            TotalSummaryStyleProperty = BindingUtils.Instance.CreateBindableProperty<DataGridView, DevExpress.XamarinForms.DataGrid.TotalSummaryStyle>(Expression.Lambda<Func<DataGridView, DevExpress.XamarinForms.DataGrid.TotalSummaryStyle>>((Expression) Expression.Property((Expression) expression, typeof(DataGridView).GetProperty("TotalSummaryStyle")), expressionArray32), null, BindingMode.OneWay, null, OnCustomStyleObjectChanged, null, null, null);
-            expression = Expression.Parameter(typeof(DataGridView), "o");
-            ParameterExpression[] expressionArray33 = new ParameterExpression[] { expression };
-            GroupRowStyleProperty = BindingUtils.Instance.CreateBindableProperty<DataGridView, DevExpress.XamarinForms.DataGrid.GroupRowStyle>(Expression.Lambda<Func<DataGridView, DevExpress.XamarinForms.DataGrid.GroupRowStyle>>((Expression) Expression.Property((Expression) expression, typeof(DataGridView).GetProperty("GroupRowStyle")), expressionArray33), null, BindingMode.OneWay, null, OnCustomStyleObjectChanged, null, null, null);
-            expression = Expression.Parameter(typeof(DataGridView), "o");
-            ParameterExpression[] expressionArray34 = new ParameterExpression[] { expression };
-            SwipeButtonStyleProperty = BindingUtils.Instance.CreateBindableProperty<DataGridView, DevExpress.XamarinForms.DataGrid.SwipeButtonStyle>(Expression.Lambda<Func<DataGridView, DevExpress.XamarinForms.DataGrid.SwipeButtonStyle>>((Expression) Expression.Property((Expression) expression, typeof(DataGridView).GetProperty("SwipeButtonStyle")), expressionArray34), null, BindingMode.OneWay, null, OnCustomStyleObjectChanged, null, null, null);
-            expression = Expression.Parameter(typeof(DataGridView), "o");
-            ParameterExpression[] expressionArray35 = new ParameterExpression[] { expression };
-            FixedColumnSeparatorWidthProperty = BindingUtils.Instance.CreateBindableProperty<DataGridView, double>(Expression.Lambda<Func<DataGridView, double>>((Expression) Expression.Property((Expression) expression, typeof(DataGridView).GetProperty("FixedColumnSeparatorWidth")), expressionArray35), -1.0, BindingMode.OneWay, null, OnGridStylePropertyChanged, null, null, null);
-            expression = Expression.Parameter(typeof(DataGridView), "o");
-            ParameterExpression[] expressionArray36 = new ParameterExpression[] { expression };
-            BorderThicknessProperty = BindingUtils.Instance.CreateBindableProperty<DataGridView, Thickness>(Expression.Lambda<Func<DataGridView, Thickness>>((Expression) Expression.Property((Expression) expression, typeof(DataGridView).GetProperty("BorderThickness")), expressionArray36), new Thickness(0.0), BindingMode.OneWay, null, OnGridStylePropertyChanged, null, null, null);
-            expression = Expression.Parameter(typeof(DataGridView), "o");
-            ParameterExpression[] expressionArray37 = new ParameterExpression[] { expression };
-            BorderColorProperty = BindingUtils.Instance.CreateBindableProperty<DataGridView, Color>(Expression.Lambda<Func<DataGridView, Color>>((Expression) Expression.Property((Expression) expression, typeof(DataGridView).GetProperty("BorderColor")), expressionArray37), Color.Default, BindingMode.OneWay, null, OnGridStylePropertyChanged, null, null, null);
-            expression = Expression.Parameter(typeof(DataGridView), "o");
-            ParameterExpression[] expressionArray38 = new ParameterExpression[] { expression };
-            VerticalLineThicknessProperty = BindingUtils.Instance.CreateBindableProperty<DataGridView, double>(Expression.Lambda<Func<DataGridView, double>>((Expression) Expression.Property((Expression) expression, typeof(DataGridView).GetProperty("VerticalLineThickness")), expressionArray38), -1.0, BindingMode.OneWay, null, OnGridStylePropertyChanged, null, null, null);
-            expression = Expression.Parameter(typeof(DataGridView), "o");
-            ParameterExpression[] expressionArray39 = new ParameterExpression[] { expression };
-            IndicatorColorProperty = BindingUtils.Instance.CreateBindableProperty<DataGridView, Color>(Expression.Lambda<Func<DataGridView, Color>>((Expression) Expression.Property((Expression) expression, typeof(DataGridView).GetProperty("IndicatorColor")), expressionArray39), Color.Default, BindingMode.OneWay, null, OnGridStylePropertyChanged, null, null, null);
-            expression = Expression.Parameter(typeof(DataGridView), "o");
-            ParameterExpression[] expressionArray40 = new ParameterExpression[] { expression };
-            TotalSummaryHeightProperty = BindingUtils.Instance.CreateBindableProperty<DataGridView, double>(Expression.Lambda<Func<DataGridView, double>>((Expression) Expression.Property((Expression) expression, typeof(DataGridView).GetProperty("TotalSummaryHeight")), expressionArray40), -1.0, BindingMode.OneWay, null, OnTotalSummaryHeightChanged, null, null, null);
-            expression = Expression.Parameter(typeof(DataGridView), "o");
-            ParameterExpression[] expressionArray41 = new ParameterExpression[] { expression };
-            TotalSummaryVisibilityProperty = BindingUtils.Instance.CreateBindableProperty<DataGridView, VisibilityState>(Expression.Lambda<Func<DataGridView, VisibilityState>>((Expression) Expression.Property((Expression) expression, typeof(DataGridView).GetProperty("TotalSummaryVisibility")), expressionArray41), VisibilityState.Default, BindingMode.OneWay, null, OnTotalSummaryVisibilityChanged, null, null, null);
+            IsAutoFilterPanelVisibleProperty = GetBindableProperty<bool>("IsAutoFilterPanelVisible", false, OnIsAutoFilterPanelVisibleChanged);
+            HeaderStyleProperty = GetBindableProperty<HeaderStyle>("HeaderStyle", null, OnCustomStyleObjectChanged);
+            CellStyleProperty = GetBindableProperty<CellStyle>("CellStyle", null, OnCustomStyleObjectChanged);
+            TotalSummaryStyleProperty = GetBindableProperty<TotalSummaryStyle>("TotalSummaryStyle", null, OnCustomStyleObjectChanged);
+            GroupRowStyleProperty = GetBindableProperty<GroupRowStyle>("GroupRowStyle", null, OnCustomStyleObjectChanged);
+            SwipeButtonStyleProperty = GetBindableProperty<SwipeButtonStyle>("SwipeButtonStyle", null, OnCustomStyleObjectChanged);
+            FixedColumnSeparatorWidthProperty = GetBindableProperty<double>("FixedColumnSeparatorWidth", -1.0, OnGridStylePropertyChanged);
+            BorderThicknessProperty = GetBindableProperty<Thickness>("BorderThickness", new Thickness(0.0), OnGridStylePropertyChanged);
+            BorderColorProperty = GetBindableProperty<Color>("BorderColor", Color.Default, OnGridStylePropertyChanged);
+            VerticalLineThicknessProperty = GetBindableProperty<double>("VerticalLineThickness", -1.0, OnGridStylePropertyChanged);
+            IndicatorColorProperty = GetBindableProperty<Color>("IndicatorColor", Color.Default, OnGridStylePropertyChanged);
+            TotalSummaryHeightProperty = GetBindableProperty<double>("TotalSummaryHeight", -1.0, OnTotalSummaryHeightChanged);
+            TotalSummaryVisibilityProperty = GetBindableProperty<VisibilityState>("TotalSummaryVisibility", VisibilityState.Default, OnTotalSummaryVisibilityChanged);
         }
-        
+
+        private static BindableProperty GetBindableProperty<TObject>(string propertyName, TObject defaultVal, BindableProperty.BindingPropertyChangedDelegate propertyDelegate)
+        {
+            try
+            {
+                ParameterExpression expression = Expression.Parameter(typeof(DataGridView), "o");
+                ParameterExpression[] expressionArray1 = new ParameterExpression[] { expression };
+                return BindingUtils.Instance.CreateBindableProperty<DataGridView, TObject>(Expression.Lambda<Func<DataGridView, TObject>>((Expression)Expression.Property((Expression)expression, typeof(DataGridView).GetProperty(propertyName)), expressionArray1), defaultVal, BindingMode.OneWay, null, propertyDelegate, null, null, null);
+            }
+            catch(Exception ex)
+            {
+
+            }
+            return null;
+        }
+        private static BindablePropertyKey GetBindablePropertyKey<TObject>(string propertyName, TObject defaultVal, BindableProperty.BindingPropertyChangedDelegate propertyDelegate)
+        {
+            try
+            {
+                ParameterExpression expression = Expression.Parameter(typeof(DataGridView), "o");
+                ParameterExpression[] expressionArray1 = new ParameterExpression[] { expression };
+                return BindingUtils.Instance.CreateBindablePropertyReadOnly<DataGridView, TObject>(Expression.Lambda<Func<DataGridView, TObject>>((Expression)Expression.Property((Expression)expression, typeof(DataGridView).GetProperty(propertyName)), expressionArray1), defaultVal, BindingMode.OneWay, null, propertyDelegate, null);
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return null;
+        }
+
         public DataGridView()
         {
             this.IsLoaded = false;
@@ -252,7 +200,7 @@ namespace DevExpress.XamarinForms.DataGrid
             this.dataController.GroupRowCollapsed += new RowEventHandler(this.OnDataControllerGroupRowCollapsed);
             this.dataController.GroupRowExpanding += new RowAllowEventHandler(this.OnDataControllerGroupRowExpanding);
             this.dataController.GroupRowExpanded += new RowEventHandler(this.OnDataControllerGroupRowExpanded);
-            this.SortingColumnManager = DevExpress.XamarinForms.DataGrid.Internal.SortingColumnManager.Create(this.Columns, this.dataController, this.SortMode, this.IsLoaded);
+            this.SortingColumnManager = Internal.SortingColumnManager.Create(this.Columns, this.dataController, this.SortMode, this.IsLoaded);
             this.InitFiltering();
             this.InitSummaries();
             this.InitStyles();

@@ -60,93 +60,56 @@ namespace DevExpress.XamarinForms.DataGrid
         
         static GridColumn()
         {
-            ParameterExpression expression = Expression.Parameter(typeof(GridColumn), "o");
-            ParameterExpression[] expressionArray1 = new ParameterExpression[] { expression };
-            FieldNameProperty = BindingUtils.Instance.CreateBindableProperty<GridColumn, string>(Expression.Lambda<Func<GridColumn, string>>((Expression) Expression.Property((Expression) expression, typeof(GridColumn).GetProperty("FieldName")), expressionArray1), string.Empty, BindingMode.OneWay, null, OnFieldNameChanged, null, null, null);
-            expression = Expression.Parameter(typeof(GridColumn), "o");
-            ParameterExpression[] expressionArray2 = new ParameterExpression[] { expression };
-            WidthProperty = BindingUtils.Instance.CreateBindableProperty<GridColumn, GridLength>(Expression.Lambda<Func<GridColumn, GridLength>>((Expression) Expression.Property((Expression) expression, typeof(GridColumn).GetProperty("Width")), expressionArray2), new GridLength(1.0, GridUnitType.Star), BindingMode.OneWay, null, null, null, null, null);
-            expression = Expression.Parameter(typeof(GridColumn), "o");
-            ParameterExpression[] expressionArray3 = new ParameterExpression[] { expression };
-            MinWidthProperty = BindingUtils.Instance.CreateBindableProperty<GridColumn, double>(Expression.Lambda<Func<GridColumn, double>>((Expression) Expression.Property((Expression) expression, typeof(GridColumn).GetProperty("MinWidth")), expressionArray3), 50.0, BindingMode.OneWay, null, null, null, null, null);
-            expression = Expression.Parameter(typeof(GridColumn), "o");
-            ParameterExpression[] expressionArray4 = new ParameterExpression[] { expression };
-            MaxWidthProperty = BindingUtils.Instance.CreateBindableProperty<GridColumn, double>(Expression.Lambda<Func<GridColumn, double>>((Expression) Expression.Property((Expression) expression, typeof(GridColumn).GetProperty("MaxWidth")), expressionArray4), double.MaxValue, BindingMode.OneWay, null, null, null, null, null);
-            expression = Expression.Parameter(typeof(GridColumn), "o");
-            ParameterExpression[] expressionArray5 = new ParameterExpression[] { expression };
-            SortOrderProperty = BindingUtils.Instance.CreateBindableProperty<GridColumn, ColumnSortOrder>(Expression.Lambda<Func<GridColumn, ColumnSortOrder>>((Expression) Expression.Property((Expression) expression, typeof(GridColumn).GetProperty("SortOrder")), expressionArray5), ColumnSortOrder.None, BindingMode.OneWay, null, OnSortOrderChanged, null, null, null);
-            expression = Expression.Parameter(typeof(GridColumn), "o");
-            ParameterExpression[] expressionArray6 = new ParameterExpression[] { expression };
+            FieldNameProperty = GetBindableProperty<string>("FieldName", string.Empty, OnFieldNameChanged);
+            WidthProperty = GetBindableProperty<GridLength>("Width", new GridLength(1.0, GridUnitType.Star), null);
+            MinWidthProperty = GetBindableProperty<double>("MinWidth", 50.0, null);
+            MaxWidthProperty = GetBindableProperty<double>("MaxWidth", double.MaxValue, null);
+            SortOrderProperty = GetBindableProperty<ColumnSortOrder>("SortOrder", ColumnSortOrder.None, OnSortOrderChanged);
             BindableProperty.CreateDefaultValueDelegate defaultValueCreator = GetDefaultSortMode;
-            SortModeProperty = BindingUtils.Instance.CreateBindableProperty<GridColumn, ColumnSortMode>(Expression.Lambda<Func<GridColumn, ColumnSortMode>>((Expression) Expression.Property((Expression) expression, typeof(GridColumn).GetProperty("SortMode")), expressionArray6), ColumnSortMode.Value, BindingMode.OneWay, null, OnSortModeChanged, null, null, defaultValueCreator);
-            expression = Expression.Parameter(typeof(GridColumn), "o");
-            ParameterExpression[] expressionArray7 = new ParameterExpression[] { expression };
+            SortModeProperty = GetBindableProperty<ColumnSortMode>("SortMode", ColumnSortMode.Value, OnSortModeChanged, defaultValueCreator);
             defaultValueCreator = GetDefaultDisplayText;
-            DisplayFormatProperty = BindingUtils.Instance.CreateBindableProperty<GridColumn, string>(Expression.Lambda<Func<GridColumn, string>>((Expression) Expression.Property((Expression) expression, typeof(GridColumn).GetProperty("DisplayFormat")), expressionArray7), null, BindingMode.OneWay, null, OnDisplayFormatChanged, null, null, defaultValueCreator);
-            expression = Expression.Parameter(typeof(GridColumn), "o");
-            ParameterExpression[] expressionArray8 = new ParameterExpression[] { expression };
-            UnboundTypeProperty = BindingUtils.Instance.CreateBindableProperty<GridColumn, UnboundColumnType>(Expression.Lambda<Func<GridColumn, UnboundColumnType>>((Expression) Expression.Property((Expression) expression, typeof(GridColumn).GetProperty("UnboundType")), expressionArray8), UnboundColumnType.Bound, BindingMode.OneWay, null, OnUnboundTypeChanged, null, null, null);
-            expression = Expression.Parameter(typeof(GridColumn), "o");
-            ParameterExpression[] expressionArray9 = new ParameterExpression[] { expression };
-            UnboundExpressionProperty = BindingUtils.Instance.CreateBindableProperty<GridColumn, string>(Expression.Lambda<Func<GridColumn, string>>((Expression) Expression.Property((Expression) expression, typeof(GridColumn).GetProperty("UnboundExpression")), expressionArray9), string.Empty, BindingMode.OneWay, null, OnUnboundExpressionChanged, null, null, null);
-            expression = Expression.Parameter(typeof(GridColumn), "o");
-            ParameterExpression[] expressionArray10 = new ParameterExpression[] { expression };
-            CaptionProperty = BindingUtils.Instance.CreateBindableProperty<GridColumn, string>(Expression.Lambda<Func<GridColumn, string>>((Expression) Expression.Property((Expression) expression, typeof(GridColumn).GetProperty("Caption")), expressionArray10), string.Empty, BindingMode.OneWay, null, OnCaptionChanged, null, null, null);
-            expression = Expression.Parameter(typeof(GridColumn), "o");
-            ParameterExpression[] expressionArray11 = new ParameterExpression[] { expression };
-            EditFormCaptionProperty = BindingUtils.Instance.CreateBindableProperty<GridColumn, string>(Expression.Lambda<Func<GridColumn, string>>((Expression) Expression.Property((Expression) expression, typeof(GridColumn).GetProperty("EditFormCaption")), expressionArray11), string.Empty, BindingMode.OneWay, null, null, null, null, null);
-            expression = Expression.Parameter(typeof(GridColumn), "o");
-            ParameterExpression[] expressionArray12 = new ParameterExpression[] { expression };
-            IsReadOnlyProperty = BindingUtils.Instance.CreateBindableProperty<GridColumn, bool>(Expression.Lambda<Func<GridColumn, bool>>((Expression) Expression.Property((Expression) expression, typeof(GridColumn).GetProperty("IsReadOnly")), expressionArray12), false, BindingMode.OneWay, null, OnIsReadOnlyChanged, null, null, null);
-            expression = Expression.Parameter(typeof(GridColumn), "o");
-            ParameterExpression[] expressionArray13 = new ParameterExpression[] { expression };
-            AllowSortProperty = BindingUtils.Instance.CreateBindableProperty<GridColumn, DefaultBoolean>(Expression.Lambda<Func<GridColumn, DefaultBoolean>>((Expression) Expression.Property((Expression) expression, typeof(GridColumn).GetProperty("AllowSort")), expressionArray13), DefaultBoolean.Default, BindingMode.OneWay, null, OnAllowSortChanged, null, null, null);
-            expression = Expression.Parameter(typeof(GridColumn), "o");
-            ParameterExpression[] expressionArray14 = new ParameterExpression[] { expression };
-            SortIndexProperty = BindingUtils.Instance.CreateBindableProperty<GridColumn, int>(Expression.Lambda<Func<GridColumn, int>>((Expression) Expression.Property((Expression) expression, typeof(GridColumn).GetProperty("SortIndex")), expressionArray14), -1, BindingMode.OneWay, null, OnSortIndexChanged, null, null, null);
-            expression = Expression.Parameter(typeof(GridColumn), "o");
-            ParameterExpression[] expressionArray15 = new ParameterExpression[] { expression };
-            IsGroupedProperty = BindingUtils.Instance.CreateBindableProperty<GridColumn, bool>(Expression.Lambda<Func<GridColumn, bool>>((Expression) Expression.Property((Expression) expression, typeof(GridColumn).GetProperty("IsGrouped")), expressionArray15), false, BindingMode.OneWay, null, OnIsGroupedChanged, null, null, null);
-            expression = Expression.Parameter(typeof(GridColumn), "o");
-            ParameterExpression[] expressionArray16 = new ParameterExpression[] { expression };
-            IsVisibleProperty = BindingUtils.Instance.CreateBindableProperty<GridColumn, bool>(Expression.Lambda<Func<GridColumn, bool>>((Expression) Expression.Property((Expression) expression, typeof(GridColumn).GetProperty("IsVisible")), expressionArray16), true, BindingMode.OneWay, null, OnIsVisibleChanged, null, null, null);
-            expression = Expression.Parameter(typeof(GridColumn), "o");
-            ParameterExpression[] expressionArray17 = new ParameterExpression[] { expression };
-            GroupIntervalProperty = BindingUtils.Instance.CreateBindableProperty<GridColumn, ColumnGroupInterval>(Expression.Lambda<Func<GridColumn, ColumnGroupInterval>>((Expression) Expression.Property((Expression) expression, typeof(GridColumn).GetProperty("GroupInterval")), expressionArray17), ColumnGroupInterval.Default, BindingMode.OneWay, null, OnGroupIntervalChanged, null, null, null);
-            expression = Expression.Parameter(typeof(GridColumn), "o");
-            ParameterExpression[] expressionArray18 = new ParameterExpression[] { expression };
-            FixedStyleProperty = BindingUtils.Instance.CreateBindableProperty<GridColumn, DevExpress.XamarinForms.DataGrid.FixedStyle>(Expression.Lambda<Func<GridColumn, DevExpress.XamarinForms.DataGrid.FixedStyle>>((Expression) Expression.Property((Expression) expression, typeof(GridColumn).GetProperty("FixedStyle")), expressionArray18), DevExpress.XamarinForms.DataGrid.FixedStyle.None, BindingMode.OneWay, null, OnFixedStyleChanged, null, null, null);
-            expression = Expression.Parameter(typeof(GridColumn), "o");
-            ParameterExpression[] expressionArray19 = new ParameterExpression[] { expression };
+            DisplayFormatProperty = GetBindableProperty<string>("DisplayFormat", null, OnDisplayFormatChanged, defaultValueCreator);
+            UnboundTypeProperty = GetBindableProperty<UnboundColumnType>("UnboundType", UnboundColumnType.Bound, OnUnboundTypeChanged);
+            UnboundExpressionProperty = GetBindableProperty<string>("UnboundExpression", string.Empty, OnUnboundExpressionChanged);
+            CaptionProperty = GetBindableProperty<string>("Caption", string.Empty, OnCaptionChanged);
+            EditFormCaptionProperty = GetBindableProperty<string>("EditFormCaption", string.Empty, null);
+            IsReadOnlyProperty = GetBindableProperty<bool>("IsReadOnly", false, OnIsReadOnlyChanged);
+            AllowSortProperty = GetBindableProperty<DefaultBoolean>("AllowSort", DefaultBoolean.Default, OnAllowSortChanged);
+            SortIndexProperty = GetBindableProperty<int>("SortIndex", -1, OnSortIndexChanged);
+            IsGroupedProperty = GetBindableProperty<bool>("IsGrouped", false, OnIsGroupedChanged);
+            IsVisibleProperty = GetBindableProperty<bool>("IsVisible", true, OnIsVisibleChanged);
+            GroupIntervalProperty = GetBindableProperty<ColumnGroupInterval>("GroupInterval", ColumnGroupInterval.Default, OnGroupIntervalChanged);
+            FixedStyleProperty = GetBindableProperty<FixedStyle>("FixedStyle", DevExpress.XamarinForms.DataGrid.FixedStyle.None, OnFixedStyleChanged);
             defaultValueCreator = GetDefaultHorizontalContentAlignment;
-            HorizontalContentAlignmentProperty = BindingUtils.Instance.CreateBindableProperty<GridColumn, TextAlignment>(Expression.Lambda<Func<GridColumn, TextAlignment>>((Expression) Expression.Property((Expression) expression, typeof(GridColumn).GetProperty("HorizontalContentAlignment")), expressionArray19), 0, BindingMode.OneWay, null, OnHorizontalContentAlignmentChanged, null, null, defaultValueCreator);
-            expression = Expression.Parameter(typeof(GridColumn), "o");
-            ParameterExpression[] expressionArray20 = new ParameterExpression[] { expression };
+            HorizontalContentAlignmentProperty = GetBindableProperty<TextAlignment>("HorizontalContentAlignment", 0, OnHorizontalContentAlignmentChanged, defaultValueCreator);
             defaultValueCreator = GetDefaultVerticalContentAlignment;
-            VerticalContentAlignmentProperty = BindingUtils.Instance.CreateBindableProperty<GridColumn, TextAlignment>(Expression.Lambda<Func<GridColumn, TextAlignment>>((Expression) Expression.Property((Expression) expression, typeof(GridColumn).GetProperty("VerticalContentAlignment")), expressionArray20), TextAlignment.Center, BindingMode.OneWay, null, OnVerticalContentAlignmentChanged, null, null, defaultValueCreator);
-            expression = Expression.Parameter(typeof(GridColumn), "o");
-            ParameterExpression[] expressionArray21 = new ParameterExpression[] { expression };
-            GroupValueDisplayFormatProperty = BindingUtils.Instance.CreateBindableProperty<GridColumn, string>(Expression.Lambda<Func<GridColumn, string>>((Expression) Expression.Property((Expression) expression, typeof(GridColumn).GetProperty("GroupValueDisplayFormat")), expressionArray21), null, BindingMode.OneWay, null, OnGroupValueDisplayFormatChanged, null, null, null);
-            expression = Expression.Parameter(typeof(GridColumn), "o");
-            ParameterExpression[] expressionArray22 = new ParameterExpression[] { expression };
-            AllowAutoFilterProperty = BindingUtils.Instance.CreateBindableProperty<GridColumn, bool>(Expression.Lambda<Func<GridColumn, bool>>((Expression) Expression.Property((Expression) expression, typeof(GridColumn).GetProperty("AllowAutoFilter")), expressionArray22), true, BindingMode.OneWay, null, OnAllowAutoFilterChanged, null, null, null);
-            expression = Expression.Parameter(typeof(GridColumn), "o");
-            ParameterExpression[] expressionArray23 = new ParameterExpression[] { expression };
-            ImmediateUpdateAutoFilterProperty = BindingUtils.Instance.CreateBindableProperty<GridColumn, bool>(Expression.Lambda<Func<GridColumn, bool>>((Expression) Expression.Property((Expression) expression, typeof(GridColumn).GetProperty("ImmediateUpdateAutoFilter")), expressionArray23), true, BindingMode.OneWay, null, OnImmediateUpdateAutoFilterChanged, null, null, null);
-            expression = Expression.Parameter(typeof(GridColumn), "o");
-            ParameterExpression[] expressionArray24 = new ParameterExpression[] { expression };
-            AutoFilterConditionProperty = BindingUtils.Instance.CreateBindableProperty<GridColumn, DevExpress.Data.AutoFilterCondition>(Expression.Lambda<Func<GridColumn, DevExpress.Data.AutoFilterCondition>>((Expression) Expression.Property((Expression) expression, typeof(GridColumn).GetProperty("AutoFilterCondition")), expressionArray24), DevExpress.Data.AutoFilterCondition.Default, BindingMode.OneWay, null, OnAutoFilterConditionChanged, null, null, null);
-            expression = Expression.Parameter(typeof(GridColumn), "o");
-            ParameterExpression[] expressionArray25 = new ParameterExpression[] { expression };
-            AutoFilterValueProperty = BindingUtils.Instance.CreateBindableProperty<GridColumn, object>(Expression.Lambda<Func<GridColumn, object>>((Expression) Expression.Property((Expression) expression, typeof(GridColumn).GetProperty("AutoFilterValue")), expressionArray25), null, BindingMode.OneWay, null, OnAutoFilterValueChanged, null, null, null);
-            expression = Expression.Parameter(typeof(GridColumn), "o");
-            ParameterExpression[] expressionArray26 = new ParameterExpression[] { expression };
-            FilterModeProperty = BindingUtils.Instance.CreateBindableProperty<GridColumn, ColumnFilterMode>(Expression.Lambda<Func<GridColumn, ColumnFilterMode>>((Expression) Expression.Property((Expression) expression, typeof(GridColumn).GetProperty("FilterMode")), expressionArray26), ColumnFilterMode.Value, BindingMode.OneWay, null, OnFilterModeChanged, null, null, null);
-            expression = Expression.Parameter(typeof(GridColumn), "o");
-            ParameterExpression[] expressionArray27 = new ParameterExpression[] { expression };
-            AllowGroupProperty = BindingUtils.Instance.CreateBindableProperty<GridColumn, DefaultBoolean>(Expression.Lambda<Func<GridColumn, DefaultBoolean>>((Expression) Expression.Property((Expression) expression, typeof(GridColumn).GetProperty("AllowGroup")), expressionArray27), DefaultBoolean.Default, BindingMode.OneWay, null, OnAllowGroupChanged, null, null, null);
+            VerticalContentAlignmentProperty = GetBindableProperty<TextAlignment>("VerticalContentAlignment", TextAlignment.Center, OnVerticalContentAlignmentChanged, defaultValueCreator);
+            GroupValueDisplayFormatProperty = GetBindableProperty<string>("GroupValueDisplayFormat", null, OnGroupValueDisplayFormatChanged);
+            AllowAutoFilterProperty = GetBindableProperty<bool>("AllowAutoFilter", true, OnAllowAutoFilterChanged);
+            ImmediateUpdateAutoFilterProperty = GetBindableProperty<bool>("ImmediateUpdateAutoFilter", true, OnImmediateUpdateAutoFilterChanged);
+            AutoFilterConditionProperty = GetBindableProperty<DevExpress.Data.AutoFilterCondition>("AutoFilterCondition", DevExpress.Data.AutoFilterCondition.Default, OnAutoFilterConditionChanged);
+            AutoFilterValueProperty = GetBindableProperty<object>("AutoFilterValue", null, OnAutoFilterValueChanged);
+            FilterModeProperty = GetBindableProperty<ColumnFilterMode>("FilterMode", ColumnFilterMode.Value, OnFilterModeChanged);
+            AllowGroupProperty = GetBindableProperty<DefaultBoolean>("AllowGroup", DefaultBoolean.Default, OnAllowGroupChanged);
         }
-        
+
+        private static BindableProperty GetBindableProperty<TObject>(string propertyName, TObject defaultVal, BindableProperty.BindingPropertyChangedDelegate propertyDelegate, BindableProperty.CreateDefaultValueDelegate defaultValueDelegate = null)
+        {
+            try
+            {
+                ParameterExpression expression = Expression.Parameter(typeof(GridColumn), "o");
+                ParameterExpression[] expressionArray1 = new ParameterExpression[] { expression };
+                PropertyInfo property = typeof(GridColumn).GetProperty(propertyName, BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance);
+                if(Nullable.Equals(property, null)) property = typeof(GridColumn).GetRuntimeProperty(propertyName);
+                return BindingUtils.Instance.CreateBindableProperty<GridColumn, TObject>(Expression.Lambda<Func<GridColumn, TObject>>((Expression)Expression.Property((Expression)expression, property), expressionArray1), defaultVal, BindingMode.OneWay, null, propertyDelegate, null, null, defaultValueDelegate);
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return null;
+        }
+
         protected GridColumn()
         {
         }
@@ -535,8 +498,7 @@ namespace DevExpress.XamarinForms.DataGrid
         
         public string FieldName
         {
-            get => 
-                ((string) ((string) base.GetValue(FieldNameProperty)));
+            get => (string) base.GetValue(FieldNameProperty);
             set => 
                 base.SetValue(FieldNameProperty, value);
         }
@@ -607,10 +569,8 @@ namespace DevExpress.XamarinForms.DataGrid
         
         public string Caption
         {
-            get => 
-                ((string) ((string) base.GetValue(CaptionProperty)));
-            set => 
-                base.SetValue(CaptionProperty, value);
+            get => (string) base.GetValue(CaptionProperty);
+            set => base.SetValue(CaptionProperty, value);
         }
         
         public string EditFormCaption
