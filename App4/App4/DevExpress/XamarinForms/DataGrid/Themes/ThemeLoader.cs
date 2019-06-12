@@ -54,7 +54,7 @@ namespace DevExpress.XamarinForms.DataGrid.Themes
                     }
                 }
             }
-            catch
+            catch (Exception ex)
             {
             }
         }

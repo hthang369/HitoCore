@@ -114,7 +114,6 @@ namespace DevExpress.XamarinForms.DataGrid
         
         static DataGridView()
         {
-            
             ItemsSourceProperty = GetBindableProperty<object>("ItemsSource", null, OnItemsSourceChanged);
             RowHeightProperty = GetBindableProperty<double>("RowHeight", -1.0, OnRowHeightChanged);
             SortModeProperty = GetBindableProperty<GridSortMode>("SortMode", GridSortMode.Single, OnSortModeChanged);
@@ -165,7 +164,12 @@ namespace DevExpress.XamarinForms.DataGrid
             {
                 ParameterExpression expression = Expression.Parameter(typeof(DataGridView), "o");
                 ParameterExpression[] expressionArray1 = new ParameterExpression[] { expression };
-                return BindingUtils.Instance.CreateBindableProperty<DataGridView, TObject>(Expression.Lambda<Func<DataGridView, TObject>>((Expression)Expression.Property((Expression)expression, typeof(DataGridView).GetProperty(propertyName)), expressionArray1), defaultVal, BindingMode.OneWay, null, propertyDelegate, null, null, null);
+                PropertyInfo property = typeof(DataGridView).GetProperty(propertyName, BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance);
+                if (property == null || property.Equals(null))
+                {
+                    property = typeof(DataGridView).GetRuntimeProperty(propertyName);
+                }
+                return BindingUtils.Instance.CreateBindableProperty<DataGridView, TObject>(Expression.Lambda<Func<DataGridView, TObject>>((Expression)Expression.Property((Expression)expression, property), expressionArray1), defaultVal, BindingMode.OneWay, null, propertyDelegate, null, null, null);
             }
             catch(Exception ex)
             {

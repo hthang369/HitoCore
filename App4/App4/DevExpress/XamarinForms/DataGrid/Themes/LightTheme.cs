@@ -6,18 +6,19 @@ namespace DevExpress.XamarinForms.DataGrid.Themes
     using Xamarin.Forms;
     using Xamarin.Forms.Xaml;
     
-    [XamlFilePath("Themes/LightTheme.xaml")]
-    public class LightTheme : ResourceDictionary
+    //[XamlFilePath("Themes//LightTheme.xaml")]
+    public partial class LightTheme : ResourceDictionary
     {
         public LightTheme()
         {
             this.InitializeComponent();
+            
         }
         
-        [GeneratedCode("Xamarin.Forms.Build.Tasks.XamlG", "0.0.0.0")]
-        private void InitializeComponent()
-        {
-            Extensions.LoadFromXaml<LightTheme>(this, typeof(LightTheme));
-        }
+        //[GeneratedCode("Xamarin.Forms.Build.Tasks.XamlG", "0.0.0.0")]
+        //private void InitializeComponent()
+        //{
+        //    Extensions.LoadFromXaml<LightTheme>(this, typeof(LightTheme));
+        //}
     }
 }

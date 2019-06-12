@@ -100,7 +100,7 @@ namespace DevExpress.XamarinForms.DataGrid
                 ParameterExpression expression = Expression.Parameter(typeof(GridColumn), "o");
                 ParameterExpression[] expressionArray1 = new ParameterExpression[] { expression };
                 PropertyInfo property = typeof(GridColumn).GetProperty(propertyName, BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance);
-                if(Nullable.Equals(property, null)) property = typeof(GridColumn).GetRuntimeProperty(propertyName);
+                if(property == null || property.Equals(null)) property = typeof(GridColumn).GetRuntimeProperty(propertyName);
                 return BindingUtils.Instance.CreateBindableProperty<GridColumn, TObject>(Expression.Lambda<Func<GridColumn, TObject>>((Expression)Expression.Property((Expression)expression, property), expressionArray1), defaultVal, BindingMode.OneWay, null, propertyDelegate, null, null, defaultValueDelegate);
             }
             catch (Exception ex)
