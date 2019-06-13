@@ -33,5 +33,9 @@ namespace HitoAppCore.Core.Localization
             }
         }
 
+        internal object GetString(string text, CultureInfo ci)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

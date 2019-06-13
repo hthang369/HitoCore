@@ -547,7 +547,8 @@ namespace Xamarin.Forms.Calendar
 					else
 					{
 						buttons[i].TextWithoutMeasure = string.Format("{0}", start.Day);
-					}
+                        buttons[i].Text = string.Format("{0}", start.Day);
+                    }
 					buttons[i].Date = start;
 
 					buttons[i].IsOutOfMonth = !(beginOfMonth && !endOfMonth);
