@@ -10,18 +10,21 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="DevExpress\**" />
+    <EmbeddedResource Remove="DevExpress\**" />
+    <None Remove="DevExpress\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Xamarin.Forms" Version="3.6.0.344457" />
   </ItemGroup>
 
   <ItemGroup>
     <Reference Include="DevExpress.XamarinForms.Core">
-      <HintPath>..\..\..\DevXF\DevExpress.Xamarin\Binaries\DevExpress.XamarinForms.Core.dll</HintPath>
+      <HintPath>..\..\..\hito-mobile\HitoApp\lampart_lib_dll\DevExpress.XamarinForms.Core.dll</HintPath>
     </Reference>
     <Reference Include="DevExpress.XamarinForms.Grid">
-      <HintPath>..\..\..\DevXF\DevExpress.Xamarin\Binaries\DevExpress.XamarinForms.Grid.dll</HintPath>
-    </Reference>
-    <Reference Include="DevExpress.XamarinForms.Scheduler">
-      <HintPath>..\..\..\DevXF\DevExpress.Xamarin\Binaries\DevExpress.XamarinForms.Scheduler.dll</HintPath>
+      <HintPath>..\..\..\hito-mobile\HitoApp\lampart_lib_dll\DevExpress.XamarinForms.Grid.dll</HintPath>
     </Reference>
   </ItemGroup>
 

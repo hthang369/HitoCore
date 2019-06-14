@@ -11,7 +11,7 @@ namespace HitoAppCore
         {
             InitializeComponent();
 
-            MainPage = new TestPage();
+            MainPage = new MainPage();
         }
 
         protected override void OnStart()
