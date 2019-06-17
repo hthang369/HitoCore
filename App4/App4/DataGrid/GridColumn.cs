@@ -47,7 +47,32 @@ namespace HitoAppCore.DataGrid
         #region Contructor
         static GridColumn()
         {
-
+            FieldNameProperty = BindingUtils.CreateProperty<GridColumn, string>(nameof(FieldName), string.Empty, OnFieldNameChanged);
+            CaptionProperty = BindingUtils.CreateProperty<GridColumn, string>(nameof(Caption), string.Empty, OnCaptionChanged);
+            WidthProperty = BindingUtils.CreateProperty<GridColumn, double>(nameof(Width), double.NaN, OnWidthChanged);
+            IsReadOnlyProperty = BindingUtils.CreateProperty<GridColumn, bool>(nameof(IsReadOnly), false, OnIsReadOnlyChanged);
+            UnboundTypeProperty = BindingUtils.CreateProperty<GridColumn, UnboundColumnType>(nameof(UnboundType), UnboundColumnType.Bound, OnUnboundTypeChanged);
+            UnboundExpressionProperty = BindingUtils.CreateProperty<GridColumn, string>(nameof(UnboundExpression), string.Empty, OnUnboundExpressionChanged);
+            ContentAlignmentProperty = BindingUtils.CreateProperty<GridColumn, ColumnContentAlignment>(nameof(ContentAlignment), ColumnContentAlignment.Start, OnContentAlignmentChanged);
+            MinWidthProperty = BindingUtils.CreateProperty<GridColumn, double>(nameof(MinWidth), 50.0, OnMinWidthChanged);
+            ActualWidthPropertyKey = BindingUtils.CreateReadOnlyProperty<GridColumn, double>(nameof(ActualWidth), double.NaN);
+            ActualWidthProperty = ActualWidthPropertyKey.BindableProperty;
+            IsGroupedProperty = BindingUtils.CreateProperty<GridColumn, bool>(nameof(IsGrouped), false, OnIsGroupedChanged);
+            IsVisibleProperty = BindingUtils.CreateProperty<GridColumn, bool>(nameof(IsVisible), true, OnIsVisibleChanged);
+            SortOrderProperty = BindingUtils.CreateProperty<GridColumn, ColumnSortOrder>(nameof(SortOrder), ColumnSortOrder.None, OnSortOrderChanged);
+            SortModeProperty = BindingUtils.CreateProperty<GridColumn, ColumnSortMode>(nameof(SortMode), ColumnSortMode.DisplayText, OnSortModeChanged);
+            AllowSortProperty = BindingUtils.CreateProperty<GridColumn, DefaultBoolean>(nameof(AllowSort), DefaultBoolean.Default, OnAllowSortChanged);
+            AllowGroupProperty = BindingUtils.CreateProperty<GridColumn, DefaultBoolean>(nameof(AllowGroup), DefaultBoolean.Default, OnAllowGroupChanged);
+            DisplayFormatProperty = BindingUtils.CreateProperty<GridColumn, string>(nameof(DisplayFormat), null, OnDisplayFormatChanged);
+            SortIndexProperty = BindingUtils.CreateProperty<GridColumn, int>(nameof(SortIndex), -1, OnSortIndexChanged);
+            //AutoFilterConditionProperty = BindingUtils.CreateProperty<GridColumn, AutoFilterCondition>(nameof(AutoFilterCondition), AutoFilterCondition.Default, OnAutoFilterConditionChanged);
+            AutoFilterValueProperty = BindingUtils.CreateProperty<GridColumn, object>(nameof(AutoFilterValue), null, OnAutoFilterValueChanged);
+            AllowAutoFilterProperty = BindingUtils.CreateProperty<GridColumn, bool>(nameof(AllowAutoFilter), true, OnAllowAutoFilterChanged);
+            ColumnFilterModeProperty = BindingUtils.CreateProperty<GridColumn, ColumnFilterMode>(nameof(ColumnFilterMode), ColumnFilterMode.Value, OnColumnFilterModeChanged);
+            ImmediateUpdateAutoFilterProperty = BindingUtils.CreateProperty<GridColumn, bool>(nameof(ImmediateUpdateAutoFilter), true, OnImmediateUpdateAutoFilterChanged);
+            GroupIntervalProperty = BindingUtils.CreateProperty<GridColumn, ColumnGroupInterval>(nameof(GroupInterval), ColumnGroupInterval.Default, OnGroupIntervalChanged);
+            HeaderTemplateProperty = BindingUtils.CreateProperty<GridColumn, DataTemplate>(nameof(HeaderTemplate), null, OnHeaderTemplateChanged);
+            FixedStyleProperty = BindingUtils.CreateProperty<GridColumn, FixedStyle>(nameof(FixedStyle), FixedStyle.None, OnFixedStyleChanged);
         }
 
         public GridColumn()
@@ -57,7 +82,106 @@ namespace HitoAppCore.DataGrid
         #endregion
 
         #region Methods
-
+        private static void OnFieldNameChanged(BindableObject bindable, string oldValue, string newValue)
+        {
+            throw new NotImplementedException();
+        }
+        private static void OnCaptionChanged(BindableObject bindable, string oldValue, string newValue)
+        {
+            ((GridColumn)bindable).RaiseAfterPropertyChanged(nameof(Caption));
+        }
+        private static void OnWidthChanged(BindableObject bindable, double oldValue, double newValue)
+        {
+            throw new NotImplementedException();
+        }
+        private static void OnIsReadOnlyChanged(BindableObject bindable, bool oldValue, bool newValue)
+        {
+            throw new NotImplementedException();
+        }
+        private static void OnUnboundTypeChanged(BindableObject bindable, UnboundColumnType oldValue, UnboundColumnType newValue)
+        {
+            throw new NotImplementedException();
+        }
+        private static void OnUnboundExpressionChanged(BindableObject bindable, string oldValue, string newValue)
+        {
+            throw new NotImplementedException();
+        }
+        private static void OnContentAlignmentChanged(BindableObject bindable, ColumnContentAlignment oldValue, ColumnContentAlignment newValue)
+        {
+            throw new NotImplementedException();
+        }
+        private static void OnMinWidthChanged(BindableObject bindable, double oldValue, double newValue)
+        {
+            throw new NotImplementedException();
+        }
+        private static void OnIsGroupedChanged(BindableObject bindable, bool oldValue, bool newValue)
+        {
+            throw new NotImplementedException();
+        }
+        private static void OnIsVisibleChanged(BindableObject bindable, bool oldValue, bool newValue)
+        {
+            throw new NotImplementedException();
+        }
+        private static void OnSortOrderChanged(BindableObject bindable, ColumnSortOrder oldValue, ColumnSortOrder newValue)
+        {
+            throw new NotImplementedException();
+        }
+        private static void OnSortModeChanged(BindableObject bindable, ColumnSortMode oldValue, ColumnSortMode newValue)
+        {
+            throw new NotImplementedException();
+        }
+        private static void OnAllowGroupChanged(BindableObject bindable, DefaultBoolean oldValue, DefaultBoolean newValue)
+        {
+            throw new NotImplementedException();
+        }
+        private static void OnAllowSortChanged(BindableObject bindable, DefaultBoolean oldValue, DefaultBoolean newValue)
+        {
+            throw new NotImplementedException();
+        }
+        private static void OnSortIndexChanged(BindableObject bindable, int oldValue, int newValue)
+        {
+            throw new NotImplementedException();
+        }
+        private static void OnDisplayFormatChanged(BindableObject bindable, string oldValue, string newValue)
+        {
+            throw new NotImplementedException();
+        }
+        private static void OnAllowAutoFilterChanged(BindableObject bindable, bool oldValue, bool newValue)
+        {
+            throw new NotImplementedException();
+        }
+        private static void OnColumnFilterModeChanged(BindableObject bindable, ColumnFilterMode oldValue, ColumnFilterMode newValue)
+        {
+            throw new NotImplementedException();
+        }
+        private static void OnAutoFilterValueChanged(BindableObject bindable, object oldValue, object newValue)
+        {
+            throw new NotImplementedException();
+        }
+        private static void OnImmediateUpdateAutoFilterChanged(BindableObject bindable, bool oldValue, bool newValue)
+        {
+            throw new NotImplementedException();
+        }
+        private static void OnGroupIntervalChanged(BindableObject bindable, ColumnGroupInterval oldValue, ColumnGroupInterval newValue)
+        {
+            throw new NotImplementedException();
+        }
+        private static void OnHeaderTemplateChanged(BindableObject bindable, DataTemplate oldValue, DataTemplate newValue)
+        {
+            throw new NotImplementedException();
+        }
+        private static void OnFixedStyleChanged(BindableObject bindable, FixedStyle oldValue, FixedStyle newValue)
+        {
+            throw new NotImplementedException();
+        }
+        protected void RaiseAfterPropertyChanged(string propertyName)
+        {
+            if (this.AfterPropertyChanged != null)
+            {
+                PropertyChangedEventArgs args = new PropertyChangedEventArgs(propertyName);
+                this.AfterPropertyChanged(this, args);
+            }
+        }
         #endregion
 
         #region Properties
@@ -194,7 +318,7 @@ namespace HitoAppCore.DataGrid
             set => base.SetValue(ColumnFilterModeProperty, value);
         }
 
-        public ColumnGroupInterval ColumnGroupInterval
+        public ColumnGroupInterval GroupInterval
         {
             get => (ColumnGroupInterval)base.GetValue(GroupIntervalProperty);
             set => base.SetValue(GroupIntervalProperty, value);
