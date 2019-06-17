@@ -95,10 +95,10 @@ namespace HitoAppCore.DataGrid
         {
             if (this.HasConditionalFormattingLayer())
             {
-                CellConditionalFormattingLayer layer = base.get_Content() as CellConditionalFormattingLayer;
-                if ((layer != null) && (layer.get_Children().Count > 0))
+                CellConditionalFormattingLayer layer = base.Content as CellConditionalFormattingLayer;
+                if ((layer != null) && (layer.Children.Count > 0))
                 {
-                    View view = layer.get_Children()[layer.get_Children().Count - 1];
+                    View view = layer.Children[layer.Children.Count - 1];
                     layer.Children.Clear();
                     base.Content = view;
                 }
@@ -119,16 +119,16 @@ namespace HitoAppCore.DataGrid
 
         internal void SetDefaultFontAttributes()
         {
-            LabelBaseEdit editor = this.Editor as LabelBaseEdit;
-            if (editor != null)
-            {
-                editor.SetDefaultFontAttributes();
-            }
-            LookupLabelBaseEdit edit2 = this.Editor as LookupLabelBaseEdit;
-            if (edit2 != null)
-            {
-                edit2.SetDefaultFontAttributes();
-            }
+            //LabelBaseEdit editor = this.Editor as LabelBaseEdit;
+            //if (editor != null)
+            //{
+            //    editor.SetDefaultFontAttributes();
+            //}
+            //LookupLabelBaseEdit edit2 = this.Editor as LookupLabelBaseEdit;
+            //if (edit2 != null)
+            //{
+            //    edit2.SetDefaultFontAttributes();
+            //}
         }
 
         internal void SetFontColorToInternalText(Color color)
