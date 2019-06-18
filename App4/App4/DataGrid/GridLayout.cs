@@ -31,21 +31,21 @@ namespace HitoAppCore.DataGrid
             }
         }
 
-        protected override void LayoutChildren(double x, double y, double width, double height)
-        {
-            if (this.updateCount <= 0)
-            {
-                base.LayoutChildren(x, y, width, height);
-            }
-        }
+        //protected override void LayoutChildren(double x, double y, double width, double height)
+        //{
+        //    if (this.updateCount <= 0)
+        //    {
+        //        base.LayoutChildren(x, y, width, height);
+        //    }
+        //}
 
-        protected override SizeRequest OnMeasure(double widthConstraint, double heightConstraint)
-        {
-            if (this.updateCount <= 0)
-            {
-                this.previousSizeRequest = base.Measure(widthConstraint, heightConstraint, 0);
-            }
-            return this.previousSizeRequest;
-        }
+        //protected override SizeRequest OnMeasure(double widthConstraint, double heightConstraint)
+        //{
+        //    if (this.updateCount <= 0)
+        //    {
+        //        this.previousSizeRequest = base.Measure(widthConstraint, heightConstraint, 0);
+        //    }
+        //    return this.previousSizeRequest;
+        //}
     }
 }

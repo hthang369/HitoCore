@@ -8,14 +8,15 @@ namespace HitoAppCore.DataGrid
     public class HeaderView : ContentView
     {
         #region Fields
-        private GridColumnCollection columns;
+        private List<GridColumn> columns;
         private Grid grid;
         #endregion
 
         #region Contructor
-        public HeaderView()
+        public HeaderView(IEnumerable<GridColumn> gridColumns)
         {
             this.grid = new Grid();
+            this.columns = gridColumns as List<GridColumn>;
             this.InitDefaultHeaderContent();
             this.InitializeContent();
         }
@@ -28,13 +29,13 @@ namespace HitoAppCore.DataGrid
         }
         private void InitializeContent()
         {
-            
             foreach (GridColumn item in columns)
             {
                 grid.ColumnDefinitions.Add(new ColumnDefinition());
                 CellView cell = new CellView(item.Caption, item.ContentAlignment);
-                grid.Children.Add(cell, 0, 0);
-                Grid.SetColumn(cell, item.SortIndex);
+                cell.BackgroundColor = Color.Red;
+                grid.Children.Add(cell);
+                Grid.SetColumn(cell, (item.SortIndex < 0) ? grid.Children.IndexOf(cell) : item.SortIndex);
             }
             base.Content = grid;
         }

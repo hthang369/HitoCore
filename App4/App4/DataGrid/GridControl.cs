@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Windows.Input;
 using Xamarin.Forms;
@@ -12,7 +13,11 @@ namespace HitoAppCore.DataGrid
         private HeaderView headerView;
         private GridColumnCollection columns;
         private List<GridColumn> visibleColumns;
-        private readonly BindableProperty IsReadOnlyProperty;
+        public const double DefaultColumnHeaderHeight = 44;
+        public const double DefaultRowHeight = 44;
+        public const double DefaultColumnWidth = 120.0;
+        public static readonly BindableProperty ItemsSourceProperty;
+        public static readonly BindableProperty IsReadOnlyProperty;
         #endregion
 
         #region Events
@@ -29,13 +34,14 @@ namespace HitoAppCore.DataGrid
         #region Contructor
         static GridControl()
         {
-
+            ItemsSourceProperty = BindingUtils.CreateProperty<GridControl, object>(nameof(ItemsSource), null, OnItemsSourceChanged);
+            IsReadOnlyProperty = BindingUtils.CreateProperty<GridControl, bool>(nameof(IsReadOnly), false, OnReadOnlyChanged);
         }
         public GridControl()
         {
-            this.RowDefinitions.Add(new RowDefinition() { Height = new GridLength(50, GridUnitType.Star) });
-            this.RowDefinitions.Add(new RowDefinition() { Height = new GridLength(50, GridUnitType.Auto) });
-
+            this.RowDefinitions.Add(new RowDefinition() { Height = new GridLength(DefaultColumnHeaderHeight, GridUnitType.Star) });
+            this.RowDefinitions.Add(new RowDefinition() { Height = new GridLength(DefaultRowHeight, GridUnitType.Auto) });
+            visibleColumns = new List<GridColumn>();
         }
         #endregion
 
@@ -54,7 +60,7 @@ namespace HitoAppCore.DataGrid
         {
             if (base.Parent != null)
             {
-
+                UpdateVisibleColumns();
             }
             base.OnParentSet();
         }
@@ -88,6 +94,39 @@ namespace HitoAppCore.DataGrid
 
             }
         }
+        private static void OnItemsSourceChanged(BindableObject bindable, object oldValue, object newValue)
+        {
+
+        }
+        private static void OnReadOnlyChanged(BindableObject bindable, bool oldValue, bool newValue)
+        {
+            ((GridControl)bindable).Columns.ToList().ForEach(x => x.IsParentReadOnly = newValue);
+        }
+        private void UpdateVisibleColumns()
+        {
+            List<GridColumn> lst = new List<GridColumn>();
+            List<GridColumn> lst1 = new List<GridColumn>();
+            List<GridColumn> lst2 = new List<GridColumn>();
+            this.Columns.ToList().ForEach(x =>
+            {
+                if (x.IsVisible)
+                {
+                    x.SortIndex = Columns.IndexOf(x);
+                    if (x.FixedStyle == FixedStyle.Left) lst1.Add(x);
+                    else if (x.FixedStyle == FixedStyle.Right) lst2.Add(x);
+                    else lst.Add(x);
+                }
+            });
+            lst.InsertRange(0, lst1);
+            lst.AddRange(lst2);
+            if(!ListHelper.AreEqual<GridColumn>(visibleColumns, lst))
+            {
+                visibleColumns = lst;
+                headerView = new HeaderView(visibleColumns);
+                this.Children.Add(headerView);
+                Grid.SetRow(headerView, 0);
+            }
+        }
         #endregion
 
         #region Properties
@@ -102,11 +141,21 @@ namespace HitoAppCore.DataGrid
                 return this.columns;
             }
         }
+        public object ItemsSource
+        {
+            get => base.GetValue(ItemsSourceProperty);
+            set
+            {
+                if (value == null) base.ClearValue(ItemsSourceProperty);
+                else base.SetValue(ItemsSourceProperty, value);
+            }
+        }
         public bool IsReadOnly
         {
             get => (bool)base.GetValue(IsReadOnlyProperty);
             set => base.SetValue(IsReadOnlyProperty, value);
         }
+        public IReadOnlyList<GridColumn> VisibleColumns => (IReadOnlyList<GridColumn>)this.visibleColumns;
         #endregion
         private enum RowDragDirection
         {

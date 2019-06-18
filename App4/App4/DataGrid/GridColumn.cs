@@ -6,7 +6,7 @@ using Xamarin.Forms;
 
 namespace HitoAppCore.DataGrid
 {
-    public class GridColumn : BindableObject
+    public abstract class GridColumn : BindableObject
     {
         #region Fields
         internal const int defaultSortIndex = -1;
@@ -190,6 +190,7 @@ namespace HitoAppCore.DataGrid
                 this.AfterPropertyChanged(this, args);
             }
         }
+        protected abstract Type GetComparerPropertyType();
         #endregion
 
         #region Properties
@@ -236,9 +237,9 @@ namespace HitoAppCore.DataGrid
             set => base.SetValue(UnboundExpressionProperty, value);
         }
 
-        public ColumnContentAlignment ContentAlignment
+        public TextAlignment ContentAlignment
         {
-            get => (ColumnContentAlignment)base.GetValue(ContentAlignmentProperty);
+            get => (TextAlignment)base.GetValue(ContentAlignmentProperty);
             set => base.SetValue(ContentAlignmentProperty, value);
         }
 
