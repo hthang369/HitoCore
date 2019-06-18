@@ -8,103 +8,67 @@ namespace HitoAppCore.DataGrid
 {
     public class CellView : BaseCellView
     {
+        #region Fields
+        private const int imageSize = 48;
         private IBaseEdit editor;
         internal CellData CellData { get; set; }
-        public IBaseEdit Editor
-        {
-            get =>
-                this.editor;
-            set
-            {
-                if (!object.ReferenceEquals(this.editor, value))
-                {
-                    this.editor = value;
-                    this.ResetContent();
-                }
-            }
-        }
+        private Grid CellConditional;
+        private TextAlignment contentAlignment;
+        private readonly Image sortOrderView;
+        private readonly Label labelCaption;
+        #endregion
 
-        private CellConditionalFormattingLayer AddConditionalFormattingLayer()
+        #region Contructor
+        public CellView(string caption, TextAlignment textAlignment)
         {
-            if (this.HasConditionalFormattingLayer())
-            {
-                return (base.Content as CellConditionalFormattingLayer);
-            }
-            View item = base.Content;
-            CellConditionalFormattingLayer layer = new CellConditionalFormattingLayer();
-            base.Content = layer;
-            layer.Children.Add(item);
-            return layer;
+            this.sortOrderView = new Image();
+            this.labelCaption = new Label();
+            SetCaption(caption);
+            SetContentAlignment(textAlignment);
+            this.InitializeContent();
         }
-        public T AddToConditionalFormattingLayer<T>() where T : View, new()
-        {
-            CellConditionalFormattingLayer layer = this.AddConditionalFormattingLayer();
-            if (layer.Children.Count <= 0)
-            {
-                layer.Children.Add(Activator.CreateInstance<T>());
-            }
-            T item = layer.Children[0] as T;
-            if (item == null)
-            {
-                if (layer.Children.Count > 1)
-                {
-                    layer.Children.RemoveAt(0);
-                }
-                item = Activator.CreateInstance<T>();
-                layer.Children.Insert(0, item);
-            }
-            return item;
-        }
-        public void ClearConditionalFormatting()
-        {
-            this.RemoveConditionalFormattingLayer();
-        }
+        #endregion
 
-        private bool HasConditionalFormattingLayer() =>
-            base.Content is CellConditionalFormattingLayer;
-
-        protected override void OnBindingContextChanged()
+        #region Methods
+        public void SetCaption(string caption)
         {
-            base.OnBindingContextChanged();
-            this.CellData = base.BindingContext as CellData;
-            if (this.CellData != null)
-            {
-                this.CellData.PropertyChanged += new PropertyChangedEventHandler(this.OnCellDataPropertyChanged);
-                this.UpdateInternalControlContent();
-            }
+            this.labelCaption.Text = caption;
         }
-
-        private void OnCellDataPropertyChanged(object sender, PropertyChangedEventArgs e)
+        public void SetContentAlignment(TextAlignment textAlignment)
         {
-            if ((e.PropertyName == "Value") || (e.PropertyName == "DisplayText"))
-            {
-                this.UpdateInternalControlContent();
-            }
+            this.contentAlignment = textAlignment;
         }
-
-        protected override void OnPropertyChanged(string propertyName)
+        private void InitializeContent()
         {
-            base.OnPropertyChanged(propertyName);
-            if (propertyName == "Content")
-            {
-                this.UpdateInternalControlContent();
-            }
-        }
+            this.sortOrderView.HorizontalOptions = this.contentAlignment == TextAlignment.End ? LayoutOptions.Start : LayoutOptions.End;
+            this.sortOrderView.VerticalOptions = LayoutOptions.Center;
+            this.labelCaption.VerticalOptions = LayoutOptions.Center;
+            this.labelCaption.HorizontalOptions = LayoutOptions.FillAndExpand;
+            this.labelCaption.HorizontalTextAlignment = this.contentAlignment;
+            this.labelCaption.LineBreakMode = LineBreakMode.NoWrap;
+            this.CellConditional = new Grid();
+            CellConditional.ColumnSpacing = 0;
+            CellConditional.RowSpacing = 0;
+            CellConditional.HorizontalOptions = LayoutOptions.FillAndExpand;
+            CellConditional.VerticalOptions = LayoutOptions.FillAndExpand;
 
-        private void RemoveConditionalFormattingLayer()
-        {
-            if (this.HasConditionalFormattingLayer())
+            CellConditional.RowDefinitions.Add(new RowDefinition { Height = new GridLength(1.0, GridUnitType.Star) });
+            if(contentAlignment == TextAlignment.End)
             {
-                CellConditionalFormattingLayer layer = base.Content as CellConditionalFormattingLayer;
-                if ((layer != null) && (layer.Children.Count > 0))
-                {
-                    View view = layer.Children[layer.Children.Count - 1];
-                    layer.Children.Clear();
-                    base.Content = view;
-                }
+                CellConditional.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(imageSize) });
+                CellConditional.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1.0, GridUnitType.Star) });
+                CellConditional.Children.Add(sortOrderView, 0, 0);
+                CellConditional.Children.Add(labelCaption, 1, 0);
             }
+            else
+            {
+                CellConditional.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1.0, GridUnitType.Star) });
+                CellConditional.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(imageSize) });
+                CellConditional.Children.Add(labelCaption, 0, 0);
+                CellConditional.Children.Add(sortOrderView, 1, 0);
+            }
+            base.Content = CellConditional;
         }
-
         public void ResetContent()
         {
             if (this.editor == null)
@@ -115,20 +79,6 @@ namespace HitoAppCore.DataGrid
             {
                 base.Content = this.editor.Editor;
             }
-        }
-
-        internal void SetDefaultFontAttributes()
-        {
-            //LabelBaseEdit editor = this.Editor as LabelBaseEdit;
-            //if (editor != null)
-            //{
-            //    editor.SetDefaultFontAttributes();
-            //}
-            //LookupLabelBaseEdit edit2 = this.Editor as LookupLabelBaseEdit;
-            //if (edit2 != null)
-            //{
-            //    edit2.SetDefaultFontAttributes();
-            //}
         }
 
         internal void SetFontColorToInternalText(Color color)
@@ -158,7 +108,48 @@ namespace HitoAppCore.DataGrid
                 }
             }
         }
+        #endregion
 
+        #region Properties
+        public IBaseEdit Editor
+        {
+            get => this.editor;
+            set
+            {
+                if (!object.ReferenceEquals(this.editor, value))
+                {
+                    this.editor = value;
+                    this.ResetContent();
+                }
+            }
+        }
+        protected override void OnBindingContextChanged()
+        {
+            base.OnBindingContextChanged();
+            this.CellData = base.BindingContext as CellData;
+            if (this.CellData != null)
+            {
+                this.CellData.PropertyChanged += new PropertyChangedEventHandler(this.OnCellDataPropertyChanged);
+                this.UpdateInternalControlContent();
+            }
+        }
 
+        private void OnCellDataPropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if ((e.PropertyName == "Value") || (e.PropertyName == "DisplayText"))
+            {
+                this.UpdateInternalControlContent();
+            }
+        }
+
+        protected override void OnPropertyChanged(string propertyName)
+        {
+            base.OnPropertyChanged(propertyName);
+            if (propertyName == "Content")
+            {
+                this.UpdateInternalControlContent();
+            }
+        }
+        #endregion
     }
 }

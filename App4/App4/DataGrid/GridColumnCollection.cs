@@ -120,13 +120,6 @@ namespace HitoAppCore.DataGrid
         Object
     }
 
-    public enum ColumnContentAlignment
-    {
-        Start,
-        Center,
-        End
-    }
-
     public enum ColumnSortOrder
     {
         None,

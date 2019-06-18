@@ -53,7 +53,7 @@ namespace HitoAppCore.DataGrid
             IsReadOnlyProperty = BindingUtils.CreateProperty<GridColumn, bool>(nameof(IsReadOnly), false, OnIsReadOnlyChanged);
             UnboundTypeProperty = BindingUtils.CreateProperty<GridColumn, UnboundColumnType>(nameof(UnboundType), UnboundColumnType.Bound, OnUnboundTypeChanged);
             UnboundExpressionProperty = BindingUtils.CreateProperty<GridColumn, string>(nameof(UnboundExpression), string.Empty, OnUnboundExpressionChanged);
-            ContentAlignmentProperty = BindingUtils.CreateProperty<GridColumn, ColumnContentAlignment>(nameof(ContentAlignment), ColumnContentAlignment.Start, OnContentAlignmentChanged);
+            ContentAlignmentProperty = BindingUtils.CreateProperty<GridColumn, TextAlignment>(nameof(ContentAlignment), TextAlignment.Start, OnContentAlignmentChanged);
             MinWidthProperty = BindingUtils.CreateProperty<GridColumn, double>(nameof(MinWidth), 50.0, OnMinWidthChanged);
             ActualWidthPropertyKey = BindingUtils.CreateReadOnlyProperty<GridColumn, double>(nameof(ActualWidth), double.NaN);
             ActualWidthProperty = ActualWidthPropertyKey.BindableProperty;
@@ -77,102 +77,110 @@ namespace HitoAppCore.DataGrid
 
         public GridColumn()
         {
-
+            this.SortMode = ColumnSortMode.Value;
         }
         #endregion
 
         #region Methods
         private static void OnFieldNameChanged(BindableObject bindable, string oldValue, string newValue)
         {
-            throw new NotImplementedException();
+            GridColumn col = bindable as GridColumn;
+            col.RaiseAfterPropertyChanged(nameof(FieldName));
+            col.OnActualCaptionChanged();
+        }
+        private void OnActualCaptionChanged()
+        {
+            this.OnPropertyChanged(nameof(ActualCaption));
         }
         private static void OnCaptionChanged(BindableObject bindable, string oldValue, string newValue)
         {
-            ((GridColumn)bindable).RaiseAfterPropertyChanged(nameof(Caption));
+            GridColumn col = bindable as GridColumn;
+            col.RaiseAfterPropertyChanged(nameof(Caption));
+            col.OnActualCaptionChanged();
         }
         private static void OnWidthChanged(BindableObject bindable, double oldValue, double newValue)
         {
-            throw new NotImplementedException();
+            ((GridColumn)bindable).RaiseAfterPropertyChanged(nameof(Width));
         }
         private static void OnIsReadOnlyChanged(BindableObject bindable, bool oldValue, bool newValue)
         {
-            throw new NotImplementedException();
+            ((GridColumn)bindable).RaiseAfterPropertyChanged(nameof(IsReadOnly));
         }
         private static void OnUnboundTypeChanged(BindableObject bindable, UnboundColumnType oldValue, UnboundColumnType newValue)
         {
-            throw new NotImplementedException();
+            ((GridColumn)bindable).RaiseAfterPropertyChanged(nameof(UnboundType));
         }
         private static void OnUnboundExpressionChanged(BindableObject bindable, string oldValue, string newValue)
         {
-            throw new NotImplementedException();
+            ((GridColumn)bindable).RaiseAfterPropertyChanged(nameof(UnboundExpression));
         }
-        private static void OnContentAlignmentChanged(BindableObject bindable, ColumnContentAlignment oldValue, ColumnContentAlignment newValue)
+        private static void OnContentAlignmentChanged(BindableObject bindable, TextAlignment oldValue, TextAlignment newValue)
         {
-            throw new NotImplementedException();
+            ((GridColumn)bindable).RaiseAfterPropertyChanged(nameof(ContentAlignment));
         }
         private static void OnMinWidthChanged(BindableObject bindable, double oldValue, double newValue)
         {
-            throw new NotImplementedException();
+            ((GridColumn)bindable).RaiseAfterPropertyChanged(nameof(MinWidth));
         }
         private static void OnIsGroupedChanged(BindableObject bindable, bool oldValue, bool newValue)
         {
-            throw new NotImplementedException();
+            ((GridColumn)bindable).RaiseAfterPropertyChanged(nameof(IsGrouped));
         }
         private static void OnIsVisibleChanged(BindableObject bindable, bool oldValue, bool newValue)
         {
-            throw new NotImplementedException();
+            ((GridColumn)bindable).RaiseAfterPropertyChanged(nameof(IsVisible));
         }
         private static void OnSortOrderChanged(BindableObject bindable, ColumnSortOrder oldValue, ColumnSortOrder newValue)
         {
-            throw new NotImplementedException();
+            ((GridColumn)bindable).RaiseAfterPropertyChanged(nameof(SortOrder));
         }
         private static void OnSortModeChanged(BindableObject bindable, ColumnSortMode oldValue, ColumnSortMode newValue)
         {
-            throw new NotImplementedException();
+            ((GridColumn)bindable).RaiseAfterPropertyChanged(nameof(SortMode));
         }
         private static void OnAllowGroupChanged(BindableObject bindable, DefaultBoolean oldValue, DefaultBoolean newValue)
         {
-            throw new NotImplementedException();
+            ((GridColumn)bindable).RaiseAfterPropertyChanged(nameof(AllowGroup));
         }
         private static void OnAllowSortChanged(BindableObject bindable, DefaultBoolean oldValue, DefaultBoolean newValue)
         {
-            throw new NotImplementedException();
+            ((GridColumn)bindable).RaiseAfterPropertyChanged(nameof(AllowSort));
         }
         private static void OnSortIndexChanged(BindableObject bindable, int oldValue, int newValue)
         {
-            throw new NotImplementedException();
+            ((GridColumn)bindable).RaiseAfterPropertyChanged(nameof(SortIndex));
         }
         private static void OnDisplayFormatChanged(BindableObject bindable, string oldValue, string newValue)
         {
-            throw new NotImplementedException();
+            ((GridColumn)bindable).RaiseAfterPropertyChanged(nameof(DisplayFormat));
         }
         private static void OnAllowAutoFilterChanged(BindableObject bindable, bool oldValue, bool newValue)
         {
-            throw new NotImplementedException();
+            ((GridColumn)bindable).RaiseAfterPropertyChanged(nameof(AllowAutoFilter));
         }
         private static void OnColumnFilterModeChanged(BindableObject bindable, ColumnFilterMode oldValue, ColumnFilterMode newValue)
         {
-            throw new NotImplementedException();
+            ((GridColumn)bindable).RaiseAfterPropertyChanged(nameof(ColumnFilterMode));
         }
         private static void OnAutoFilterValueChanged(BindableObject bindable, object oldValue, object newValue)
         {
-            throw new NotImplementedException();
+            ((GridColumn)bindable).RaiseAfterPropertyChanged(nameof(AutoFilterValue));
         }
         private static void OnImmediateUpdateAutoFilterChanged(BindableObject bindable, bool oldValue, bool newValue)
         {
-            throw new NotImplementedException();
+            ((GridColumn)bindable).RaiseAfterPropertyChanged(nameof(ImmediateUpdateAutoFilter));
         }
         private static void OnGroupIntervalChanged(BindableObject bindable, ColumnGroupInterval oldValue, ColumnGroupInterval newValue)
         {
-            throw new NotImplementedException();
+            ((GridColumn)bindable).RaiseAfterPropertyChanged(nameof(GroupInterval));
         }
         private static void OnHeaderTemplateChanged(BindableObject bindable, DataTemplate oldValue, DataTemplate newValue)
         {
-            throw new NotImplementedException();
+            ((GridColumn)bindable).RaiseAfterPropertyChanged(nameof(HeaderTemplate));
         }
         private static void OnFixedStyleChanged(BindableObject bindable, FixedStyle oldValue, FixedStyle newValue)
         {
-            throw new NotImplementedException();
+            ((GridColumn)bindable).RaiseAfterPropertyChanged(nameof(FixedStyle));
         }
         protected void RaiseAfterPropertyChanged(string propertyName)
         {
