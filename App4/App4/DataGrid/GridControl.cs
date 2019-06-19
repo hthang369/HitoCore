@@ -13,6 +13,7 @@ namespace HitoAppCore.DataGrid
         private HeaderView headerView;
         private GridColumnCollection columns;
         private List<GridColumn> visibleColumns;
+        private List<object> dataSource;
         public const double DefaultColumnHeaderHeight = 44;
         public const double DefaultRowHeight = 44;
         public const double DefaultColumnWidth = 120.0;
@@ -42,6 +43,7 @@ namespace HitoAppCore.DataGrid
             this.RowDefinitions.Add(new RowDefinition() { Height = new GridLength(DefaultColumnHeaderHeight, GridUnitType.Star) });
             this.RowDefinitions.Add(new RowDefinition() { Height = new GridLength(DefaultRowHeight, GridUnitType.Auto) });
             visibleColumns = new List<GridColumn>();
+            dataSource = new List<object>();
         }
         #endregion
 
@@ -96,7 +98,14 @@ namespace HitoAppCore.DataGrid
         }
         private static void OnItemsSourceChanged(BindableObject bindable, object oldValue, object newValue)
         {
+            try
+            {
+                ((GridControl)bindable).dataSource = new List<object>(((IEnumerable<object>)newValue).Cast<object>());
+            }
+            catch
+            {
 
+            }
         }
         private static void OnReadOnlyChanged(BindableObject bindable, bool oldValue, bool newValue)
         {
