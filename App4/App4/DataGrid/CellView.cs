@@ -56,13 +56,13 @@ namespace HitoAppCore.DataGrid
             if(contentAlignment == TextAlignment.End)
             {
                 CellConditional.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(imageSize) });
-                CellConditional.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1.0, GridUnitType.Star) });
+                CellConditional.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1.0, GridUnitType.Auto) });
                 CellConditional.Children.Add(sortOrderView, 0, 0);
                 CellConditional.Children.Add(labelCaption, 1, 0);
             }
             else
             {
-                CellConditional.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1.0, GridUnitType.Star) });
+                CellConditional.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1.0, GridUnitType.Auto) });
                 CellConditional.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(imageSize) });
                 CellConditional.Children.Add(labelCaption, 0, 0);
                 CellConditional.Children.Add(sortOrderView, 1, 0);

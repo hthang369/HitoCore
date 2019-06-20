@@ -33,7 +33,7 @@ namespace HitoAppCore.DataGrid
             {
                 grid.ColumnDefinitions.Add(new ColumnDefinition());
                 CellView cell = new CellView(item.Caption, item.ContentAlignment);
-                cell.BackgroundColor = Color.Red;
+                //cell.BackgroundColor = Color.Red;
                 grid.Children.Add(cell);
                 Grid.SetColumn(cell, (item.SortIndex < 0) ? grid.Children.IndexOf(cell) : item.SortIndex);
             }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Linq;
 using System.Runtime.CompilerServices;
 
 namespace HitoAppCore.DataGrid
@@ -16,6 +17,10 @@ namespace HitoAppCore.DataGrid
         public event PropertyChangedEventHandler ColumnPropertyChanged;
 
         // Methods
+        public virtual void AddRange<T>(ICollection<T> list) where T : GridColumn
+        {
+            list.ToList().ForEach(c => base.Add(c));
+        }
         protected override void ClearItems()
         {
             for (int i = 0; i < base.Count; i++)

@@ -16,6 +16,8 @@ namespace HitoAppCore.DataGrid
         {
             ListView listView = container as ListView;
             GridControl dataGrid = listView.Parent as GridControl;
+            _dataGridRowTemplate.SetValue(RowView.DataGridProperty, dataGrid);
+
             return _dataGridRowTemplate;
         }
     }
