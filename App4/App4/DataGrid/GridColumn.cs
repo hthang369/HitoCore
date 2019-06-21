@@ -191,6 +191,14 @@ namespace HitoAppCore.DataGrid
             }
         }
         protected abstract Type GetComparerPropertyType();
+        internal LayoutOptions GetControlContentAlignment(bool isExpand = false)
+        {
+            if (isExpand)
+            {
+                return (LayoutOptions)Enum.Parse(typeof(LayoutOptions), string.Format("{0}AndExpand", ContentAlignment.ToString()));
+            }
+            return (LayoutOptions)Enum.Parse(typeof(LayoutOptions), ContentAlignment.ToString());
+        }
         #endregion
 
         #region Properties

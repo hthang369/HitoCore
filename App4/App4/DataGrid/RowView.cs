@@ -23,7 +23,7 @@ namespace HitoAppCore.DataGrid
             };
             DataGrid.VisibleColumns.ToList().ForEach(c =>
             {
-                rowLayout.ColumnDefinitions.Add(new ColumnDefinition { Width = c.Width });
+                rowLayout.ColumnDefinitions.Add(new ColumnDefinition());
                 ContentView cell = new ContentView()
                 {
                     Padding = 0
@@ -31,7 +31,10 @@ namespace HitoAppCore.DataGrid
 
                 Label text = new Label
                 {
-                    LineBreakMode = LineBreakMode.WordWrap
+                    LineBreakMode = LineBreakMode.WordWrap,
+                    HorizontalOptions = LayoutOptions.CenterAndExpand,
+                    VerticalOptions = LayoutOptions.CenterAndExpand,
+                    HorizontalTextAlignment = c.ContentAlignment
                 };
                 text.SetBinding(Label.TextProperty, new Binding(c.FieldName, BindingMode.Default));
                 cell.Content = text;

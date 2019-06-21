@@ -22,6 +22,7 @@ namespace HitoAppCore.DataGrid
         public static readonly BindableProperty IsReadOnlyProperty;
         public static readonly BindableProperty BackgroundHeaderColorProperty;
         public static readonly BindableProperty BackgroundDataColorProperty;
+        public static readonly BindableProperty AllowFilterProperty;
         #endregion
 
         #region Events
@@ -46,15 +47,25 @@ namespace HitoAppCore.DataGrid
 
         public GridControl()
         {
-            this.RowDefinitions.Add(new RowDefinition() { Height = new GridLength(DefaultColumnHeaderHeight, GridUnitType.Star) });
+            this.RowDefinitions.Add(new RowDefinition() { Height = new GridLength(DefaultColumnHeaderHeight) });
+            this.RowDefinitions.Add(new RowDefinition() { Height = new GridLength(DefaultColumnHeaderHeight) });
             this.RowDefinitions.Add(new RowDefinition() { Height = new GridLength(DefaultRowHeight, GridUnitType.Auto) });
             visibleColumns = new List<GridColumn>();
             dataSource = new List<object>();
             listViewSource = new ListView(ListViewCachingStrategy.RecycleElement)
             {
-                ItemTemplate = new GridColumnData()
+                BackgroundColor = Color.Transparent,
+                ItemTemplate = new GridColumnData(),
+                SeparatorVisibility = SeparatorVisibility.Default,
+                ItemsSource = this.dataSource
             };
+            listViewSource.ItemSelected += ListViewSource_ItemSelected;
+            listViewSource.Refreshing += ListViewSource_Refreshing;
+            listViewSource.SetBinding(ListView.RowHeightProperty, new Binding("RowHeight", source: this));
+            
         }
+
+        
         #endregion
 
         #region Methods
@@ -73,8 +84,6 @@ namespace HitoAppCore.DataGrid
             if (base.Parent != null)
             {
                 UpdateVisibleColumns();
-                Children.Add(listViewSource);
-                Grid.SetRow(listViewSource, 1);
             }
             base.OnParentSet();
         }
@@ -101,8 +110,11 @@ namespace HitoAppCore.DataGrid
                 visibleColumns = lst;
                 headerView = new HeaderView(visibleColumns);
                 headerView.BackgroundColor = BackgroundHeaderColor;
-                this.Children.Add(headerView);
+                listViewSource.ItemsSource = this.dataSource;
+                this.Children.Add(headerView, 0, 0);
                 Grid.SetRow(headerView, 0);
+                Children.Add(listViewSource, 0, 2);
+                Grid.SetRow(listViewSource, 2);
             }
         }
         #endregion
@@ -159,6 +171,15 @@ namespace HitoAppCore.DataGrid
         {
             
         }
+        private void ListViewSource_Refreshing(object sender, EventArgs e)
+        {
+
+        }
+
+        private void ListViewSource_ItemSelected(object sender, SelectedItemChangedEventArgs e)
+        {
+
+        }
         #endregion
 
         #region Properties
@@ -197,6 +218,11 @@ namespace HitoAppCore.DataGrid
         {
             get => (Color)base.GetValue(BackgroundDataColorProperty);
             set => base.SetValue(BackgroundDataColorProperty, value);
+        }
+        public bool AllowFilter
+        {
+            get => (bool)base.GetValue(AllowFilterProperty);
+            set => base.SetValue(AllowFilterProperty, value);
         }
         #endregion
         private enum RowDragDirection
