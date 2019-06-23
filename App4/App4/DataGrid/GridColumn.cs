@@ -193,11 +193,28 @@ namespace HitoAppCore.DataGrid
         protected abstract Type GetComparerPropertyType();
         internal LayoutOptions GetControlContentAlignment(bool isExpand = false)
         {
-            if (isExpand)
+            return new LayoutOptions((LayoutAlignment)Enum.Parse(typeof(LayoutAlignment), ContentAlignment.ToString()), isExpand);
+        }
+        public Type GetPreferredDataType()
+        {
+            if (this.IsUnbound)
             {
-                return (LayoutOptions)Enum.Parse(typeof(LayoutOptions), string.Format("{0}AndExpand", ContentAlignment.ToString()));
+                return GetComparerPropertyType();
             }
-            return (LayoutOptions)Enum.Parse(typeof(LayoutOptions), ContentAlignment.ToString());
+            switch (UnboundType)
+            {
+                case UnboundColumnType.Integer:
+                    return typeof(int);
+                case UnboundColumnType.Decimal:
+                    return typeof(decimal);
+                case UnboundColumnType.DateTime:
+                    return typeof(DateTime);
+                case UnboundColumnType.String:
+                    return typeof(string);
+                case UnboundColumnType.Boolean:
+                    return typeof(bool);
+            }
+            return typeof(object);
         }
         #endregion
 
@@ -352,6 +369,7 @@ namespace HitoAppCore.DataGrid
             get => (FixedStyle)base.GetValue(FixedStyleProperty);
             set => base.SetValue(FixedStyleProperty, value);
         }
+        public bool IsUnbound => ((UnboundType != UnboundColumnType.Bound) || !string.IsNullOrEmpty(UnboundExpression));
         #endregion
     }
 }

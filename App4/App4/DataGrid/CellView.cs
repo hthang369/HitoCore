@@ -16,13 +16,19 @@ namespace HitoAppCore.DataGrid
         private TextAlignment contentAlignment;
         private readonly Image sortOrderView;
         private readonly Label labelCaption;
+        private GridColumn column;
         #endregion
 
         #region Contructor
-        public CellView(string caption, TextAlignment textAlignment)
+        public CellView(GridColumn col)
         {
+            column = col;
             this.sortOrderView = new Image();
             this.labelCaption = new Label();
+            this.InitCellView(column.Caption, column.ContentAlignment);
+        }
+        public void InitCellView(string caption, TextAlignment textAlignment)
+        {
             SetCaption(caption);
             SetContentAlignment(textAlignment);
             this.InitializeContent();
@@ -42,6 +48,7 @@ namespace HitoAppCore.DataGrid
         {
             this.sortOrderView.HorizontalOptions = this.contentAlignment == TextAlignment.End ? LayoutOptions.Start : LayoutOptions.End;
             this.sortOrderView.VerticalOptions = LayoutOptions.Center;
+            this.sortOrderView.HorizontalOptions = LayoutOptions.Center;
             this.labelCaption.VerticalOptions = LayoutOptions.Center;
             this.labelCaption.HorizontalOptions = LayoutOptions.FillAndExpand;
             this.labelCaption.HorizontalTextAlignment = this.contentAlignment;
@@ -51,7 +58,6 @@ namespace HitoAppCore.DataGrid
             CellConditional.RowSpacing = 0;
             CellConditional.HorizontalOptions = LayoutOptions.FillAndExpand;
             CellConditional.VerticalOptions = LayoutOptions.FillAndExpand;
-
             CellConditional.RowDefinitions.Add(new RowDefinition { Height = new GridLength(1.0, GridUnitType.Star) });
             if(contentAlignment == TextAlignment.End)
             {
@@ -67,8 +73,20 @@ namespace HitoAppCore.DataGrid
                 CellConditional.Children.Add(labelCaption, 0, 0);
                 CellConditional.Children.Add(sortOrderView, 1, 0);
             }
+            if(column.AllowSort == DefaultBoolean.True)
+            {
+                TapGestureRecognizer tapGesture = new TapGestureRecognizer();
+                tapGesture.Tapped += TapGesture_Tapped;
+                CellConditional.GestureRecognizers.Add(tapGesture);
+            }
             base.Content = CellConditional;
         }
+
+        private void TapGesture_Tapped(object sender, EventArgs e)
+        {
+            
+        }
+
         public void ResetContent()
         {
             if (this.editor == null)

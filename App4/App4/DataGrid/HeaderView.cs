@@ -10,31 +10,30 @@ namespace HitoAppCore.DataGrid
         #region Fields
         private List<GridColumn> columns;
         private Grid grid;
+        public double ColumnSpacing { get; set; }
         #endregion
 
         #region Contructor
-        public HeaderView(IEnumerable<GridColumn> gridColumns)
+        public HeaderView()
         {
             this.grid = new Grid();
-            this.columns = gridColumns as List<GridColumn>;
-            this.InitDefaultHeaderContent();
-            this.InitializeContent();
         }
         #endregion
 
         #region Methods
-        private void InitDefaultHeaderContent()
+        public void InitColumns(IEnumerable<GridColumn> gridColumns)
         {
-
+            this.columns = gridColumns as List<GridColumn>;
+            this.InitializeContent();
         }
         private void InitializeContent()
         {
+            grid.ColumnSpacing = ColumnSpacing;
+            grid.Padding = Padding;
             foreach (GridColumn item in columns)
             {
                 grid.ColumnDefinitions.Add(new ColumnDefinition());
-                CellView cell = new CellView(item.Caption, item.ContentAlignment);
-                //cell.BackgroundColor = Color.Red;
-                
+                CellView cell = new CellView(item);
                 grid.Children.Add(cell);
                 Grid.SetColumn(cell, (item.SortIndex < 0) ? grid.Children.IndexOf(cell) : item.SortIndex);
             }

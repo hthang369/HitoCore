@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Xamarin.Forms;
 
 namespace HitoAppCore.DataGrid
 {
@@ -58,6 +59,8 @@ namespace HitoAppCore.DataGrid
                 }
             }
         }
+        public TextAlignment DataAlignment { get; set; }
         public CellIndex Index { get; set; }
+        public Type TypeData { get; set; }
     }
 }

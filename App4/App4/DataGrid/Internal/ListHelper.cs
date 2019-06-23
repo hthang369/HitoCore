@@ -42,5 +42,17 @@ namespace HitoAppCore.DataGrid
             }
             return default(T);
         }
+
+        public static void AddItem<T>(this IList<T> lst, T key)
+        {
+            if(lst.IndexOf(key) == -1)
+            {
+                lst.Add(key);
+            }
+            else
+            {
+                lst[lst.IndexOf(key)] = key;
+            }
+        }
     }
 }
