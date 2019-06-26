@@ -1,0 +1,31 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DebugType>pdbonly</DebugType>
+    <DebugSymbols>true</DebugSymbols>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="DevExpress\**" />
+    <EmbeddedResource Remove="DevExpress\**" />
+    <None Remove="DevExpress\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="DataGrid\BaseContentProvider.cs" />
+    <Compile Remove="DataGrid\GridColumn1.cs" />
+    <Compile Remove="DataGrid\GridControl1.cs" />
+    <Compile Remove="DataGrid\HeaderContentProvider.cs" />
+    <Compile Remove="DataGrid\HeadersContainer.cs" />
+    <Compile Remove="DataGrid\HeaderView1.cs" />
+    <Compile Remove="DataGrid\RowContainerBase.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Xamarin.Forms" Version="3.4.0.1008975" />
+  </ItemGroup>
+</Project>
