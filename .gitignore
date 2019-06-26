@@ -5,3 +5,11 @@
 /App4/App4.Android/obj
 /App4/App4.iOS/obj
 /.vs
+/HitoAppCore/HitoAppCore/obj
+/HitoAppCore/HitoAppCore/bin
+/HitoAppCore/HitoAppCore.Android/bin
+/HitoAppCore/HitoAppCore.Android/obj
+/HitoAppCore/HitoAppCore.iOS/bin
+/HitoAppCore/HitoAppCore.iOS/obj
+/HitoAppCore/HitoAppCore.UWP/obj
+/HitoAppCore/HitoAppCore.UWP/bin
