@@ -2,9 +2,8 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using Xamarin.Forms;
 
-namespace HitoAppCore.DataGrid
+namespace Xamarin.Forms.DataGrid
 {
     public abstract class GridColumn : BindableObject
     {
@@ -37,6 +36,8 @@ namespace HitoAppCore.DataGrid
         public static readonly BindableProperty GroupIntervalProperty;
         public static readonly BindableProperty HeaderTemplateProperty;
         public static readonly BindableProperty FixedStyleProperty;
+        public static readonly BindableProperty HeaderLabelStyleProperty;
+        public static readonly BindableProperty SortingIconProperty;
         #endregion
 
         #region Events
@@ -73,6 +74,8 @@ namespace HitoAppCore.DataGrid
             GroupIntervalProperty = BindingUtils.CreateProperty<GridColumn, ColumnGroupInterval>(nameof(GroupInterval), ColumnGroupInterval.Default, OnGroupIntervalChanged);
             HeaderTemplateProperty = BindingUtils.CreateProperty<GridColumn, DataTemplate>(nameof(HeaderTemplate), null, OnHeaderTemplateChanged);
             FixedStyleProperty = BindingUtils.CreateProperty<GridColumn, FixedStyle>(nameof(FixedStyle), FixedStyle.None, OnFixedStyleChanged);
+            HeaderLabelStyleProperty = BindingUtils.CreateProperty<GridColumn, Style>(nameof(HeaderLabelStyle));
+            SortingIconProperty = BindingUtils.CreateProperty<GridColumn, Image>(nameof(SortingIcon));
         }
 
         public GridColumn()
@@ -370,6 +373,16 @@ namespace HitoAppCore.DataGrid
             set => base.SetValue(FixedStyleProperty, value);
         }
         public bool IsUnbound => ((UnboundType != UnboundColumnType.Bound) || !string.IsNullOrEmpty(UnboundExpression));
+        public Style HeaderLabelStyle
+        {
+            get { return (Style)GetValue(HeaderLabelStyleProperty); }
+            set { SetValue(HeaderLabelStyleProperty, value); }
+        }
+        public Image SortingIcon
+        {
+            get => (Image)base.GetValue(SortingIconProperty);
+            set => base.SetValue(SortingIconProperty, value);
+        }
         #endregion
     }
 }

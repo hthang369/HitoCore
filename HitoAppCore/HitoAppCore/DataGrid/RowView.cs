@@ -2,9 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Xamarin.Forms;
 
-namespace HitoAppCore.DataGrid
+namespace Xamarin.Forms.DataGrid
 {
     internal sealed class RowView : ViewCell
     {

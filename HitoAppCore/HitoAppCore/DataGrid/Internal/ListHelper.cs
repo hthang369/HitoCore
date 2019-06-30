@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace HitoAppCore.DataGrid
+namespace Xamarin.Forms.DataGrid
 {
     public static class ListHelper
     {

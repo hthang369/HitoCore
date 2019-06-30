@@ -1,22 +1,24 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using Xamarin.Forms;
 
-namespace HitoAppCore.DataGrid
+namespace Xamarin.Forms.DataGrid
 {
-    public class HeaderView : ContentView
+    public class HeaderView : GridLayout
     {
         #region Fields
         private List<GridColumn> columns;
-        private Grid grid;
-        public double ColumnSpacing { get; set; }
+        public static readonly BindableProperty DataGridProperty;
         #endregion
 
         #region Contructor
-        public HeaderView()
+        static HeaderView()
         {
-            this.grid = new Grid();
+            DataGridProperty = BindingUtils.CreateProperty<RowView, DataGrid>(nameof(GridControl));
+        }
+        public HeaderView(DataGrid ctrl)
+        {
+            GridControl = ctrl;
         }
         #endregion
 
@@ -28,16 +30,25 @@ namespace HitoAppCore.DataGrid
         }
         private void InitializeContent()
         {
-            grid.ColumnSpacing = ColumnSpacing;
-            grid.Padding = Padding;
+            ColumnSpacing = GridControl.BorderThickness.HorizontalThickness / 2;
+            Padding = new Thickness(GridControl.BorderThickness.Left, GridControl.BorderThickness.Top, GridControl.BorderThickness.Right, 0);
             foreach (GridColumn item in columns)
             {
-                grid.ColumnDefinitions.Add(new ColumnDefinition());
-                CellView cell = new CellView(item);
+                ColumnDefinition definition = new ColumnDefinition();
+                if (item.Width != double.NaN) definition.Width = item.Width;
+                ColumnDefinitions.Add(definition);
+                CellView cell = new CellView(item, GridControl);
                 grid.Children.Add(cell);
                 Grid.SetColumn(cell, (item.SortIndex < 0) ? grid.Children.IndexOf(cell) : item.SortIndex);
             }
-            base.Content = grid;
+        }
+        #endregion
+
+        #region Properties
+        public DataGrid GridControl
+        {
+            get => (DataGrid)base.GetValue(DataGridProperty);
+            set => base.SetValue(DataGridProperty, value);
         }
         #endregion
     }

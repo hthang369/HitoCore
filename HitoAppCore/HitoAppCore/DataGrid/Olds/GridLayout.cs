@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Xamarin.Forms;
 
-namespace Xamarin.Forms.DataGrid
+namespace HitoAppCore.DataGrid
 {
     public class GridLayout : Grid
     {

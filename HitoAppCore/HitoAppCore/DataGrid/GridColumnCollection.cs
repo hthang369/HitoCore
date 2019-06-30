@@ -4,7 +4,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
-namespace HitoAppCore.DataGrid
+namespace Xamarin.Forms.DataGrid
 {
     public class GridColumnCollection : ObservableCollection<GridColumn>
     {
@@ -164,5 +164,12 @@ namespace HitoAppCore.DataGrid
         None,
         Left,
         Right
+    }
+
+    public enum SortingOrder
+    {
+        None = 0,
+        Ascendant = 1,
+        Descendant = 2,
     }
 }

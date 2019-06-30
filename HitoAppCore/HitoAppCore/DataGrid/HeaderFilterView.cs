@@ -3,11 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Windows.Input;
-using Xamarin.Forms;
 
-namespace HitoAppCore.DataGrid
+namespace Xamarin.Forms.DataGrid
 {
-    public class HeaderFilterView : ContentView
+    public class HeaderFilterView : GridLayout
     {
         #region Fields
         private List<GridColumn> columns;
@@ -27,7 +26,7 @@ namespace HitoAppCore.DataGrid
         #region Contructor
         static HeaderFilterView()
         {
-            DataGridProperty = BindingUtils.CreateProperty<RowView, GridControl>(nameof(DataGrid));
+            DataGridProperty = BindingUtils.CreateProperty<RowView, DataGrid>(nameof(GridControl));
             TextChangedProperty = BindingUtils.CreateProperty<RowView, object>(nameof(TextChanged), null, OnTextChanged);
             TextProperty = BindingUtils.CreateProperty<RowView, string>(nameof(Text), null, OnTextChanged);
         }
@@ -87,7 +86,6 @@ namespace HitoAppCore.DataGrid
                 grid.Children.Add(contentView);
                 Grid.SetColumn(contentView, (item.SortIndex < 0) ? grid.Children.IndexOf(contentView) : item.SortIndex);
             }
-            base.Content = grid;
         }
 
         private void Entry_TextChanged(object sender, TextChangedEventArgs e)
@@ -129,9 +127,9 @@ namespace HitoAppCore.DataGrid
             this.FieldNameSelected.AddItem((sender as DatePicker).ClassId, e.NewDate);
             dateChanged?.Invoke(this, e);
         }
-        public GridControl DataGrid
+        public DataGrid GridControl
         {
-            get => (GridControl)base.GetValue(DataGridProperty);
+            get => (DataGrid)base.GetValue(DataGridProperty);
             set => base.SetValue(DataGridProperty, value);
         }
         public object TextChanged
