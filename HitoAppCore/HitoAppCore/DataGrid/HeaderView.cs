@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
+using Xamarin.Forms.Internals;
 
 namespace Xamarin.Forms.DataGrid
 {
@@ -37,9 +39,20 @@ namespace Xamarin.Forms.DataGrid
                 ColumnDefinition definition = new ColumnDefinition();
                 if (!double.IsNaN(item.Width)) definition.Width = item.Width;
                 ColumnDefinitions.Add(definition);
+                item.SortingIcon.PropertyChanged += Item_PropertyChanged;
                 CellView cell = new CellView(item, GridControl);
                 this.Children.Add(cell);
                 Grid.SetColumn(cell, (item.SortIndex < 0) ? this.Children.IndexOf(cell) : item.SortIndex);
+                GridControl.sortingOrders.Add(GridControl.VisibleColumns.IndexOf(item), SortingOrder.None);
+            }
+        }
+
+        private void Item_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            CellView cell = this.Children.Where(x => (x as CellView).column.SortingIcon.Equals(sender)).FirstOrDefault() as CellView;
+            if(cell != null)
+            {
+                cell.SetIconImage((sender as Image).Source);
             }
         }
         #endregion

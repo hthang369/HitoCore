@@ -76,7 +76,7 @@ namespace Xamarin.Forms.DataGrid
             HeaderTemplateProperty = BindingUtils.CreateProperty<GridColumn, DataTemplate>(nameof(HeaderTemplate), null, OnHeaderTemplateChanged);
             FixedStyleProperty = BindingUtils.CreateProperty<GridColumn, FixedStyle>(nameof(FixedStyle), FixedStyle.None, OnFixedStyleChanged);
             HeaderLabelStyleProperty = BindingUtils.CreateProperty<GridColumn, Style>(nameof(HeaderLabelStyle));
-            SortingIconProperty = BindingUtils.CreateProperty<GridColumn, Image>(nameof(SortingIcon));
+            SortingIconProperty = BindingUtils.CreateProperty<GridColumn, Image>(nameof(SortingIcon), new Image());
             CellTemplateProperty = BindingUtils.CreateProperty<GridColumn, DataTemplate>(nameof(CellTemplate));
         }
 

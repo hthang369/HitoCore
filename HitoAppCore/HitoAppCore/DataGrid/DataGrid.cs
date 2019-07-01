@@ -127,8 +127,14 @@ namespace Xamarin.Forms.DataGrid
             headerStyle.Setters.Add(Label.LineBreakModeProperty, LineBreakMode.WordWrap);
             Style imageStyle = new Style(typeof(Image));
             imageStyle.Setters.Add(Image.AspectProperty, Aspect.AspectFill);
+            Style imageAscStyle = new Style(typeof(Image));
+            imageAscStyle.Setters.Add(Image.SourceProperty, AscendingIcon);
+            Style imageDescStyle = new Style(typeof(Image));
+            imageDescStyle.Setters.Add(Image.SourceProperty, DescendingIcon);
             _headerView.Resources.Add(headerStyle);
             _headerView.Resources.Add(imageStyle);
+            _headerView.Resources.Add("AscendingIconStyle", imageAscStyle);
+            _headerView.Resources.Add("DescendingIconStyle", imageDescStyle);
         }
         protected override void OnParentSet()
         {
@@ -205,12 +211,23 @@ namespace Xamarin.Forms.DataGrid
                 DescendingIconStyle ?? (Style)_headerView.Resources["AscendingIconStyle"];
 
             //Support DescendingIcon property (if setted)
-            if (!column.SortingIcon.Style.Setters.Any(x => x.Property == Image.SourceProperty))
+            if (column.SortingIcon.Style.Setters.Any(x => x.Property == Image.SourceProperty))
             {
-                if (order == SortingOrder.Descendant && DescendingIconProperty.DefaultValue != DescendingIcon)
+                if (order == SortingOrder.Descendant && DescendingIconProperty.DefaultValue != AscendingIcon)
+                {
                     column.SortingIcon.Source = DescendingIcon;
-                if (order == SortingOrder.Ascendant && AscendingIconProperty.DefaultValue != AscendingIcon)
+                    //_headerView.Children.Where(x => x.)
+                    var col = VisibleColumns.Where(x => x.FieldName.Equals(column.FieldName)).FirstOrDefault();
+                    if (col != null)
+                        col.SortingIcon.Source = DescendingIcon;
+                }
+                if (order == SortingOrder.Ascendant && AscendingIconProperty.DefaultValue != DescendingIcon)
+                {
                     column.SortingIcon.Source = AscendingIcon;
+                    var col = VisibleColumns.Where(x => x.FieldName.Equals(column.FieldName)).FirstOrDefault();
+                    if (col != null)
+                        col.SortingIcon.Source = AscendingIcon;
+                }
             }
 
             for (int i = 0; i < Columns.Count; i++)
@@ -573,6 +590,7 @@ namespace Xamarin.Forms.DataGrid
         {
             get => _headerView;
         }
+        public Dictionary<int, SortingOrder> sortingOrders => _sortingOrders;
         #endregion
     }
 }

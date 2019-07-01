@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Text;
+using Xamarin.Forms.Internals;
 
 namespace Xamarin.Forms.DataGrid
 {
@@ -10,10 +11,11 @@ namespace Xamarin.Forms.DataGrid
         #region Fields
         private const int imageSize = 48;
         //internal CellData CellData { get; set; }
+        public string Name { get; private set; }
         private TextAlignment contentAlignment;
         private readonly Image SortingIcon;
         private readonly Label HeaderLabel;
-        private GridColumn column;
+        public GridColumn column { get; private set; }
         private DataGrid gridControl;
         #endregion
 
@@ -43,12 +45,18 @@ namespace Xamarin.Forms.DataGrid
         {
             this.contentAlignment = textAlignment;
         }
+        public void SetIconImage(ImageSource icon)
+        {
+            this.SortingIcon.Source = icon;
+        }
         private void InitializeContent()
         {
             this.SortingIcon.HorizontalOptions = this.contentAlignment == TextAlignment.End ? LayoutOptions.Start : LayoutOptions.End;
             this.SortingIcon.VerticalOptions = LayoutOptions.Center;
             this.SortingIcon.HorizontalOptions = LayoutOptions.Center;
             this.SortingIcon.Style = column.HeaderLabelStyle ?? gridControl.HeaderLabelStyle ?? gridControl.headerView.Resources[typeof(Image).FullName] as Style;
+            if (column.SortingIcon != null)
+                this.SortingIcon.Source = column.SortingIcon.Source;
             this.HeaderLabel.VerticalOptions = LayoutOptions.Center;
             this.HeaderLabel.HorizontalOptions = LayoutOptions.FillAndExpand;
             this.HeaderLabel.HorizontalTextAlignment = this.contentAlignment;
@@ -57,6 +65,7 @@ namespace Xamarin.Forms.DataGrid
             this.HorizontalOptions = LayoutOptions.FillAndExpand;
             this.VerticalOptions = LayoutOptions.FillAndExpand;
             this.RowDefinitions.Add(new RowDefinition { Height = new GridLength(1.0, GridUnitType.Star) });
+            this.Name = column.FieldName;
             if(contentAlignment == TextAlignment.End)
             {
                 this.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(imageSize) });
@@ -81,7 +90,17 @@ namespace Xamarin.Forms.DataGrid
 
         private void TapGesture_Tapped(object sender, EventArgs e)
         {
-            
+            int idx = gridControl.VisibleColumns.IndexOf((sender as CellView).column);
+            SortingOrder order = gridControl.sortingOrders[idx] == SortingOrder.Ascendant ? SortingOrder.Descendant : SortingOrder.Ascendant;
+
+            if (gridControl.VisibleColumns[idx].AllowSort == DefaultBoolean.True)
+            {
+                gridControl.SortedColumnIndex = new SortData(idx, order);
+                if (order == SortingOrder.Descendant)
+                    this.SortingIcon.Source = gridControl.DescendingIcon;
+                else
+                    this.SortingIcon.Source = gridControl.AscendingIcon;
+            }
         }
         #endregion
 
