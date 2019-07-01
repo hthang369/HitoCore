@@ -14,7 +14,7 @@ namespace Xamarin.Forms.DataGrid
         #region Contructor
         static HeaderView()
         {
-            DataGridProperty = BindingUtils.CreateProperty<RowView, DataGrid>(nameof(GridControl));
+            DataGridProperty = BindingUtils.CreateProperty<HeaderView, DataGrid>(nameof(GridControl));
         }
         public HeaderView(DataGrid ctrl)
         {
@@ -35,11 +35,11 @@ namespace Xamarin.Forms.DataGrid
             foreach (GridColumn item in columns)
             {
                 ColumnDefinition definition = new ColumnDefinition();
-                if (item.Width != double.NaN) definition.Width = item.Width;
+                if (!double.IsNaN(item.Width)) definition.Width = item.Width;
                 ColumnDefinitions.Add(definition);
                 CellView cell = new CellView(item, GridControl);
-                grid.Children.Add(cell);
-                Grid.SetColumn(cell, (item.SortIndex < 0) ? grid.Children.IndexOf(cell) : item.SortIndex);
+                this.Children.Add(cell);
+                Grid.SetColumn(cell, (item.SortIndex < 0) ? this.Children.IndexOf(cell) : item.SortIndex);
             }
         }
         #endregion

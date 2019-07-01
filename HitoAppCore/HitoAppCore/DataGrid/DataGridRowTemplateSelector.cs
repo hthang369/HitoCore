@@ -6,7 +6,7 @@
 
 		public DataGridRowTemplateSelector()
 		{
-			_dataGridRowTemplate = new DataTemplate(typeof(DataGridViewCell));
+			_dataGridRowTemplate = new DataTemplate(typeof(RowView));
 		}
 
 		protected override DataTemplate OnSelectTemplate(object item, BindableObject container)
@@ -15,11 +15,11 @@
 			var dataGrid = listView.Parent as DataGrid;
 			var items = dataGrid.InternalItems;
 
-			_dataGridRowTemplate.SetValue(DataGridViewCell.DataGridProperty, dataGrid);
-			_dataGridRowTemplate.SetValue(DataGridViewCell.RowContextProperty, item);
+			_dataGridRowTemplate.SetValue(RowView.DataGridProperty, dataGrid);
+			_dataGridRowTemplate.SetValue(RowView.RowContextProperty, item);
 
 			if (items != null)
-				_dataGridRowTemplate.SetValue(DataGridViewCell.IndexProperty, items.IndexOf(item));
+				_dataGridRowTemplate.SetValue(RowView.RowIndexProperty, items.IndexOf(item));
 
 			return _dataGridRowTemplate;
 		}

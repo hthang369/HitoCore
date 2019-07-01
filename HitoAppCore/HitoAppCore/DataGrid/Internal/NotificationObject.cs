@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Text;
 
-namespace HitoAppCore.DataGrid
+namespace Xamarin.Forms.DataGrid
 {
     public class NotificationObject : INotifyPropertyChanged
     {

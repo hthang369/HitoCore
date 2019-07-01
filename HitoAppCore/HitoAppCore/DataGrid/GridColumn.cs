@@ -38,6 +38,7 @@ namespace Xamarin.Forms.DataGrid
         public static readonly BindableProperty FixedStyleProperty;
         public static readonly BindableProperty HeaderLabelStyleProperty;
         public static readonly BindableProperty SortingIconProperty;
+        public static readonly BindableProperty CellTemplateProperty;
         #endregion
 
         #region Events
@@ -76,6 +77,7 @@ namespace Xamarin.Forms.DataGrid
             FixedStyleProperty = BindingUtils.CreateProperty<GridColumn, FixedStyle>(nameof(FixedStyle), FixedStyle.None, OnFixedStyleChanged);
             HeaderLabelStyleProperty = BindingUtils.CreateProperty<GridColumn, Style>(nameof(HeaderLabelStyle));
             SortingIconProperty = BindingUtils.CreateProperty<GridColumn, Image>(nameof(SortingIcon));
+            CellTemplateProperty = BindingUtils.CreateProperty<GridColumn, DataTemplate>(nameof(CellTemplate));
         }
 
         public GridColumn()
@@ -382,6 +384,11 @@ namespace Xamarin.Forms.DataGrid
         {
             get => (Image)base.GetValue(SortingIconProperty);
             set => base.SetValue(SortingIconProperty, value);
+        }
+        public DataTemplate CellTemplate
+        {
+            get { return (DataTemplate)GetValue(CellTemplateProperty); }
+            set { SetValue(CellTemplateProperty, value); }
         }
         #endregion
     }

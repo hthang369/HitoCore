@@ -48,12 +48,12 @@ namespace Xamarin.Forms.DataGrid
             this.SortingIcon.HorizontalOptions = this.contentAlignment == TextAlignment.End ? LayoutOptions.Start : LayoutOptions.End;
             this.SortingIcon.VerticalOptions = LayoutOptions.Center;
             this.SortingIcon.HorizontalOptions = LayoutOptions.Center;
-            this.SortingIcon.Style = column.HeaderLabelStyle ?? gridControl.HeaderLabelStyle ?? gridControl.Resources[typeof(Image).FullName] as Style;
+            this.SortingIcon.Style = column.HeaderLabelStyle ?? gridControl.HeaderLabelStyle ?? gridControl.headerView.Resources[typeof(Image).FullName] as Style;
             this.HeaderLabel.VerticalOptions = LayoutOptions.Center;
             this.HeaderLabel.HorizontalOptions = LayoutOptions.FillAndExpand;
             this.HeaderLabel.HorizontalTextAlignment = this.contentAlignment;
             this.HeaderLabel.LineBreakMode = LineBreakMode.NoWrap;
-            this.HeaderLabel.Style = gridControl.Resources[typeof(Label).FullName] as Style;
+            this.HeaderLabel.Style = gridControl.headerView.Resources[typeof(Label).FullName] as Style;
             this.HorizontalOptions = LayoutOptions.FillAndExpand;
             this.VerticalOptions = LayoutOptions.FillAndExpand;
             this.RowDefinitions.Add(new RowDefinition { Height = new GridLength(1.0, GridUnitType.Star) });

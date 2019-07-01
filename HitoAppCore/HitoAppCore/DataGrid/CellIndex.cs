@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using System.Text;
 
-namespace HitoAppCore.DataGrid
+namespace Xamarin.Forms.DataGrid
 {
     [StructLayout(LayoutKind.Sequential)]
     public class CellIndex
