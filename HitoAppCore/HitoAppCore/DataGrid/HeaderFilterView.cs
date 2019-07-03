@@ -6,11 +6,11 @@ using System.Windows.Input;
 
 namespace Xamarin.Forms.DataGrid
 {
-    public class HeaderFilterView : GridLayout
+    public class HeaderFilterView : ContentView
     {
         #region Fields
         private List<GridColumn> columns;
-        private Grid grid;
+        private Grid g;
         public Dictionary<string, object> FieldNameSelected { get; private set; }
         public static readonly BindableProperty DataGridProperty;
         public static readonly BindableProperty TextChangedProperty;
@@ -38,8 +38,8 @@ namespace Xamarin.Forms.DataGrid
 
         public HeaderFilterView()
         {
-            this.grid = new Grid();
             FieldNameSelected = new Dictionary<string, object>();
+            g = new Grid();
         }
 
         #endregion
@@ -52,39 +52,63 @@ namespace Xamarin.Forms.DataGrid
         }
         private void InitializeContent()
         {
+            base.Padding = 0;
+            base.Margin = 0;
+            BackgroundColor = Color.BlueViolet;
+            HeightRequest = 20;
             foreach (GridColumn item in columns)
             {
-                grid.ColumnDefinitions.Add(new ColumnDefinition());
-                ContentView contentView = new ContentView();
+                g.ColumnDefinitions.Add(new ColumnDefinition());
+                g.VerticalOptions = LayoutOptions.Center;
+                g.HorizontalOptions = LayoutOptions.FillAndExpand;
                 if (item.AllowAutoFilter)
                 {
-                    Grid g = new Grid();
-                    g.ColumnDefinitions.Add(new ColumnDefinition());
+                    View ctrl = null;
                     if (item.GetPreferredDataType() == typeof(DatePicker))
                     {
-                        DatePicker picker = new DatePicker();
-                        picker.ClassId = item.FieldName;
-                        picker.DateSelected += Picker_DateSelected;
-                        g.Children.Add(picker);
+                        ctrl = new DatePicker();
+                        ctrl.ClassId = item.FieldName;
+                        //ctrl.DateSelected += Picker_DateSelected;
                     }
                     else
                     {
-                        Entry entry = new Entry();
-                        entry.ClassId = item.FieldName;
-                        entry.Text = Text;
+                        ctrl = new Entry();
+                        ctrl.ClassId = item.FieldName;
+                        (ctrl as Entry).Text = Text;
+                        (ctrl as Entry).VerticalOptions = LayoutOptions.CenterAndExpand;
+                        (ctrl as Entry).Unfocused += HeaderFilterView_Unfocused;
                         //entry.ReturnCommand = OnTextCommand;
-                        entry.TextChanged += Entry_TextChanged;
-                        entry.Triggers.Add(new EventTrigger()
-                        {
-                            Event = "TextChanged",
-                            BindingContext = TextChangedProperty
-                        });
-                        g.Children.Add(entry);
+                        //entry.TextChanged += Entry_TextChanged;
+                        //entry.Triggers.Add(new EventTrigger()
+                        //{
+                        //    Event = "TextChanged",
+                        //    BindingContext = TextChangedProperty
+                        //});
                     }
-                    contentView.Content = g;
+                    //contentView.Content = g;
+                    g.Children.Add(ctrl);
+                    Grid.SetColumn(ctrl, (item.SortIndex < 0) ? g.Children.IndexOf(ctrl) : item.SortIndex);
                 }
-                grid.Children.Add(contentView);
-                Grid.SetColumn(contentView, (item.SortIndex < 0) ? grid.Children.IndexOf(contentView) : item.SortIndex);
+                base.Content = g;
+            }
+        }
+
+        private void HeaderFilterView_Unfocused(object sender, FocusEventArgs e)
+        {
+            try
+            {
+                Entry entry = sender as Entry;
+                this.FieldNameSelected.AddItem(entry.ClassId, entry.Text);
+                if (this.GridControl.InternalItems != null)
+                {
+                    List<object> lstSources = new List<object>();
+                    IEnumerable<object> lst = (IEnumerable<object>)this.GridControl.ItemsSource;
+                    this.GridControl.InternalItems = GetDataSource(FieldNameSelected, lst.ToList(), 0, ref lstSources);
+                }
+            }
+            catch(Exception ex)
+            {
+
             }
         }
 
@@ -93,12 +117,7 @@ namespace Xamarin.Forms.DataGrid
             try
             {
                 //(sender as Entry).TextChanged -= Entry_TextChanged;
-                //this.FieldNameSelected.AddItem((sender as Entry).ClassId, e.NewTextValue);
-                //if (this.DataGrid.DataSource != null)
-                //{
-                //    List<object> lstSources = new List<object>();
-                //    this.DataGrid.listViewSource.ItemsSource = GetDataSource(FieldNameSelected, this.DataGrid.DataSource, 0, ref lstSources);
-                //}
+                //
             }
             catch
             {

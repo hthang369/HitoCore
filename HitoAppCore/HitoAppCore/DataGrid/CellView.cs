@@ -24,7 +24,7 @@ namespace Xamarin.Forms.DataGrid
         {
             column = col;
             gridControl = grid;
-            this.SortingIcon = new Image();
+            this.SortingIcon = col.SortingIcon;
             this.HeaderLabel = new Label();
             this.InitCellView(column.Caption, column.ContentAlignment);
         }
@@ -96,10 +96,10 @@ namespace Xamarin.Forms.DataGrid
             if (gridControl.VisibleColumns[idx].AllowSort == DefaultBoolean.True)
             {
                 gridControl.SortedColumnIndex = new SortData(idx, order);
-                if (order == SortingOrder.Descendant)
-                    this.SortingIcon.Source = gridControl.DescendingIcon;
-                else
-                    this.SortingIcon.Source = gridControl.AscendingIcon;
+                //if (order == SortingOrder.Descendant)
+                //    this.SortingIcon.Source = gridControl.DescendingIcon;
+                //else
+                //    this.SortingIcon.Source = gridControl.AscendingIcon;
             }
         }
         #endregion

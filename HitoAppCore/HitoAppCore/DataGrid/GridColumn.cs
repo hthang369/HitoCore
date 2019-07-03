@@ -76,13 +76,14 @@ namespace Xamarin.Forms.DataGrid
             HeaderTemplateProperty = BindingUtils.CreateProperty<GridColumn, DataTemplate>(nameof(HeaderTemplate), null, OnHeaderTemplateChanged);
             FixedStyleProperty = BindingUtils.CreateProperty<GridColumn, FixedStyle>(nameof(FixedStyle), FixedStyle.None, OnFixedStyleChanged);
             HeaderLabelStyleProperty = BindingUtils.CreateProperty<GridColumn, Style>(nameof(HeaderLabelStyle));
-            SortingIconProperty = BindingUtils.CreateProperty<GridColumn, Image>(nameof(SortingIcon), new Image());
+            SortingIconProperty = BindingUtils.CreateProperty<GridColumn, Image>(nameof(SortingIcon), null, OnSortingIconChanged);
             CellTemplateProperty = BindingUtils.CreateProperty<GridColumn, DataTemplate>(nameof(CellTemplate));
         }
 
         public GridColumn()
         {
             this.SortMode = ColumnSortMode.Value;
+            this.SortingIcon = new Image();
         }
         #endregion
 
@@ -186,6 +187,10 @@ namespace Xamarin.Forms.DataGrid
         private static void OnFixedStyleChanged(BindableObject bindable, FixedStyle oldValue, FixedStyle newValue)
         {
             ((GridColumn)bindable).RaiseAfterPropertyChanged(nameof(FixedStyle));
+        }
+        private static void OnSortingIconChanged(BindableObject bindable, Image oldValue, Image newValue)
+        {
+            
         }
         protected void RaiseAfterPropertyChanged(string propertyName)
         {

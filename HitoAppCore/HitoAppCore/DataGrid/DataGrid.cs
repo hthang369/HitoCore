@@ -92,12 +92,13 @@ namespace Xamarin.Forms.DataGrid
             this.RowDefinitions.Add(new RowDefinition() { Height = new GridLength(DefaultColumnHeaderHeight) });
             if (AllowFilter)
             {
-                this.RowDefinitions.Add(new RowDefinition() { Height = new GridLength(DefaultColumnHeaderHeight) });
+                this.RowDefinitions.Add(new RowDefinition() { Height = new GridLength(20, GridUnitType.Absolute) });
             }
             this.RowDefinitions.Add(new RowDefinition() { Height = new GridLength(1, GridUnitType.Star) });
             _sortingOrders = new Dictionary<int, SortingOrder>();
             _headerView = new HeaderView(this);
             _headerFilterView = new HeaderFilterView();
+            _headerFilterView.GridControl = this;
             InitResourceDictionarys();
             _listView = new ListView(ListViewCachingStrategy.RecycleElement)
             {
@@ -230,14 +231,14 @@ namespace Xamarin.Forms.DataGrid
                 }
             }
 
-            for (int i = 0; i < Columns.Count; i++)
+            for (int i = 0; i < VisibleColumns.Count; i++)
             {
                 if (i != sData.Index)
                 {
-                    if (Columns[i].SortingIcon.Style != null)
-                        Columns[i].SortingIcon.Style = null;
-                    if (Columns[i].SortingIcon.Source != null)
-                        Columns[i].SortingIcon.Source = null;
+                    if (VisibleColumns[i].SortingIcon.Style != null)
+                        VisibleColumns[i].SortingIcon.Style = null;
+                    if (VisibleColumns[i].SortingIcon.Source != null)
+                        VisibleColumns[i].SortingIcon.Source = null;
                     _sortingOrders[i] = SortingOrder.None;
                 }
             }
