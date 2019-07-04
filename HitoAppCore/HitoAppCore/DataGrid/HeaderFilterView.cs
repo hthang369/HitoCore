@@ -98,6 +98,7 @@ namespace Xamarin.Forms.DataGrid
             try
             {
                 Entry entry = sender as Entry;
+                if (string.IsNullOrEmpty(entry.Text)) return;
                 this.FieldNameSelected.AddItem(entry.ClassId, entry.Text);
                 if (this.GridControl.InternalItems != null)
                 {
@@ -107,23 +108,6 @@ namespace Xamarin.Forms.DataGrid
                 }
             }
             catch(Exception ex)
-            {
-
-            }
-        }
-
-        private void Entry_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            try
-            {
-                //(sender as Entry).TextChanged -= Entry_TextChanged;
-                //
-            }
-            catch
-            {
-
-            }
-            finally
             {
 
             }
